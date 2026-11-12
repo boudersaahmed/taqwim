@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "منصة التقويم المستمر - مدرسة أحمد فقير",
+  "short_name": "التقويم",
+  "description": "صب نقاط التقويم المستمر للأقسام وتصدير الجدول الموحّد",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef2f6",
+  "theme_color": "#16324f",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

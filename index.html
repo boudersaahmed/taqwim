@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16324f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="التقويم">
+<meta name="description" content="منصة التقويم المستمر لمدرسة أحمد فقير">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>التقويم المستمر</title>
+<style>
+@font-face{font-family:Cairo;font-weight:400;font-display:swap;src:url(cairo-ar-400.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+@font-face{font-family:Cairo;font-weight:600;font-display:swap;src:url(cairo-ar-600.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+@font-face{font-family:Cairo;font-weight:800;font-display:swap;src:url(cairo-ar-800.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+@font-face{font-family:Cairo;font-weight:400;font-display:swap;src:url(cairo-la-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+@font-face{font-family:Cairo;font-weight:600;font-display:swap;src:url(cairo-la-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+@font-face{font-family:Cairo;font-weight:800;font-display:swap;src:url(cairo-la-800.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+@font-face{font-family:Amiri;font-weight:700;font-display:swap;src:url(amiri-ar-700.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
+@font-face{font-family:Amiri;font-weight:700;font-display:swap;src:url(amiri-la-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+
+/* Layout idea: a school register on a phone. Greeting and class list first, one card per pupil, sticky domains, fixed confirm bar. */
+:root{
+  --bg:#eef2f6;--surface:#ffffff;--ink:#13202e;--muted:#5a6878;--line:#d7dee7;
+  --accent:#1d4e79;--accent-ink:#163c5e;--accent-soft:#d9e2f3;--on-accent:#ffffff;
+  --ok:#1e7a4c;--ok-soft:#dcf1e5;--warn:#b86e00;--warn-soft:#fff1cc;--danger:#b3261e;
+  --ui:Cairo,"Noto Sans Arabic",Tahoma,system-ui,sans-serif;
+  --doc:"Khalid Art bold",Amiri,"Traditional Arabic","Times New Roman",serif;
+  --radius:14px;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e151d;--surface:#16202b;--ink:#e6edf4;--muted:#9babbc;--line:#27364a;
+  --accent:#79acdc;--accent-ink:#bcd6ef;--accent-soft:#1d3148;--on-accent:#0c1824;
+  --ok:#5fc48f;--ok-soft:#173326;--warn:#f0b443;--warn-soft:#3a2c0f;--danger:#f08a82;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e151d;--surface:#16202b;--ink:#e6edf4;--muted:#9babbc;--line:#27364a;
+  --accent:#79acdc;--accent-ink:#bcd6ef;--accent-soft:#1d3148;--on-accent:#0c1824;
+  --ok:#5fc48f;--ok-soft:#173326;--warn:#f0b443;--warn-soft:#3a2c0f;--danger:#f08a82;color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--ui);-webkit-tap-highlight-color:transparent;font-variant-numeric:tabular-nums}
+button,select,textarea,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+
+.topbar{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 12px}
+.bar .t{flex:1;min-width:0}
+.bar .t h1{font:800 17px/1.35 var(--ui)}
+.bar .t p{font:400 12.5px/1.4 var(--ui);color:var(--muted)}
+.icon-btn{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0}
+.icon-btn svg{width:20px;height:20px}
+.sync{font:700 11.5px var(--ui);display:flex;align-items:center;gap:5px;white-space:nowrap;color:var(--muted)}
+.sync::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.sync.ok{color:var(--ok)}.sync.busy{color:var(--accent)}.sync.off{color:var(--warn)}
+
+.home-head{background:var(--accent);color:var(--on-accent);padding:calc(18px + env(safe-area-inset-top)) 0 64px}
+.home-head .rep{font:400 12.5px var(--ui);opacity:.85}
+.home-head .sch{font:800 22px/1.3 var(--ui);margin-top:2px}
+.lift{margin-top:-48px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:14px;box-shadow:0 8px 24px rgb(19 32 46 / .08)}
+.hello{font:800 24px/1.35 var(--ui)}
+.hello b{color:var(--accent)}
+.lbl{font:600 12px var(--ui);color:var(--muted)}
+.muted{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 12.5px var(--ui);padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font:700 15px var(--ui);text-decoration:none;color:inherit}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.big{min-height:56px;font-size:17px;width:100%}
+.btn.small{min-height:40px;padding:6px 12px;font-size:13.5px}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.ghost{background:transparent}
+.btn.link{background:transparent;border-color:transparent;color:var(--accent);min-height:40px}
+.btn.danger-t{color:var(--danger);background:transparent;border-color:transparent}
+.sec{margin-top:22px;display:grid;gap:10px}
+.sec>h2{font:800 15px var(--ui);color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:grid;gap:10px}
+.row{display:flex;align-items:center;gap:10px}
+.row .grow{flex:1;min-width:0}
+.pill{font:700 12px var(--ui);padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.draft{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.prog{height:8px;border-radius:99px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.prog.full i{background:var(--ok)}
+.meta{font:400 12.5px var(--ui);color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap}
+.row-btns .btn{flex:1;min-height:44px;font-size:14px}
+.class-item{text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px}
+.class-item .ic{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font:800 16px var(--ui);flex:none}
+.class-item h3{font:800 16px/1.4 var(--ui)}
+.class-item p{font-size:12.5px;color:var(--muted)}
+.class-item svg{width:20px;height:20px;flex:none;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:8px 14px;font:700 14px var(--ui);min-width:56px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.setting{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.setting p{font:600 14px var(--ui)}
+.setting small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+.install-card{background:var(--surface);border:1px solid var(--accent);border-radius:var(--radius);padding:12px;display:flex;align-items:center;gap:12px}
+.install-card img{width:44px;height:44px;border-radius:11px;flex:none}
+.install-card p{flex:1;font:600 13.5px/1.5 var(--ui)}
+.foot{padding:26px 0 40px;text-align:center;display:grid;gap:4px;justify-items:center}
+.safe{padding:10px 12px;border-radius:10px;background:var(--ok-soft);font-size:13.5px;display:flex;gap:8px;align-items:flex-start}
+.safe svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--ok)}
+.note{padding:10px 12px;border-radius:10px;background:var(--warn-soft);font-size:13.5px}
+.form{display:grid;gap:14px}
+.fld{display:grid;gap:6px;font:700 13.5px var(--ui)}
+.fld small{color:var(--muted);font-weight:400}
+.fld .err{color:var(--danger);font:600 12.5px var(--ui)}
+input[type=text],input[type=tel],input[type=url],input[type=password]{width:100%;min-height:50px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-size:16px}
+input.ltr{direction:ltr;text-align:left}
+.greet{border-radius:16px;padding:16px;background:var(--accent-soft);color:var(--accent-ink);font:800 22px/1.4 var(--ui);text-align:center}
+.empty{text-align:center;display:grid;gap:10px;justify-items:center;padding:8px 0}
+.empty svg{width:56px;height:56px;color:var(--accent)}
+
+/* subject cards */
+.subj{text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px}
+.subj .h{display:flex;align-items:center;gap:12px}
+.subj .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font:800 19px var(--ui);flex:none}
+.subj h3{font:800 17px var(--ui);flex:1}
+.subj ol{margin:0;padding:0 18px 0 0;font-size:13px;color:var(--muted)}
+
+/* grading */
+.tabs{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:5px;padding:0 10px 10px}
+.tab{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:7px 3px 6px;font:700 11.5px/1.3 var(--ui);color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:4px;min-height:64px;text-align:center}
+.tab.exam{border-style:dashed;border-color:var(--warn)}
+.tab .cnt{font:800 11px var(--ui);padding:0 7px;border-radius:99px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.tab.full .cnt{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tab[aria-selected="true"] .cnt{background:var(--on-accent);color:var(--accent-ink);border-color:transparent}
+.dom-now{max-width:720px;margin:0 auto;padding:12px 16px 2px;font:700 13px var(--ui);color:var(--muted)}
+.dom-now b{color:var(--ink)}
+.list{max-width:720px;margin:0 auto;padding:8px 12px calc(110px + env(safe-area-inset-bottom));display:grid;gap:10px}
+.st{background:var(--surface);border:1px solid var(--line);border-inline-start:5px solid var(--warn);border-radius:var(--radius);padding:10px 12px 12px;display:grid;gap:10px}
+.st.done{border-inline-start-color:var(--ok)}
+.st-head{display:flex;align-items:center;gap:10px}
+.num{width:28px;height:28px;flex:none;border-radius:8px;background:var(--bg);display:grid;place-items:center;font:800 13px var(--ui);color:var(--muted)}
+.name{flex:1;min-width:0;font:800 16px/1.4 var(--ui)}
+.badge{min-width:58px;height:36px;padding:0 8px;border-radius:10px;display:grid;place-items:center;font:800 18px var(--ui);background:var(--accent-soft);color:var(--accent-ink);flex:none}
+.badge.empty{background:transparent;border:1.5px dashed var(--line);color:var(--muted);font-weight:600}
+.del{color:var(--danger)}
+.del:disabled{color:var(--line)}
+.st-body{display:flex;gap:8px;align-items:stretch}
+.keys{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.key{height:46px;border-radius:11px;border:1px solid var(--line);background:var(--bg);font:800 18px var(--ui);padding:0}
+.key:active{transform:scale(.95)}
+.key.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.step{display:grid;grid-template-rows:1fr 1fr;gap:6px;width:52px;flex:none}
+.step button{border-radius:11px;border:1px solid var(--line);background:var(--surface);font:800 22px/1 var(--ui);padding:0}
+.step button:disabled{opacity:.4}
+@media (min-width:560px){.keys{grid-template-columns:repeat(10,minmax(0,1fr))}.step{grid-template-rows:none;grid-template-columns:1fr 1fr;width:110px}}
+.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bottombar .in{max-width:720px;margin:0 auto;padding:0 12px;display:flex;align-items:center;gap:12px}
+.bottombar .sum{flex:1;font:600 12.5px/1.45 var(--ui);color:var(--muted)}
+.bottombar .sum b{color:var(--ink);font-size:14px}
+.bottombar .btn{min-height:50px}
+
+/* export + preview */
+.exp{padding:16px 0 40px;display:grid;gap:14px}
+.exp>*,#pv,.pv{min-width:0}
+.pv{overflow:hidden;border-radius:6px;box-shadow:0 1px 0 var(--line),0 6px 18px rgb(19 32 46 / .12)}
+.pv>.page{transform-origin:top right}
+.miss{margin:0;padding:0 18px 0 0;font-size:13px;color:var(--muted)}
+
+/* printable pages */
+.page{background:#fff;color:#000;font-family:var(--doc);font-weight:700;direction:rtl;position:relative}
+.page.land{width:1123px;height:794px;padding:30px 40px}
+.page.port{width:794px;height:1123px;padding:48px 46px}
+.page .d-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:end}
+.page .d-rep{text-align:center;font-size:16px;line-height:1.35;grid-column:2}
+.page .d-sch{font-size:13.5px;line-height:1.4;margin-top:2px}
+.page .d-title{text-align:center;font-size:18px;line-height:1.4}
+.page .d-sub{text-align:center;font-size:13.5px;line-height:1.4;margin:0 0 8px}
+.page table{width:100%;border-collapse:collapse;table-layout:fixed}
+.page th,.page td{border:1px solid #000;text-align:center;vertical-align:middle;padding:0 3px}
+.page th{background:#d9e2f3;font-size:11px;line-height:1.25}
+.page th.sb{font-size:13.5px;height:22px}
+.page th.lv2{font-size:11.5px;height:20px}
+.page th.dm{height:46px}
+.page td{font-size:11px;line-height:1.05;padding-top:0;padding-bottom:1px}
+.page td.n{text-align:right;padding-right:5px}
+.page td.calc{background:#f1f4f9}
+.page .d-foot{display:flex;justify-content:space-between;font-size:13px;margin-top:8px}
+.page .d-pg{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:10px;color:#555}
+.qrgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,1fr);gap:14px;height:100%}
+.qrcard{border:1.5px dashed #888;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
+.qrcard .s{font-size:12px;color:#333}
+.qrcard .c{font-size:17px;line-height:1.3}
+.qrcard img{width:150px;height:150px;image-rendering:pixelated}
+.qrcard .h{font-size:11.5px;color:#333}
+#printRoot{position:absolute;left:-14000px;top:0}
+
+/* admin */
+.ac{display:grid;gap:8px}
+.mini{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;font-size:12.5px}
+.mini .prog{height:6px}
+.qrbig{display:grid;justify-items:center;gap:8px}
+.qrbig img{width:230px;height:230px;image-rendering:pixelated;background:#fff;padding:8px;border-radius:10px}
+.linkbox{direction:ltr;font:600 11.5px/1.5 ui-monospace,monospace;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;word-break:break-all;color:var(--muted)}
+
+/* overlays */
+.scrim{position:fixed;inset:0;z-index:50;background:rgb(8 14 20 / .5);display:grid;align-items:end;justify-items:center;padding:12px}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:520px;border-radius:20px;padding:20px 18px calc(16px + env(safe-area-inset-bottom));display:grid;gap:12px;max-height:88vh;overflow:auto}
+.sheet h2{font:800 18px var(--ui)}
+.sheet h3{font:800 14.5px var(--ui);margin-top:4px}
+.sheet ol{margin:0;padding:0 20px 0 0;display:grid;gap:4px;font-size:14px}
+.sheet .acts{display:flex;gap:8px;flex-wrap:wrap}
+.sheet .acts .btn{flex:1}
+.dl{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.dl li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:10px;background:var(--bg);font-size:13.5px}
+.dl li b{font-weight:800}
+.dl li.ok b{color:var(--ok)}
+.dl li.warn b{color:var(--warn)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:14px;font:600 14px var(--ui);max-width:calc(100% - 32px);box-shadow:0 8px 24px rgb(0 0 0 / .25)}
+.toast button{background:transparent;border:0;color:var(--accent-soft);font:800 14px var(--ui);padding:4px 2px}
+.busy{position:fixed;inset:0;z-index:70;background:rgb(8 14 20 / .45);display:grid;place-items:center}
+.busy div{background:var(--surface);padding:18px 22px;border-radius:16px;font:700 15px var(--ui);display:flex;gap:12px;align-items:center}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.key:active{transform:none}}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<div id="printRoot" aria-hidden="true"></div>
+<div id="overlay"></div>
+
+<script>
+'use strict';
+/* =========================================================
+   منصة التقويم المستمر – مدرسة أحمد فقير
+   لا توجد أسماء تلاميذ هنا: تُجلب من جدول المدرسة عند مسح رمز القسم
+   ========================================================= */
+const REP = 'الجمهورية الجزائرية الديمقراطية الشعبية';
+const SCHOOL_DEFAULT = 'مدرسة أحمد فقير';
+const TERMS = ['الأول', 'الثاني', 'الثالث'];
+function subjectsFor(level){
+  return [
+    { id: 'ar', name: 'اللغة العربية', icon: 'ع', exam: 'ae',
+      domains: [{ f: 'a1', n: 'التعبير والتواصل الشفوي' }, { f: 'a2', n: 'القراءة والمحفوظات' }, { f: 'a3', n: level <= 2 ? 'الكتابة والإملاء' : 'الإنتاج الكتابي' }] },
+    { id: 'math', name: 'الرياضيات', icon: '∑', exam: 'me',
+      domains: [{ f: 'm1', n: 'الأعداد والحساب' }, { f: 'm2', n: 'المقادير والقياس' }, { f: 'm3', n: 'تنظيم المعطيات' }, { f: 'm4', n: 'الفضاء والهندسة' }] },
+    { id: 'mu', name: 'التربية الموسيقية', icon: '♪', single: 'mu' },
+    { id: 'pl', name: 'التربية التشكيلية', icon: '✎', single: 'pl' }
+  ];
+}
+const itemsOf = s => s.single ? [{ f: s.single, n: 'العلامة' }] : [...s.domains, { f: s.exam, n: 'الاختبار', exam: true }];
+const IS_ARTIFACT = !!(window.claude && typeof window.claude.use === 'function');
+
+const I = {
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>',
+  pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',
+  pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
+  xls: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  install: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg>',
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.9-3M4 4v4h4M4 13a8 8 0 0 0 14.9 3M20 20v-4h-4"/></svg>'
+};
+
+/* ---------- local storage (this phone only) ---------- */
+const mem = {};
+const store = {
+  get(k, d = null){ try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch(e){ return k in mem ? mem[k] : d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){ mem[k] = v; } },
+  del(k){ try { localStorage.removeItem(k); } catch(e){ delete mem[k]; } }
+};
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch(e){}
+let me = store.get('tq:me');
+let classes = store.get('tq:classes', []);
+const saveClasses = () => store.set('tq:classes', classes);
+const getStep = () => +(store.get('tq:step') || 0.25);
+const cacheOf = k => store.get('tq:c:' + k);
+const setCache = (k, c) => store.set('tq:c:' + k, c);
+const pendKey = (k, t) => 'tq:p:' + k + ':' + t;
+const pendOf = (k, t) => store.get(pendKey(k, t), { items: {} });
+const setPend = (k, t, p) => store.set(pendKey(k, t), p);
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const round2 = v => Math.round((v + 1e-9) * 100) / 100;
+const fmt = v => v == null ? '' : String(round2(v));
+const app = $('#app');
+const ui = { tab: {} };
+function buzz(){ try { navigator.vibrate && navigator.vibrate(8); } catch(e){} }
+let toastTimer;
+function toast(msg, action){
+  const old = $('.toast'); if (old) old.remove();
+  clearTimeout(toastTimer);
+  const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status');
+  t.innerHTML = `<span>${esc(msg)}</span>` + (action ? `<button type="button">${esc(action.label)}</button>` : '');
+  if (action) t.querySelector('button').onclick = () => { action.fn(); t.remove(); };
+  document.body.appendChild(t);
+  toastTimer = setTimeout(() => t.remove(), action ? 5000 : 3200);
+}
+function sheet(html){
+  const ov = $('#overlay');
+  ov.innerHTML = `<div class="scrim" data-close="1"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+  ov.querySelector('.scrim').addEventListener('click', e => { if (e.target.dataset.close) closeSheet(); });
+  ov.querySelectorAll('.sheet [data-close]').forEach(b => b.addEventListener('click', closeSheet));
+  return ov.querySelector('.sheet');
+}
+function closeSheet(){ $('#overlay').innerHTML = ''; }
+function busy(on, msg){
+  let b = $('.busy');
+  if (!on){ if (b) b.remove(); return; }
+  if (!b){ b = document.createElement('div'); b.className = 'busy'; document.body.appendChild(b); }
+  b.innerHTML = `<div><span class="spin"></span>${esc(msg || 'جارٍ التحضير…')}</div>`;
+}
+const loaded = {};
+function loadScript(src){
+  return loaded[src] || (loaded[src] = new Promise((res, rej) => {
+    const el = document.createElement('script'); el.src = src; el.onload = res;
+    el.onerror = () => { delete loaded[src]; rej(new Error('تعذّر تحميل ' + src)); };
+    document.head.appendChild(el);
+  }));
+}
+function normPhone(p){
+  let s = String(p || '').replace(/[\s\-.]/g, '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+  if (s.startsWith('+213')) s = '0' + s.slice(4); else if (s.startsWith('00213')) s = '0' + s.slice(5); else if (s.startsWith('213') && s.length === 12) s = '0' + s.slice(3);
+  return s;
+}
+const validPhone = p => /^0[5-7]\d{8}$/.test(p);
+function apiFromParams(p){ return p.u ? p.u : p.s ? `https://script.google.com/macros/s/${p.s}/exec` : null; }
+function depOf(url){ const m = /\/macros\/s\/([^/]+)\/exec/.exec(url || ''); return m ? m[1] : null; }
+function linkParamsFor(api){ const d = depOf(api); return d ? 's=' + d : 'u=' + encodeURIComponent(api); }
+const appBase = () => location.origin + location.pathname;
+
+/* ---------- server calls ---------- */
+async function api(url, body){
+  if (!url) throw new Error('no_server');
+  const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const r = await fetch(url, { method: 'POST', body: JSON.stringify(body), signal: ctl.signal });
+    const j = await r.json();
+    return j;
+  } finally { clearTimeout(tm); }
+}
+const errText = e => {
+  const m = String(e && (e.error || e.message) || e);
+  if (m === 'bad_token') return 'رمز القسم غير صالح. اطلب رمزاً جديداً من المدير';
+  if (m === 'bad_key') return 'مفتاح المدير غير صحيح';
+  if (/fetch|network|abort|Failed/i.test(m)) return 'لا يوجد اتصال بالإنترنت';
+  return 'حدث خطأ: ' + m;
+};
+
+/* =========================================================
+   المزامنة: كل ضغطة تُحفظ في الهاتف فوراً ثم تُرسل إلى الجدول
+   ========================================================= */
+const syncState = {};
+let syncTimers = {}, syncing = {};
+function setSync(k, s){
+  syncState[k] = s;
+  const el = $('#syncFlag');
+  if (el && el.dataset.k === k){
+    el.className = 'sync ' + ({ ok: 'ok', busy: 'busy', pending: 'busy', off: 'off' }[s] || '');
+    el.textContent = { ok: 'محفوظ في الجدول', busy: 'جارٍ الإرسال…', pending: 'جارٍ الإرسال…', off: 'محفوظ في الهاتف، سيُرسل لاحقاً' }[s] || '';
+  }
+}
+function scheduleSync(k, ms = 1200){ clearTimeout(syncTimers[k]); syncTimers[k] = setTimeout(() => syncNow(k), ms); }
+const hasPend = k => [1, 2, 3].some(t => Object.keys(pendOf(k, t).items).length);
+async function syncNow(k){
+  const c = cacheOf(k), entry = classes.find(x => x.k === k);
+  if (!c || !entry) return false;
+  if (syncing[k]) return null;
+  syncing[k] = true;
+  try {
+    for (const t of [1, 2, 3]){
+      const p = pendOf(k, t), keys = Object.keys(p.items);
+      if (!keys.length) continue;
+      setSync(k, 'busy');
+      const sent = { ...p.items };
+      const changes = keys.map(key => { const [s, f] = key.split('|'); return { s, f, v: sent[key] }; });
+      const r = await api(entry.api, { action: 'save', k, term: t, t: me, changes });
+      if (!r || !r.ok) throw r || new Error('save_failed');
+      const cc = cacheOf(k), p2 = pendOf(k, t);
+      if (cc && cc.term === t){
+        keys.forEach(key => { const [s, f] = key.split('|'); cc.marks[s] = cc.marks[s] || {}; if (sent[key] == null) delete cc.marks[s][f]; else cc.marks[s][f] = sent[key]; });
+        setCache(k, cc);
+      }
+      keys.forEach(key => { if (p2.items[key] === sent[key]) delete p2.items[key]; });
+      setPend(k, t, p2);
+    }
+    const left = [1, 2, 3].some(t => Object.keys(pendOf(k, t).items).length);
+    setSync(k, left ? 'pending' : 'ok');
+    if (left) scheduleSync(k, 600);
+    return !left;
+  } catch(e){
+    setSync(k, 'off');
+    scheduleSync(k, 20000);
+    return false;
+  } finally { syncing[k] = false; }
+}
+window.addEventListener('online', () => classes.forEach(c => scheduleSync(c.k, 300)));
+
+/* ---------- class data ---------- */
+async function fetchClass(i){
+  const entry = classes[i];
+  const r = await api(entry.api, { action: 'class', k: entry.k, t: me });
+  if (!r || !r.ok) throw r;
+  const old = cacheOf(entry.k);
+  r.edited = (old && old.term === r.term && old.edited) || {};
+  setCache(entry.k, r);
+  entry.label = r.cls.label; entry.n = r.students.length; saveClasses();
+  return r;
+}
+function ctxOf(i){
+  const entry = classes[i], c = cacheOf(entry.k);
+  if (!c) return null;
+  const p = pendOf(entry.k, c.term).items;
+  return {
+    k: entry.k, i, c, term: c.term, year: c.year, school: c.school || SCHOOL_DEFAULT, cls: c.cls, students: c.students,
+    subjects: subjectsFor(c.cls.level), teacher: me ? me.name : '',
+    get(sid, f){ const key = sid + '|' + f; if (key in p) return p[key]; const m = c.marks[sid]; return m && m[f] != null ? m[f] : null; }
+  };
+}
+function setMark(ctx, sid, f, v){
+  const val = v == null ? null : Math.min(10, Math.max(0, round2(v)));
+  const p = pendOf(ctx.k, ctx.term); p.items[sid + '|' + f] = val; setPend(ctx.k, ctx.term, p);
+  const c = cacheOf(ctx.k), sub = ctx.subjects.find(s => itemsOf(s).some(it => it.f === f));
+  if (c && sub && c.confirms && c.confirms[sub.id]){ c.edited = c.edited || {}; c.edited[sub.id] = true; setCache(ctx.k, c); }
+  setSync(ctx.k, 'pending'); scheduleSync(ctx.k);
+  return ctxOf(ctx.i);
+}
+function stats(ctx, sub){
+  const items = itemsOf(sub), n = ctx.students.length;
+  let filled = 0; const per = items.map(it => { const f = ctx.students.reduce((a, s) => a + (ctx.get(s.id, it.f) != null ? 1 : 0), 0); filled += f; return f; });
+  return { filled, needed: n * items.length, per, n };
+}
+function subStatus(ctx, sub){
+  const c = ctx.c, cf = c.confirms && c.confirms[sub.id], ed = c.edited && c.edited[sub.id];
+  if (cf && !ed) return { cls: 'ok', txt: 'مؤكد' };
+  if (cf && ed) return { cls: 'warn', txt: 'عُدّل بعد التأكيد' };
+  return { cls: 'draft', txt: stats(ctx, sub).filled ? 'مسودة' : 'لم يبدأ' };
+}
+function caAvg(ctx, sid, sub){
+  const v = sub.domains.map(d => ctx.get(sid, d.f));
+  return v.some(x => x == null) ? null : v.reduce((a, b) => a + b, 0) / v.length;
+}
+function subjAvg(ctx, sid, sub){
+  const ca = caAvg(ctx, sid, sub), ex = ctx.get(sid, sub.exam);
+  return ca == null || ex == null ? null : (ca + ex) / 2;
+}
+
+/* =========================================================
+   التثبيت على الهاتف
+   ========================================================= */
+let installEvt = null;
+const isStandalone = () => { try { return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch(e){ return false; } };
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const canOfferInstall = () => !IS_ARTIFACT && !isStandalone();
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (curView() === 'home') route(true); });
+window.addEventListener('appinstalled', () => { installEvt = null; toast('تم التثبيت. ستجد أيقونة «التقويم» في الشاشة الرئيسية'); if (curView() === 'home') route(true); });
+async function doInstall(){
+  if (installEvt){ const e = installEvt; installEvt = null; try { e.prompt(); await e.userChoice; } catch(err){} return; }
+  sheet(`<h2>تثبيت التطبيق على الهاتف</h2>
+    ${isIOS ? `<ol><li>افتح الرابط في متصفح Safari.</li><li>اضغط زر المشاركة (مربع وسهم إلى الأعلى).</li><li>اختر «إضافة إلى الشاشة الرئيسية» ثم «إضافة».</li></ol>`
+            : `<ol><li>إذا فتحت الرابط من واتساب أو فيسبوك، اضغط ⋮ ثم «فتح في Chrome».</li><li>في Chrome اضغط ⋮ أعلى الشاشة.</li><li>اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».</li></ol>`}
+    <p class="muted">بعد التثبيت تظهر أيقونة «التقويم» في الشاشة الرئيسية.</p>
+    <div class="acts"><button class="btn primary" type="button" data-close="1">حسناً</button></div>`);
+}
+
+/* =========================================================
+   مسح رمز QR من داخل التطبيق
+   ========================================================= */
+function handleLink(text){
+  const h = String(text || '').split('#')[1] || '';
+  const p = parseParams(h);
+  if (p.k){ const i = addClass(p.k, apiFromParams(p)); toast('تمت إضافة القسم'); go(me ? 'cls-' + i : 'reg'); return true; }
+  if (p.admin){ store.set('tq:admin', { api: apiFromParams(p), key: p.admin }); go('dash'); return true; }
+  toast('هذا الرمز لا يخص المنصة'); return false;
+}
+async function scanQR(){
+  const canScan = 'BarcodeDetector' in window && navigator.mediaDevices && navigator.mediaDevices.getUserMedia && !IS_ARTIFACT;
+  if (!canScan){
+    sheet(`<h2>مسح رمز القسم</h2><ol><li>افتح كاميرا الهاتف ووجّهها نحو رمز QR الخاص بقسمك.</li><li>اضغط على الرابط الذي يظهر فوق الرمز.</li><li>سيفتح القسم مباشرة في التطبيق.</li></ol>
+      <div class="acts"><button class="btn primary" type="button" data-close="1">حسناً</button></div>`);
+    return;
+  }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }); }
+  catch(e){ toast('لم يُسمح باستعمال الكاميرا'); return; }
+  const box = sheet(`<h2>وجّه الكاميرا نحو رمز القسم</h2><video id="scanV" playsinline muted style="width:100%;border-radius:12px;background:#000;aspect-ratio:3/4;object-fit:cover"></video>
+    <div class="acts"><button class="btn" type="button" data-close="1">إلغاء</button></div>`);
+  const v = box.querySelector('#scanV'); v.srcObject = stream;
+  const stop = () => stream.getTracks().forEach(t => t.stop());
+  try { await v.play(); } catch(e){}
+  const det = new BarcodeDetector({ formats: ['qr_code'] });
+  while (document.body.contains(v)){
+    try { const r = await det.detect(v); if (r.length){ stop(); closeSheet(); handleLink(r[0].rawValue); return; } } catch(e){}
+    await new Promise(r => setTimeout(r, 250));
+  }
+  stop();
+}
+
+/* =========================================================
+   التوجيه
+   ========================================================= */
+let depth = 0;
+const curView = () => location.hash.replace('#', '').split('-')[0] || 'home';
+function go(h){ depth++; location.hash = h; }
+function back(fallback){ if (depth > 0){ depth--; history.back(); } else { location.replace('#' + fallback); } }
+function parseParams(h){ const o = {}; String(h || '').replace(/^#/, '').split('&').forEach(p => { const i = p.indexOf('='); if (i > 0) o[p.slice(0, i)] = decodeURIComponent(p.slice(i + 1)); }); return o; }
+function addClass(k, apiUrl){
+  let i = classes.findIndex(c => c.k === k);
+  if (i < 0){ classes.push({ k, api: apiUrl || (classes[0] && classes[0].api) || store.get('tq:api') }); i = classes.length - 1; }
+  else if (apiUrl) classes[i].api = apiUrl;
+  if (apiUrl) store.set('tq:api', apiUrl);
+  saveClasses();
+  return i;
+}
+function route(keep){
+  const h = location.hash.replace('#', '');
+  const [v, a, b] = h.split('-');
+  closeSheet();
+  if (keep !== true) window.scrollTo(0, 0);
+  if (v === 'admin') return viewAdminLogin();
+  if (v === 'dash') return viewDash();
+  if (v === 'aexp') return viewAdminExport(h.slice(5));
+  if (!me || v === 'reg') return viewReg();
+  if (v === 'cls' && classes[+a]) return viewClass(+a);
+  if (v === 'grade' && classes[+a]) return viewGrade(+a, b);
+  if (v === 'exp' && classes[+a]) return viewExport(+a);
+  return viewHome();
+}
+window.addEventListener('hashchange', () => route());
+
+function headBand(school){
+  return `<header class="home-head"><div class="wrap"><p class="rep">${esc(REP)}</p><p class="sch">${esc(school || SCHOOL_DEFAULT)}</p></div></header>`;
+}
+function topbar(title, sub, parent, extra = ''){
+  return `<header class="topbar"><div class="bar">
+    <button class="icon-btn" type="button" data-back="${parent}" aria-label="رجوع">${I.back}</button>
+    <div class="t"><h1>${esc(title)}</h1><p>${esc(sub)}</p></div>${extra}
+  </div></header>`;
+}
+
+/* =========================================================
+   1) التسجيل: الاسم ورقم الهاتف
+   ========================================================= */
+function viewReg(){
+  document.title = 'التسجيل';
+  app.innerHTML = `${headBand()}
+  <div class="wrap lift"><form class="panel form" id="regForm" novalidate>
+    <div><h1 class="hello">مرحباً بك في منصة التقويم المستمر</h1><p class="muted">سجّل باسمك ورقم هاتفك لتبدأ صب النقاط.</p></div>
+    <label class="fld" for="rName">الاسم واللقب
+      <input type="text" id="rName" autocomplete="name" value="${esc(me ? me.name : '')}" placeholder="مثال: بن علي فاطمة">
+      <span class="err" id="eName" hidden></span></label>
+    <div class="greet" id="greet" hidden></div>
+    <label class="fld" for="rPhone">رقم الهاتف
+      <input type="tel" id="rPhone" class="ltr" inputmode="tel" autocomplete="tel" value="${esc(me ? me.phone : '')}" placeholder="06 XX XX XX XX">
+      <span class="err" id="ePhone" hidden></span></label>
+    <button class="btn primary big" type="submit">${I.check}دخول</button>
+    <p class="safe">${I.lock}<span>يُستعمل اسمك ورقمك لتسجيل من صبّ النقاط في جدول المدرسة فقط.</span></p>
+  </form>
+  <div class="foot"><a class="btn link" href="#admin">دخول المدير</a></div></div>`;
+  const nm = $('#rName'), ph = $('#rPhone'), gr = $('#greet');
+  const upd = () => { const n = nm.value.trim(); gr.hidden = n.length < 2; gr.textContent = `نهارك زين يا ${n}`; $('#eName').hidden = true; };
+  nm.addEventListener('input', upd); upd();
+  ph.addEventListener('input', () => { $('#ePhone').hidden = true; });
+  $('#regForm').addEventListener('submit', ev => {
+    ev.preventDefault();
+    const name = nm.value.trim().replace(/\s+/g, ' '), phone = normPhone(ph.value);
+    let bad = false;
+    if (name.length < 3){ $('#eName').textContent = 'اكتب اسمك ولقبك'; $('#eName').hidden = false; bad = true; }
+    if (!validPhone(phone)){ $('#ePhone').textContent = 'اكتب رقماً جزائرياً من 10 أرقام يبدأ بـ 05 أو 06 أو 07'; $('#ePhone').hidden = false; bad = true; }
+    if (bad) return;
+    me = { name, phone }; store.set('tq:me', me);
+    depth = 0;
+    const target = classes.length === 1 ? '#cls-0' : '#home';
+    if (location.hash === target) route(); else location.replace(target);
+    toast(`نهارك زين يا ${name}`);
+  });
+}
+
+/* =========================================================
+   2) الرئيسية: الترحيب واختيار القسم
+   ========================================================= */
+function viewHome(){
+  document.title = 'التقويم المستمر';
+  const showInstall = canOfferInstall() && !store.get('tq:noInstall');
+  const school = (classes[0] && cacheOf(classes[0].k) && cacheOf(classes[0].k).school) || SCHOOL_DEFAULT;
+  app.innerHTML = `${headBand(school)}
+  <div class="wrap">
+    <section class="panel lift">
+      <h1 class="hello">نهارك زين يا <b>${esc(me.name)}</b></h1>
+      <p class="muted">${classes.length ? 'اختر القسم لصب النقاط.' : 'امسح رمز QR الخاص بقسمك ليظهر لك تلاميذك.'}</p>
+      ${classes.length ? '' : `<button class="btn primary big" type="button" data-act="scan">${I.qr}مسح رمز القسم</button>`}
+    </section>
+    ${classes.length ? `<section class="sec" aria-labelledby="hC"><h2 id="hC">أقسامي</h2>
+      ${classes.map((c, i) => { const cc = cacheOf(c.k); return `<button class="class-item" type="button" data-go="cls-${i}">
+        <span class="ic" aria-hidden="true">${cc ? 'س' + cc.cls.level : '…'}</span>
+        <span class="grow"><h3>${esc(cc ? cc.cls.label : 'قسم جديد')}</h3><p>${cc ? `${cc.students.length} تلميذاً · الفصل ${TERMS[cc.term - 1]}` : 'اضغط لتحميل قائمة التلاميذ'}</p></span>
+        ${I.back.replace('M9 5l7 7-7 7', 'M15 5l-7 7 7 7')}</button>`; }).join('')}
+      <button class="btn ghost" type="button" data-act="scan">${I.qr}إضافة قسم آخر بمسح رمزه</button></section>` : ''}
+    ${showInstall ? `<section class="sec"><div class="install-card"><img src="icon-192.png" alt="" width="44" height="44">
+      <p>ثبّت التطبيق ليظهر كأيقونة في هاتفك.</p>
+      <button class="btn primary small" type="button" data-act="install">تثبيت</button>
+      <button class="icon-btn" type="button" data-act="noinstall" aria-label="إخفاء">✕</button></div></section>` : ''}
+    <section class="sec" aria-labelledby="hS"><h2 id="hS">الإعدادات</h2>
+      <div class="setting"><p>${esc(me.name)}<small dir="ltr" style="text-align:right">${esc(me.phone)}</small></p><a class="btn small" href="#reg">${I.pen}تعديل</a></div>
+      <div class="setting"><p>مقدار الزيادة والنقصان (+ / −)<small>يُضاف إلى العلامة أو يُطرح منها عند كل ضغطة</small></p>
+        <div class="seg" role="group" aria-label="مقدار الخطوة">${[0.25, 0.5, 1].map(v => `<button type="button" data-step="${v}" aria-pressed="${getStep() === v}">${v}</button>`).join('')}</div></div>
+    </section>
+    <div class="foot"><a class="btn link" href="#admin">دخول المدير</a></div>
+  </div>`;
+}
+
+/* =========================================================
+   3) القسم: المواد والتصدير
+   ========================================================= */
+async function viewClass(i){
+  const entry = classes[i];
+  let c = cacheOf(entry.k);
+  if (!c){
+    app.innerHTML = `${topbar('جارٍ التحميل…', '', 'home')}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span><p class="muted" style="margin-top:12px">جارٍ جلب قائمة التلاميذ من جدول المدرسة…</p></div>`;
+    try { c = await fetchClass(i); }
+    catch(e){
+      app.innerHTML = `${topbar('تعذّر التحميل', '', 'home')}<div class="wrap" style="padding:24px 0"><div class="card"><p>${esc(errText(e))}</p>
+        <button class="btn primary" type="button" data-act="retry" data-i="${i}">${I.refresh}إعادة المحاولة</button></div></div>`;
+      return;
+    }
+    if (curView() !== 'cls') return;
+  } else {
+    fetchClass(i).then(() => { if (location.hash === '#cls-' + i) renderClass(i, true); }).catch(() => {});
+  }
+  renderClass(i);
+  scheduleSync(entry.k, 200);
+}
+function renderClass(i, keep){
+  const ctx = ctxOf(i);
+  document.title = ctx.cls.label;
+  const y = keep ? window.scrollY : 0;
+  app.innerHTML = `
+  ${topbar(ctx.cls.label, `الفصل ${TERMS[ctx.term - 1]} ${ctx.year}`, 'home', `<span class="sync" id="syncFlag" data-k="${ctx.k}"></span>`)}
+  <div class="wrap" style="padding:14px 16px 40px;display:grid;gap:12px">
+    <div class="chips"><span class="chip">${esc(ctx.cls.phase)}</span><span class="chip">${ctx.students.length} تلميذاً</span><span class="chip">الأستاذ(ة): ${esc(me.name)}</span></div>
+    ${ctx.subjects.map(s => { const st = stats(ctx, s), ss = subStatus(ctx, s); return `<button class="subj" type="button" data-go="grade-${i}-${s.id}">
+      <div class="h"><span class="ic" aria-hidden="true">${s.icon}</span><h3>${esc(s.name)}</h3><span class="pill ${ss.cls}">${ss.txt}</span></div>
+      <div class="prog ${st.filled === st.needed ? 'full' : ''}" aria-hidden="true"><i style="width:${st.needed ? (st.filled / st.needed * 100).toFixed(1) : 0}%"></i></div>
+      <div class="meta"><span>${st.filled} من ${st.needed} علامة</span><span>${s.single ? 'علامة واحدة' : `${s.domains.length} ميادين + الاختبار`}</span></div>
+    </button>`; }).join('')}
+    <div class="card"><div class="row"><b class="grow">الجدول الموحّد للقسم</b></div>
+      <p class="muted" style="font-size:13px">اللغة العربية والرياضيات والتربية الموسيقية والتشكيلية في جدول واحد، A4 بالعرض.</p>
+      <button class="btn primary" type="button" data-go="exp-${i}">${I.eye}المعاينة والتصدير</button></div>
+    <button class="btn ghost" type="button" data-act="refresh" data-i="${i}">${I.refresh}تحديث من جدول المدرسة</button>
+  </div>`;
+  setSync(ctx.k, syncState[ctx.k] || (hasPend(ctx.k) ? 'pending' : 'ok'));
+  if (keep) window.scrollTo(0, y);
+}
+
+/* =========================================================
+   4) صب النقاط
+   ========================================================= */
+function viewGrade(i, sid){
+  const ctx = ctxOf(i);
+  if (!ctx) return go('cls-' + i);
+  const sub = ctx.subjects.find(s => s.id === sid); if (!sub) return go('cls-' + i);
+  const items = itemsOf(sub), d = Math.min(ui.tab[i + sid] || 0, items.length - 1);
+  document.title = sub.name;
+  app.innerHTML = `
+  <div class="topbar">
+    <div class="bar">
+      <button class="icon-btn" type="button" data-back="cls-${i}" aria-label="رجوع">${I.back}</button>
+      <div class="t"><h1>${esc(sub.name)}</h1><p>${esc(ctx.cls.label)}</p></div>
+      <span class="sync" id="syncFlag" data-k="${ctx.k}"></span>
+    </div>
+    ${items.length > 1 ? `<div class="tabs" role="tablist" aria-label="الميادين" style="--n:${items.length}" id="tabs">${tabsHTML(ctx, sub, d)}</div>` : ''}
+  </div>
+  <p class="dom-now" id="domNow">${items.length > 1 ? `${items[d].exam ? '' : 'الميدان: '}<b>${esc(items[d].n)}</b>` : `<b>${esc(sub.name)}</b>: علامة واحدة لكل تلميذ`}</p>
+  <div class="list" id="list">${ctx.students.map((s, k) => cardHTML(ctx, k, s, items[d].f)).join('')}</div>
+  <div class="bottombar"><div class="in"><div class="sum" id="sum">${sumHTML(ctx, sub, d)}</div>
+    <button class="btn ok" type="button" data-act="confirm">${I.check}تأكيد الحفظ</button></div></div>`;
+  app.dataset.i = i; app.dataset.sub = sid;
+  setSync(ctx.k, syncState[ctx.k] || (hasPend(ctx.k) ? 'pending' : 'ok'));
+}
+function tabsHTML(ctx, sub, cur){
+  const st = stats(ctx, sub);
+  return itemsOf(sub).map((it, d) => `<button class="tab ${it.exam ? 'exam' : ''} ${st.per[d] === st.n ? 'full' : ''}" type="button" role="tab" aria-selected="${d === cur}" data-act="tab" data-d="${d}"><span>${esc(it.n)}</span><span class="cnt">${st.per[d]}/${st.n}</span></button>`).join('');
+}
+function sumHTML(ctx, sub, d){
+  const st = stats(ctx, sub);
+  return `<b>${st.per[d]} / ${st.n}</b> في هذه الخانة<br>المجموع: ${st.filled} / ${st.needed} علامة`;
+}
+function cardHTML(ctx, k, s, f){
+  const v = ctx.get(s.id, f), on = v == null ? null : Math.floor(v), step = getStep();
+  const keys = Array.from({ length: 10 }, (_, x) => x + 1).map(x => `<button class="key ${on === x ? 'on' : ''}" type="button" data-act="set" data-v="${x}" aria-pressed="${on === x}">${x}</button>`).join('');
+  return `<article class="st ${v == null ? '' : 'done'}" data-s="${esc(s.id)}" data-k="${k}" aria-label="${esc(s.n)}">
+    <div class="st-head"><span class="num">${k + 1}</span><h3 class="name">${esc(s.n)}</h3>
+      <output class="badge ${v == null ? 'empty' : ''}" aria-label="العلامة">${v == null ? '—' : fmt(v)}</output>
+      <button class="icon-btn del" type="button" data-act="del" aria-label="حذف العلامة" ${v == null ? 'disabled' : ''}>${I.trash}</button></div>
+    <div class="st-body"><div class="keys" role="group" aria-label="العلامة من 1 إلى 10">${keys}</div>
+      <div class="step"><button type="button" data-act="plus" aria-label="زيادة ${step}" ${v == null || v >= 10 ? 'disabled' : ''}>+</button>
+        <button type="button" data-act="minus" aria-label="نقصان ${step}" ${v == null || v <= 0 ? 'disabled' : ''}>−</button></div></div>
+  </article>`;
+}
+function refreshCard(ctx, sub, d, sid){
+  const el = app.querySelector(`.st[data-s="${CSS.escape(sid)}"]`); if (!el) return;
+  const k = +el.dataset.k, s = ctx.students[k];
+  const tmp = document.createElement('div'); tmp.innerHTML = cardHTML(ctx, k, s, itemsOf(sub)[d].f);
+  el.replaceWith(tmp.firstElementChild);
+  const tabs = $('#tabs'); if (tabs) tabs.innerHTML = tabsHTML(ctx, sub, d);
+  $('#sum').innerHTML = sumHTML(ctx, sub, d);
+}
+async function confirmSave(i, sid){
+  const ctx = ctxOf(i), sub = ctx.subjects.find(s => s.id === sid), st = stats(ctx, sub), items = itemsOf(sub);
+  const box = sheet(`<h2>تأكيد حفظ ${esc(sub.name)}</h2>
+    <ul class="dl">${items.map((it, d) => `<li class="${st.per[d] === st.n ? 'ok' : 'warn'}"><span>${esc(it.n)}</span><b>${st.per[d]}/${st.n}</b></li>`).join('')}</ul>
+    ${st.filled < st.needed ? `<p class="note">بقيت ${st.needed - st.filled} خانة بدون علامة. يمكنك التأكيد الآن وإكمالها لاحقاً.</p>` : ''}
+    <div class="acts"><button class="btn ok" type="button" id="cfYes">${I.check}تأكيد وإرسال إلى المدرسة</button>
+      <button class="btn" type="button" data-close="1">متابعة صب النقاط</button></div>`);
+  box.querySelector('#cfYes').onclick = async () => {
+    closeSheet(); busy(true, 'جارٍ الإرسال إلى جدول المدرسة…');
+    try {
+      while (syncing[ctx.k]) await new Promise(r => setTimeout(r, 200));
+      const done = await syncNow(ctx.k);
+      if (done === false) throw new Error('offline');
+      const r = await api(classes[i].api, { action: 'confirm', k: ctx.k, term: ctx.term, subject: sid, t: me });
+      if (!r || !r.ok) throw r;
+      const c = cacheOf(ctx.k); c.confirms = c.confirms || {}; c.confirms[sid] = { at: r.at, by: me.name }; if (c.edited) delete c.edited[sid]; setCache(ctx.k, c);
+      busy(false); buzz(); toast('تم حفظ ' + sub.name + ' وإرساله إلى المدرسة');
+      go('cls-' + i);
+    } catch(e){
+      busy(false);
+      toast(e && e.message === 'offline' ? 'لا يوجد اتصال. علاماتك محفوظة في الهاتف، أعد التأكيد عند توفر الإنترنت' : errText(e));
+    }
+  };
+}
+
+/* =========================================================
+   5) الجدول الموحّد: معاينة وتصدير PDF و Excel
+   ========================================================= */
+let canShareFiles = false;
+try { canShareFiles = !IS_ARTIFACT && !!(navigator.canShare && navigator.canShare({ files: [new File(['x'], 'x.pdf', { type: 'application/pdf' })] })); } catch(e){}
+
+function viewExport(i){
+  const ctx = ctxOf(i); if (!ctx) return go('cls-' + i);
+  document.title = 'الجدول الموحّد';
+  const lines = ctx.subjects.map(s => { const st = stats(ctx, s); return { s, miss: st.needed - st.filled, ss: subStatus(ctx, s) }; });
+  app.innerHTML = `
+  ${topbar('الجدول الموحّد', ctx.cls.label, 'cls-' + i)}
+  <div class="wrap"><div class="exp">
+    <div class="card">
+      <ul class="dl">${lines.map(x => `<li class="${x.miss ? 'warn' : 'ok'}"><span>${esc(x.s.name)} <span class="pill ${x.ss.cls}">${x.ss.txt}</span></span><b>${x.miss ? x.miss + ' ناقصة' : 'مكتمل'}</b></li>`).join('')}</ul>
+      <div class="row-btns">
+        <button class="btn primary" type="button" data-act="pdf" data-i="${i}">${I.pdf}تنزيل PDF</button>
+        <button class="btn primary" type="button" data-act="xlsx" data-i="${i}">${I.xls}تنزيل Excel</button></div>
+      ${canShareFiles ? `<div class="row-btns"><button class="btn" type="button" data-act="share-pdf" data-i="${i}">${I.share}مشاركة PDF</button>
+        <button class="btn" type="button" data-act="share-xlsx" data-i="${i}">${I.share}مشاركة Excel</button></div>` : ''}
+    </div>
+    <div class="card"><p class="lbl">معاينة الجدول كما سيُطبع (A4 بالعرض)</p>
+      <div id="pv">${docPages(ctx).map(p => `<div class="pv">${p}</div>`).join('')}</div></div>
+  </div></div>`;
+  fitPreview();
+}
+function fitPreview(){
+  document.querySelectorAll('.pv').forEach(w => { const pg = w.firstElementChild, W = pg.offsetWidth, H = pg.offsetHeight, sc = w.clientWidth / W; pg.style.transform = `scale(${sc})`; w.style.height = (H * sc) + 'px'; });
+}
+window.addEventListener('resize', () => { if (document.querySelector('.pv')) fitPreview(); });
+
+// عرض الأعمدة (وحدات نسبية): الرقم، الاسم، ميادين العربية 3، م.ت.م، اختبار، معدل، ميادين الرياضيات 4، م.ت.م، اختبار، معدل، موسيقية، تشكيلية
+const COLW = [3, 15, 6.17, 6.17, 6.17, 4.85, 4.41, 4.85, 6.17, 6.17, 6.17, 6.17, 4.85, 4.41, 4.85, 5.29, 5.29];
+function docPages(ctx){
+  const [ar, ma, mu, pl] = ctx.subjects;
+  const sub = `${ctx.cls.label.split(' - ')[0]} - الفوج ${ctx.cls.group} - ${ctx.cls.phase}`;
+  const cols = `<colgroup>${COLW.map(w => `<col style="width:${w}%">`).join('')}</colgroup>`;
+  const head = `<thead>
+    <tr><th rowspan="3">الرقم</th><th rowspan="3">اللقب والاسم</th><th colspan="6" class="sb">${ar.name}</th><th colspan="7" class="sb">${ma.name}</th><th rowspan="3">${mu.name}</th><th rowspan="3">${pl.name}</th></tr>
+    <tr><th colspan="3" class="lv2">التقويم المستمر</th><th rowspan="2">معدل التقويم المستمر</th><th rowspan="2">الاختبار</th><th rowspan="2">معدل المادة</th>
+        <th colspan="4" class="lv2">التقويم المستمر</th><th rowspan="2">معدل التقويم المستمر</th><th rowspan="2">الاختبار</th><th rowspan="2">معدل المادة</th></tr>
+    <tr>${ar.domains.map(d => `<th class="dm">${d.n}</th>`).join('')}${ma.domains.map(d => `<th class="dm">${d.n}</th>`).join('')}</tr></thead>`;
+  const n = ctx.students.length, AVAIL = 512;
+  let per = n, rowH = Math.min(24, Math.floor(AVAIL / Math.max(n, 1)));
+  if (rowH < 14){ rowH = 16; per = Math.floor(AVAIL / rowH); }
+  const f2 = v => v == null ? '' : round2(v).toFixed(2);
+  const pages = [];
+  for (let p = 0; p * per < n || p === 0; p++){
+    const rows = ctx.students.slice(p * per, (p + 1) * per).map((s, k) => {
+      const g = f => fmt(ctx.get(s.id, f));
+      return `<tr style="height:${rowH}px"><td>${p * per + k + 1}</td><td class="n">${esc(s.n)}</td>
+        ${ar.domains.map(d => `<td>${g(d.f)}</td>`).join('')}<td class="calc">${f2(caAvg(ctx, s.id, ar))}</td><td>${g(ar.exam)}</td><td class="calc">${f2(subjAvg(ctx, s.id, ar))}</td>
+        ${ma.domains.map(d => `<td>${g(d.f)}</td>`).join('')}<td class="calc">${f2(caAvg(ctx, s.id, ma))}</td><td>${g(ma.exam)}</td><td class="calc">${f2(subjAvg(ctx, s.id, ma))}</td>
+        <td>${g('mu')}</td><td>${g('pl')}</td></tr>`;
+    }).join('');
+    pages.push(`<div class="page land">
+      <div class="d-top"><div class="d-rep">${REP}</div></div>
+      <div class="d-sch">${esc(ctx.school)}</div>
+      <div class="d-title">التقويمات المستمرة للفصل ${TERMS[ctx.term - 1]} ${esc(ctx.year)}</div>
+      <div class="d-sub">${esc(sub)}</div>
+      <table>${cols}${head}<tbody>${rows}</tbody></table>
+      <div class="d-foot"><span>الأستاذ(ة): ${esc(ctx.teacher || '..............................')}</span><span>التوقيع: ..............................</span></div>
+      __PG__</div>`);
+  }
+  return pages.map((pg, k) => pg.replace('__PG__', pages.length > 1 ? `<div class="d-pg">${k + 1} / ${pages.length}</div>` : ''));
+}
+const fileBase = ctx => `التقويم_الموحد_س${ctx.cls.level}_${ctx.cls.group}_ف${ctx.term}`;
+
+async function renderPDF(htmlPages, landscape, title){
+  await Promise.all([loadScript('html2canvas.min.js'), loadScript('jspdf.umd.min.js')]);
+  try { await Promise.all([document.fonts.load('700 16px Amiri', 'عربي'), document.fonts.load('700 16px Amiri', '0123456789')]); } catch(e){}
+  const root = $('#printRoot'); root.innerHTML = htmlPages.join('');
+  try {
+    await Promise.all([...root.querySelectorAll('img')].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+    const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: landscape ? 'landscape' : 'portrait', compress: true });
+    const pages = root.querySelectorAll('.page');
+    for (let k = 0; k < pages.length; k++){
+      const cv = await html2canvas(pages[k], { scale: 2.4, backgroundColor: '#ffffff', logging: false });
+      if (k) pdf.addPage();
+      pdf.addImage(cv.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, landscape ? 297 : 210, landscape ? 210 : 297, undefined, 'FAST');
+    }
+    pdf.setProperties({ title });
+    return pdf.output('blob');
+  } finally { root.innerHTML = ''; }
+}
+async function buildXLSX(ctx){
+  await loadScript('exceljs.min.js');
+  const [ar, ma, mu, pl] = ctx.subjects, FONT = 'Khalid Art bold';
+  const wb = new ExcelJS.Workbook(); wb.creator = 'منصة التقويم المستمر'; wb.created = new Date();
+  const ws = wb.addWorksheet('الجدول الموحد', {
+    views: [{ rightToLeft: true, showGridLines: false, state: 'frozen', ySplit: 8 }],
+    pageSetup: { paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, horizontalCentered: true,
+      margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } } });
+  ws.columns = [6, 28, 11, 11, 11, 9, 8, 9, 10, 10, 10, 10, 9, 8, 9, 10, 10].map(w => ({ width: w }));
+  const L = c => String.fromCharCode(64 + c), line = { style: 'thin', color: { argb: 'FF000000' } }, border = { top: line, bottom: line, left: line, right: line };
+  const fill = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } });
+  const put = (r, text, size, align) => { ws.mergeCells(`A${r}:Q${r}`); const c = ws.getCell(`A${r}`); c.value = text; c.font = { name: FONT, size }; c.alignment = { horizontal: align, vertical: 'middle', readingOrder: 'rtl' }; ws.getRow(r).height = size * 1.6; };
+  put(1, REP, 13, 'center'); put(2, ctx.school, 11, 'right');
+  put(3, `التقويمات المستمرة للفصل ${TERMS[ctx.term - 1]} ${ctx.year}`, 14, 'center');
+  put(4, `${ctx.cls.label.split(' - ')[0]} - الفوج ${ctx.cls.group} - ${ctx.cls.phase}`, 11, 'center');
+  ws.getRow(5).height = 6;
+  const H = (ref, text) => { const c = ws.getCell(ref); c.value = text; };
+  ws.mergeCells('A6:A8'); H('A6', 'الرقم'); ws.mergeCells('B6:B8'); H('B6', 'اللقب والاسم');
+  ws.mergeCells('C6:H6'); H('C6', ar.name); ws.mergeCells('I6:O6'); H('I6', ma.name);
+  ws.mergeCells('P6:P8'); H('P6', mu.name); ws.mergeCells('Q6:Q8'); H('Q6', pl.name);
+  ws.mergeCells('C7:E7'); H('C7', 'التقويم المستمر'); ws.mergeCells('F7:F8'); H('F7', 'معدل التقويم المستمر'); ws.mergeCells('G7:G8'); H('G7', 'الاختبار'); ws.mergeCells('H7:H8'); H('H7', 'معدل المادة');
+  ws.mergeCells('I7:L7'); H('I7', 'التقويم المستمر'); ws.mergeCells('M7:M8'); H('M7', 'معدل التقويم المستمر'); ws.mergeCells('N7:N8'); H('N7', 'الاختبار'); ws.mergeCells('O7:O8'); H('O7', 'معدل المادة');
+  ar.domains.forEach((d, k) => H(L(3 + k) + '8', d.n)); ma.domains.forEach((d, k) => H(L(9 + k) + '8', d.n));
+  ws.getRow(6).height = 20; ws.getRow(7).height = 20; ws.getRow(8).height = 44;
+  for (let r = 6; r <= 8; r++) for (let c = 1; c <= 17; c++){
+    const cell = ws.getCell(r, c); cell.border = border; cell.fill = fill('FFD9E2F3');
+    cell.font = { name: FONT, size: r === 6 ? 12 : 9 }; cell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true, readingOrder: 'rtl' };
+  }
+  const inputs = [3, 4, 5, 7, 9, 10, 11, 12, 14, 16, 17], calc = [6, 8, 13, 15];
+  ctx.students.forEach((s, k) => {
+    const r = 9 + k, row = ws.getRow(r); row.height = 17;
+    row.getCell(1).value = k + 1; row.getCell(2).value = s.n;
+    const map = { 3: 'a1', 4: 'a2', 5: 'a3', 7: ar.exam, 9: 'm1', 10: 'm2', 11: 'm3', 12: 'm4', 14: ma.exam, 16: 'mu', 17: 'pl' };
+    Object.entries(map).forEach(([c, f]) => { const v = ctx.get(s.id, f); row.getCell(+c).value = v == null ? null : v; });
+    const caA = caAvg(ctx, s.id, ar), avA = subjAvg(ctx, s.id, ar), caM = caAvg(ctx, s.id, ma), avM = subjAvg(ctx, s.id, ma);
+    row.getCell(6).value = { formula: `IF(COUNT(C${r}:E${r})=3,AVERAGE(C${r}:E${r}),"")`, result: caA == null ? '' : caA };
+    row.getCell(8).value = { formula: `IF(AND(ISNUMBER(F${r}),ISNUMBER(G${r})),(F${r}+G${r})/2,"")`, result: avA == null ? '' : avA };
+    row.getCell(13).value = { formula: `IF(COUNT(I${r}:L${r})=4,AVERAGE(I${r}:L${r}),"")`, result: caM == null ? '' : caM };
+    row.getCell(15).value = { formula: `IF(AND(ISNUMBER(M${r}),ISNUMBER(N${r})),(M${r}+N${r})/2,"")`, result: avM == null ? '' : avM };
+    for (let c = 1; c <= 17; c++){
+      const cell = row.getCell(c); cell.border = border; cell.font = { name: FONT, size: 10 };
+      cell.alignment = { horizontal: c === 2 ? 'right' : 'center', vertical: 'middle', readingOrder: 'rtl' };
+      if (calc.includes(c)){ cell.numFmt = '0.00'; cell.fill = fill('FFF1F4F9'); }
+      else if (inputs.includes(c) && cell.value == null) cell.fill = fill('FFFFC000');
+    }
+  });
+  const fr = 9 + ctx.students.length + 1;
+  ws.mergeCells(`A${fr}:H${fr}`); ws.getCell(`A${fr}`).value = `الأستاذ(ة): ${ctx.teacher || ''}`;
+  ws.mergeCells(`I${fr}:Q${fr}`); ws.getCell(`I${fr}`).value = 'التوقيع:';
+  [`A${fr}`, `I${fr}`].forEach(a => { ws.getCell(a).font = { name: FONT, size: 11 }; ws.getCell(a).alignment = { horizontal: 'right', readingOrder: 'rtl' }; });
+  const buf = await wb.xlsx.writeBuffer();
+  return new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+async function saveBlob(blob, filename){
+  if (IS_ARTIFACT){
+    let dl = null; try { dl = await window.claude.use('downloads'); } catch(e){}
+    if (!dl){ toast('التنزيل غير متاح في هذه النافذة'); return; }
+    try { await dl.save({ filename, data: blob }); toast('تم حفظ الملف'); } catch(e){ toast(e && e.code === 'declined' ? 'أُلغي الحفظ' : 'تعذّر حفظ الملف'); }
+    return;
+  }
+  const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 8000);
+  toast('تم تنزيل الملف');
+}
+async function shareBlob(blob, filename, type){
+  try { await navigator.share({ files: [new File([blob], filename, { type })], title: filename }); }
+  catch(e){ if (e && e.name !== 'AbortError') toast('تعذّرت المشاركة، استعمل التنزيل'); }
+}
+async function exportCtx(ctx, kind, share){
+  busy(true, kind === 'pdf' ? 'جارٍ إعداد ملف PDF…' : 'جارٍ إعداد ملف Excel…');
+  try {
+    const blob = kind === 'pdf' ? await renderPDF(docPages(ctx), true, `التقويمات المستمرة - ${ctx.cls.label}`) : await buildXLSX(ctx);
+    const name = fileBase(ctx) + (kind === 'pdf' ? '.pdf' : '.xlsx');
+    busy(false);
+    if (share) await shareBlob(blob, name, kind === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    else await saveBlob(blob, name);
+  } catch(e){ busy(false); console.error(e); toast('حدث خطأ أثناء إعداد الملف'); }
+}
+
+/* =========================================================
+   6) المدير: الدخول، اللوحة، رموز QR
+   ========================================================= */
+const adminOf = () => store.get('tq:admin');
+function viewAdminLogin(){
+  document.title = 'دخول المدير';
+  const a = adminOf() || {};
+  app.innerHTML = `${topbar('دخول المدير', 'لوحة متابعة الأقسام ورموز QR', me ? 'home' : 'reg')}
+  <div class="wrap" style="padding:16px 16px 40px"><form class="card form" id="adForm" novalidate>
+    <label class="fld" for="aUrl">رابط الخادم <small>(Web App URL الذي ظهر عند نشر البرنامج في Apps Script)</small>
+      <input type="url" id="aUrl" class="ltr" value="${esc(a.api || '')}" placeholder="https://script.google.com/macros/s/.../exec"></label>
+    <label class="fld" for="aKey">مفتاح المدير <small>(من ورقة «الإعدادات» في جدول المدرسة)</small>
+      <input type="password" id="aKey" class="ltr" value="${esc(a.key || '')}" autocomplete="off"></label>
+    <span class="err" id="aErr" hidden style="color:var(--danger);font-weight:600"></span>
+    <button class="btn primary big" type="submit">دخول</button>
+  </form></div>`;
+  $('#adForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const url = $('#aUrl').value.trim(), key = $('#aKey').value.trim();
+    busy(true, 'جارٍ التحقق…');
+    try { const r = await api(url, { action: 'admin', key }); if (!r || !r.ok) throw r; store.set('tq:admin', { api: url, key }); busy(false); location.replace('#dash'); }
+    catch(e){ busy(false); $('#aErr').textContent = errText(e); $('#aErr').hidden = false; }
+  });
+}
+let dashData = null;
+async function viewDash(term){
+  const a = adminOf(); if (!a) return location.replace('#admin');
+  document.title = 'لوحة المدير';
+  if (!dashData || term) app.innerHTML = `${topbar('لوحة المدير', '', me ? 'home' : 'reg')}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span></div>`;
+  try { const r = await api(a.api, { action: 'admin', key: a.key, term: term || (dashData && dashData.term) }); if (!r || !r.ok) throw r; dashData = r; }
+  catch(e){ if (!dashData){ app.innerHTML = `${topbar('لوحة المدير', '', me ? 'home' : 'reg')}<div class="wrap" style="padding:20px 0"><div class="card"><p>${esc(errText(e))}</p><a class="btn" href="#admin">تعديل بيانات الدخول</a></div></div>`; return; } toast(errText(e)); }
+  if (curView() !== 'dash') return;
+  const d = dashData, SUBS = subjectsFor(2);
+  app.innerHTML = `${topbar('لوحة المدير', `${d.school || SCHOOL_DEFAULT} · ${d.year}`, me ? 'home' : 'reg', `<button class="icon-btn" type="button" data-act="dashRefresh" aria-label="تحديث">${I.refresh}</button>`)}
+  <div class="wrap" style="padding:14px 16px 40px;display:grid;gap:12px">
+    <div class="setting"><p>الفصل المعروض<small>الفصل الحالي للأساتذة: ${TERMS[d.curTerm - 1]}</small></p>
+      <div class="seg" role="group" aria-label="الفصل">${[1, 2, 3].map(t => `<button type="button" data-term="${t}" aria-pressed="${d.term === t}">${TERMS[t - 1]}</button>`).join('')}</div></div>
+    ${d.term !== d.curTerm ? `<button class="btn" type="button" data-act="setTerm" data-t="${d.term}">جعل الفصل ${TERMS[d.term - 1]} هو الفصل الحالي للأساتذة</button>` : ''}
+    <div class="row-btns"><button class="btn primary" type="button" data-act="qrAll">${I.qr}تنزيل رموز QR لكل الأقسام</button>
+      <button class="btn" type="button" data-act="qrAdmin">${I.qr}فتح اللوحة على الهاتف</button></div>
+    ${d.classes.map(c => `<div class="card ac">
+      <div class="row"><b class="grow">${esc(c.label)}</b><span class="chip">${c.count} تلميذاً</span></div>
+      <p class="muted" style="font-size:13px">${c.teachers.length ? c.teachers.map(t => `${esc(t.name)} · <a href="tel:${esc(t.phone)}" dir="ltr">${esc(t.phone)}</a>`).join('<br>') : 'لم يسجّل أي أستاذ بعد'}</p>
+      <div class="mini">${SUBS.map(s => { const f = c.filled[s.id], n = c.needed[s.id], ok = c.confirms[s.id]; return `<span>${s.name}</span><div class="prog ${n && f === n ? 'full' : ''}"><i style="width:${n ? (f / n * 100).toFixed(0) : 0}%"></i></div><span>${f}/${n}${ok ? ' ✓' : ''}</span>`; }).join('')}</div>
+      <div class="row-btns"><button class="btn small" type="button" data-act="qrOne" data-id="${esc(c.id)}">${I.qr}رمز القسم</button>
+        <button class="btn small" type="button" data-go="aexp-${esc(c.id)}">${I.eye}الجدول</button></div>
+    </div>`).join('')}
+    <button class="btn danger-t" type="button" data-act="adminOut">خروج من لوحة المدير</button>
+  </div>`;
+}
+const teacherLink = (a, c) => `${appBase()}#k=${c.token}&${linkParamsFor(a.api)}`;
+async function qrImg(text, cell = 6){ await loadScript('qrcode.js'); const q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createDataURL(cell, 2); }
+async function showQR(title, sub, link){
+  const src = await qrImg(link, 8);
+  const box = sheet(`<h2>${esc(title)}</h2><p class="muted">${esc(sub)}</p><div class="qrbig"><img src="${src}" alt="رمز QR"><div class="linkbox">${esc(link)}</div></div>
+    <div class="acts"><button class="btn" type="button" id="cpLink">نسخ الرابط</button><button class="btn primary" type="button" data-close="1">إغلاق</button></div>`);
+  box.querySelector('#cpLink').onclick = async () => { try { await navigator.clipboard.writeText(link); toast('تم نسخ الرابط'); } catch(e){ toast('انسخ الرابط يدوياً'); } };
+}
+async function qrCardsPDF(){
+  const a = adminOf(), d = dashData;
+  busy(true, 'جارٍ إعداد بطاقات QR…');
+  try {
+    const cards = await Promise.all(d.classes.map(async c => `<div class="qrcard"><div class="s">${esc(d.school || SCHOOL_DEFAULT)} · منصة التقويم المستمر</div>
+      <div class="c">${esc(c.label)}</div><img src="${await qrImg(teacherLink(a, c), 6)}" alt=""><div class="h">امسح الرمز بكاميرا الهاتف لتفتح قسمك وتلاميذك مباشرة</div></div>`));
+    const pages = [];
+    for (let k = 0; k < cards.length; k += 8) pages.push(`<div class="page port"><div class="qrgrid">${cards.slice(k, k + 8).join('')}</div></div>`);
+    const blob = await renderPDF(pages, false, 'رموز QR للأقسام');
+    busy(false); await saveBlob(blob, 'رموز_QR_الأقسام.pdf');
+  } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); }
+}
+let adminCtxCache = {};
+async function viewAdminExport(id){
+  const a = adminOf(); if (!a) return location.replace('#admin');
+  app.innerHTML = `${topbar('الجدول الموحّد', '', 'dash')}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span></div>`;
+  let r;
+  try { r = await api(a.api, { action: 'adminClass', key: a.key, id, term: dashData && dashData.term }); if (!r || !r.ok) throw r; }
+  catch(e){ app.innerHTML = `${topbar('الجدول الموحّد', '', 'dash')}<div class="wrap" style="padding:20px 0"><div class="card"><p>${esc(errText(e))}</p></div></div>`; return; }
+  const cl = dashData && dashData.classes.find(c => c.id === id);
+  const ctx = { c: r, term: r.term, year: r.year, school: r.school || SCHOOL_DEFAULT, cls: r.cls, students: r.students, subjects: subjectsFor(r.cls.level),
+    teacher: cl && cl.teachers[0] ? cl.teachers[0].name : '', get(sid, f){ const m = r.marks[sid]; return m && m[f] != null ? m[f] : null; } };
+  adminCtxCache[id] = ctx;
+  app.innerHTML = `${topbar('الجدول الموحّد', r.cls.label + ' · الفصل ' + TERMS[r.term - 1], 'dash')}
+  <div class="wrap"><div class="exp"><div class="card"><div class="row-btns">
+    <button class="btn primary" type="button" data-act="apdf" data-id="${esc(id)}">${I.pdf}تنزيل PDF</button>
+    <button class="btn primary" type="button" data-act="axlsx" data-id="${esc(id)}">${I.xls}تنزيل Excel</button></div></div>
+    <div class="card"><div id="pv">${docPages(ctx).map(p => `<div class="pv">${p}</div>`).join('')}</div></div></div></div>`;
+  fitPreview();
+}
+
+/* =========================================================
+   الأحداث
+   ========================================================= */
+app.addEventListener('click', async e => {
+  const g = e.target.closest('[data-go]'); if (g){ go(g.dataset.go); return; }
+  const b = e.target.closest('[data-back]'); if (b){ back(b.dataset.back); return; }
+  const st = e.target.closest('[data-step]'); if (st){ store.set('tq:step', +st.dataset.step); viewHome(); return; }
+  const tm = e.target.closest('[data-term]'); if (tm){ viewDash(+tm.dataset.term); return; }
+  const a = e.target.closest('[data-act]'); if (!a) return;
+  const act = a.dataset.act;
+  if (act === 'scan') return scanQR();
+  if (act === 'install') return doInstall();
+  if (act === 'noinstall'){ store.set('tq:noInstall', true); return viewHome(); }
+  if (act === 'retry') return viewClass(+a.dataset.i);
+  if (act === 'refresh'){ busy(true, 'جارٍ التحديث…'); try { await syncNow(classes[+a.dataset.i].k); await fetchClass(+a.dataset.i); busy(false); renderClass(+a.dataset.i); toast('تم التحديث'); } catch(err){ busy(false); toast(errText(err)); } return; }
+  if (act === 'pdf' || act === 'xlsx') return exportCtx(ctxOf(+a.dataset.i), act);
+  if (act === 'share-pdf' || act === 'share-xlsx') return exportCtx(ctxOf(+a.dataset.i), act.slice(6), true);
+  if (act === 'apdf' || act === 'axlsx') return exportCtx(adminCtxCache[a.dataset.id], act.slice(1));
+  if (act === 'dashRefresh') return viewDash(dashData && dashData.term);
+  if (act === 'setTerm'){ const ad = adminOf(); busy(true); try { const r = await api(ad.api, { action: 'setTerm', key: ad.key, term: +a.dataset.t }); if (!r.ok) throw r; busy(false); toast('تم تغيير الفصل الحالي'); viewDash(+a.dataset.t); } catch(err){ busy(false); toast(errText(err)); } return; }
+  if (act === 'qrAll') return qrCardsPDF();
+  if (act === 'qrOne'){ const c = dashData.classes.find(x => x.id === a.dataset.id); return showQR(c.label, 'يمسحه الأستاذ بكاميرا هاتفه فيفتح قسمه مباشرة', teacherLink(adminOf(), c)); }
+  if (act === 'qrAdmin'){ const ad = adminOf(); return showQR('فتح لوحة المدير على الهاتف', 'امسح هذا الرمز بهاتفك. لا تشاركه مع أحد', `${appBase()}#admin=${encodeURIComponent(ad.key)}&${linkParamsFor(ad.api)}`); }
+  if (act === 'adminOut'){ store.del('tq:admin'); dashData = null; location.replace(me ? '#home' : '#reg'); return; }
+
+  // صب النقاط
+  const i = +app.dataset.i, sid = app.dataset.sub;
+  if (act === 'confirm') return confirmSave(i, sid);
+  let ctx = ctxOf(i); if (!ctx) return;
+  const sub = ctx.subjects.find(s => s.id === sid), items = itemsOf(sub);
+  if (act === 'tab'){
+    const d = +a.dataset.d; ui.tab[i + sid] = d;
+    $('#tabs').innerHTML = tabsHTML(ctx, sub, d);
+    $('#domNow').innerHTML = `${items[d].exam ? '' : 'الميدان: '}<b>${esc(items[d].n)}</b>`;
+    $('#list').innerHTML = ctx.students.map((s, k) => cardHTML(ctx, k, s, items[d].f)).join('');
+    $('#sum').innerHTML = sumHTML(ctx, sub, d);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    return;
+  }
+  const card = a.closest('.st'); if (!card) return;
+  const s = card.dataset.s, d = Math.min(ui.tab[i + sid] || 0, items.length - 1), f = items[d].f, v = ctx.get(s, f), step = getStep();
+  if (act === 'set'){ ctx = setMark(ctx, s, f, +a.dataset.v); buzz(); }
+  else if (act === 'plus' && v != null) ctx = setMark(ctx, s, f, v + step);
+  else if (act === 'minus' && v != null) ctx = setMark(ctx, s, f, v - step);
+  else if (act === 'del' && v != null){
+    ctx = setMark(ctx, s, f, null);
+    const nm = ctx.students.find(x => x.id === s).n;
+    toast(`حُذفت علامة ${nm}`, { label: 'تراجع', fn: () => { const c2 = setMark(ctxOf(i), s, f, v); if (location.hash === `#grade-${i}-${sid}`) refreshCard(c2, sub, d, s); } });
+  }
+  refreshCard(ctx, sub, d, s);
+  const nb = app.querySelector(`.st[data-s="${CSS.escape(s)}"] [data-act="${act}"]`);
+  if (nb && !nb.disabled && act !== 'set') nb.focus({ preventScroll: true });
+});
+window.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+/* ---------- start ---------- */
+(function boot(){
+  const h = location.hash;
+  if (h.includes('=')){
+    const p = parseParams(h);
+    if (p.k){ const i = addClass(p.k, apiFromParams(p)); history.replaceState(null, '', location.pathname + (me ? '#cls-' + i : '#reg')); }
+    else if (p.admin){ store.set('tq:admin', { api: apiFromParams(p), key: p.admin }); history.replaceState(null, '', location.pathname + '#dash'); }
+  }
+  route();
+  classes.forEach(c => scheduleSync(c.k, 1500));
+  if (!IS_ARTIFACT && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
+    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+  }
+})();
+</script>
+</body>
+</html>
