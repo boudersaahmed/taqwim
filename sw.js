@@ -1,8 +1,8 @@
 /* منصة التقويم المستمر – يعمل دون إنترنت، ويجلب التحديثات عند توفر الاتصال */
-const CACHE = 'taqwim-platform-v1';
+const CACHE = 'taqwim-platform-v3';
 const ASSETS = ['./', 'index.html', 'manifest.json', 'jspdf.umd.min.js', 'html2canvas.min.js', 'exceljs.min.js', 'qrcode.js',
-  'cairo-ar-400.woff2', 'cairo-ar-600.woff2', 'cairo-ar-800.woff2', 'cairo-la-400.woff2', 'cairo-la-600.woff2', 'cairo-la-800.woff2',
-  'amiri-ar-700.woff2', 'amiri-la-700.woff2', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
+  'tajawal-ar-400.woff2', 'tajawal-ar-500.woff2', 'tajawal-ar-700.woff2', 'tajawal-ar-800.woff2', 'tajawal-la-400.woff2', 'tajawal-la-500.woff2', 'tajawal-la-700.woff2', 'tajawal-la-800.woff2', 'logo-mne.webp',
+  'amiri-ar-700.woff2', 'amiri-la-700.woff2', 'khalid-art-bold.woff2', 'serif-la-700.woff2', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', e => {
@@ -10,11 +10,20 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return; // طلبات جدول المدرسة لا تمر من هنا
-  const isPage = req.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/manifest.json');
+  const isPage = req.mode === 'navigate' || url.pathname.endsWith('/index.html') || url.pathname.endsWith('/manifest.json') || url.pathname.endsWith('/sw.js');
   if (isPage){
     e.respondWith(fetch(req).then(res => { if (res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); } return res; })
       .catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('index.html'))));
     return;
   }
   e.respondWith(caches.match(req, { ignoreSearch: true }).then(hit => hit || fetch(req).then(res => { if (res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); } return res; })));
+});
+// الضغط على إشعار المدير يفتح صندوق الطلبات
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || './#inbox-sum';
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    for (const c of list){ if ('focus' in c){ c.navigate(url).catch(() => {}); return c.focus(); } }
+    return self.clients.openWindow(url);
+  }));
 });

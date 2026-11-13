@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#16324f">
+<meta name="theme-color" content="#f0f7fb">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="التقويم">
@@ -12,167 +12,331 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>التقويم المستمر</title>
+<script>try{var t=JSON.parse(localStorage.getItem("tq:theme"));if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
-@font-face{font-family:Cairo;font-weight:400;font-display:swap;src:url(cairo-ar-400.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
-@font-face{font-family:Cairo;font-weight:600;font-display:swap;src:url(cairo-ar-600.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
-@font-face{font-family:Cairo;font-weight:800;font-display:swap;src:url(cairo-ar-800.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
-@font-face{font-family:Cairo;font-weight:400;font-display:swap;src:url(cairo-la-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
-@font-face{font-family:Cairo;font-weight:600;font-display:swap;src:url(cairo-la-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
-@font-face{font-family:Cairo;font-weight:800;font-display:swap;src:url(cairo-la-800.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+@font-face{font-family:Tajawal;font-weight:400;font-display:swap;src:url(tajawal-ar-400.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:Tajawal;font-weight:500;font-display:swap;src:url(tajawal-ar-500.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:Tajawal;font-weight:700;font-display:swap;src:url(tajawal-ar-700.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:Tajawal;font-weight:800;font-display:swap;src:url(tajawal-ar-800.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:Tajawal;font-weight:400;font-display:swap;src:url(tajawal-la-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Tajawal;font-weight:500;font-display:swap;src:url(tajawal-la-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Tajawal;font-weight:700;font-display:swap;src:url(tajawal-la-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Tajawal;font-weight:800;font-display:swap;src:url(tajawal-la-800.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:Amiri;font-weight:700;font-display:swap;src:url(amiri-ar-700.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
 @font-face{font-family:Amiri;font-weight:700;font-display:swap;src:url(amiri-la-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+2212}
+@font-face{font-family:"Khalid Art bold";font-weight:400 900;font-display:swap;src:local("Khalid Art bold"),url(khalid-art-bold.woff2) format("woff2")}
+@font-face{font-family:DocSerif;font-weight:400 900;font-display:swap;src:local("Times New Roman Bold"),url(serif-la-700.woff2) format("woff2")}
 
-/* Layout idea: a school register on a phone. Greeting and class list first, one card per pupil, sticky domains, fixed confirm bar. */
+/* One UI look: soft sky-blue surfaces, large rounded cards, coloured icon tiles, light and dark themes. Printed pages keep their own fixed colours. */
 :root{
-  --bg:#eef2f6;--surface:#ffffff;--ink:#13202e;--muted:#5a6878;--line:#d7dee7;
-  --accent:#1d4e79;--accent-ink:#163c5e;--accent-soft:#d9e2f3;--on-accent:#ffffff;
-  --ok:#1e7a4c;--ok-soft:#dcf1e5;--warn:#b86e00;--warn-soft:#fff1cc;--danger:#b3261e;
-  --ui:Cairo,"Noto Sans Arabic",Tahoma,system-ui,sans-serif;
+  --bg:#f0f7fb;--surface:#ffffff;--soft:#e8f3f8;--ink:#1e293b;--muted:#64748b;--line:#dbeafe;
+  --accent:#38bdf8;--accent-ink:#0369a1;--accent-soft:rgba(56,189,248,.15);--on-accent:#020617;
+  --ok:#15803d;--ok-fill:#22c55e;--ok-soft:rgba(34,197,94,.14);--warn:#b45309;--warn-soft:rgba(245,158,11,.16);--danger:#dc2626;--danger-soft:rgba(239,68,68,.12);
+  --shadow:0 12px 35px -8px rgba(14,165,233,.09),0 4px 12px -2px rgba(0,0,0,.03);
+  --ui:Tajawal,"Noto Sans Arabic",Tahoma,system-ui,sans-serif;
   --doc:"Khalid Art bold",Amiri,"Traditional Arabic","Times New Roman",serif;
-  --radius:14px;color-scheme:light;
+  --radius:24px;color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e151d;--surface:#16202b;--ink:#e6edf4;--muted:#9babbc;--line:#27364a;
-  --accent:#79acdc;--accent-ink:#bcd6ef;--accent-soft:#1d3148;--on-accent:#0c1824;
-  --ok:#5fc48f;--ok-soft:#173326;--warn:#f0b443;--warn-soft:#3a2c0f;--danger:#f08a82;color-scheme:dark}}
+  --bg:#0b131d;--surface:#131c2e;--soft:#1b263d;--ink:#f8fafc;--muted:#94a3b8;--line:rgba(56,189,248,.16);
+  --accent:#38bdf8;--accent-ink:#7dd3fc;--accent-soft:rgba(56,189,248,.16);--on-accent:#020617;
+  --ok:#4ade80;--ok-fill:#22c55e;--ok-soft:rgba(34,197,94,.16);--warn:#fbbf24;--warn-soft:rgba(245,158,11,.16);--danger:#f87171;--danger-soft:rgba(239,68,68,.16);
+  --shadow:0 12px 35px -8px rgba(0,0,0,.45);color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e151d;--surface:#16202b;--ink:#e6edf4;--muted:#9babbc;--line:#27364a;
-  --accent:#79acdc;--accent-ink:#bcd6ef;--accent-soft:#1d3148;--on-accent:#0c1824;
-  --ok:#5fc48f;--ok-soft:#173326;--warn:#f0b443;--warn-soft:#3a2c0f;--danger:#f08a82;color-scheme:dark}
+  --bg:#0b131d;--surface:#131c2e;--soft:#1b263d;--ink:#f8fafc;--muted:#94a3b8;--line:rgba(56,189,248,.16);
+  --accent:#38bdf8;--accent-ink:#7dd3fc;--accent-soft:rgba(56,189,248,.16);--on-accent:#020617;
+  --ok:#4ade80;--ok-fill:#22c55e;--ok-soft:rgba(34,197,94,.16);--warn:#fbbf24;--warn-soft:rgba(245,158,11,.16);--danger:#f87171;--danger-soft:rgba(239,68,68,.16);
+  --shadow:0 12px 35px -8px rgba(0,0,0,.45);color-scheme:dark}
 
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--ui);-webkit-tap-highlight-color:transparent;font-variant-numeric:tabular-nums}
+html,body{min-height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 15.5px/1.6 var(--ui);-webkit-tap-highlight-color:transparent;font-variant-numeric:tabular-nums;transition:background-color .25s}
 button,select,textarea,input{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 h1,h2,h3{margin:0;text-wrap:balance}
 p{margin:0}
-.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.wrap{max-width:720px;margin:0 auto;padding:0 18px}
 [hidden]{display:none!important}
+svg.ic{width:1.15em;height:1.15em;flex:none;display:inline-block;vertical-align:-.18em}
+.lat{direction:ltr;unicode-bidi:isolate}
 
-.topbar{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
-.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 12px}
-.bar .t{flex:1;min-width:0}
-.bar .t h1{font:800 17px/1.35 var(--ui)}
-.bar .t p{font:400 12.5px/1.4 var(--ui);color:var(--muted)}
-.icon-btn{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0}
-.icon-btn svg{width:20px;height:20px}
-.sync{font:700 11.5px var(--ui);display:flex;align-items:center;gap:5px;white-space:nowrap;color:var(--muted)}
+/* icon tiles */
+.tile{width:48px;height:48px;flex:none;border-radius:16px;display:grid;place-items:center;font:800 18px/1 var(--ui)}
+.tile svg.ic{width:21px;height:21px}
+.t-sky{background:rgba(56,189,248,.16);color:#0284c7}
+.t-amber{background:rgba(245,158,11,.16);color:#d97706}
+.t-emerald{background:rgba(16,185,129,.15);color:#059669}
+.t-violet{background:rgba(139,92,246,.15);color:#7c3aed}
+.t-rose{background:rgba(244,63,94,.13);color:#e11d48}
+.t-indigo{background:rgba(99,102,241,.15);color:#4f46e5}
+:root[data-theme="dark"] .t-sky{color:#38bdf8}:root[data-theme="dark"] .t-amber{color:#fbbf24}:root[data-theme="dark"] .t-emerald{color:#34d399}
+:root[data-theme="dark"] .t-violet{color:#a78bfa}:root[data-theme="dark"] .t-rose{color:#fb7185}:root[data-theme="dark"] .t-indigo{color:#818cf8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .t-sky{color:#38bdf8}:root:not([data-theme="light"]) .t-amber{color:#fbbf24}:root:not([data-theme="light"]) .t-emerald{color:#34d399}
+  :root:not([data-theme="light"]) .t-violet{color:#a78bfa}:root:not([data-theme="light"]) .t-rose{color:#fb7185}:root:not([data-theme="light"]) .t-indigo{color:#818cf8}}
+
+/* top bar of inner pages: compact title appears after scrolling past the large one */
+.topbar{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,background-color .2s}
+body.scrolled .topbar,.topbar.solid{border-bottom-color:var(--line);background:color-mix(in srgb,var(--surface) 92%,transparent)}
+.bar{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 16px}
+.bar .t{flex:1;min-width:0;opacity:0;transition:opacity .2s}
+body.scrolled .bar .t,.topbar.solid .bar .t{opacity:1}
+.bar .t h1{font:800 17px/1.35 var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t p{font:500 12px/1.4 var(--ui);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ttl{max-width:720px;margin:0 auto;padding:6px 22px 14px}
+.ttl h1{font:800 26px/1.3 var(--ui)}
+.ttl p{font:500 13.5px/1.5 var(--ui);color:var(--muted);margin-top:3px}
+.icon-btn{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--accent-ink);padding:0;box-shadow:0 2px 6px rgb(0 0 0 / .04)}
+.icon-btn svg.ic{width:18px;height:18px}
+.sync{font:800 11.5px var(--ui);display:flex;align-items:center;gap:6px;white-space:nowrap;color:var(--muted);background:var(--soft);padding:7px 11px;border-radius:12px}
 .sync::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
-.sync.ok{color:var(--ok)}.sync.busy{color:var(--accent)}.sync.off{color:var(--warn)}
+.sync.ok{color:var(--ok);background:var(--ok-soft)}.sync.busy{color:var(--accent-ink);background:var(--accent-soft)}.sync.off{color:var(--warn);background:var(--warn-soft)}
+.sync:empty{display:none}
 
-.home-head{background:var(--accent);color:var(--on-accent);padding:calc(18px + env(safe-area-inset-top)) 0 64px}
-.home-head .rep{font:400 12.5px var(--ui);opacity:.85}
-.home-head .sch{font:800 22px/1.3 var(--ui);margin-top:2px}
-.lift{margin-top:-48px}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:14px;box-shadow:0 8px 24px rgb(19 32 46 / .08)}
+/* home header */
+.head{position:relative;max-width:720px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:calc(14px + env(safe-area-inset-top)) 22px 6px}
+.head .theme{position:absolute;left:18px;top:calc(14px + env(safe-area-inset-top))}
+.logo{width:104px;height:104px;border-radius:50%;background:#fff;border:2px solid rgba(56,189,248,.3);box-shadow:0 14px 28px -10px rgba(14,165,233,.4);display:grid;place-items:center;padding:7px;margin-bottom:12px;overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:contain}
+.head .rep{font:700 12px var(--ui);color:var(--muted)}
+.head .sch{font:800 25px/1.3 var(--ui);margin-top:2px}
+.lift{margin-top:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;display:grid;gap:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.panel.glow::after{content:"";position:absolute;left:-40px;bottom:-40px;width:140px;height:140px;border-radius:50%;background:var(--accent);opacity:.15;filter:blur(26px);pointer-events:none}
+.panel>*{position:relative;z-index:1}
+.wel{font:500 13.5px var(--ui);color:var(--muted)}
 .hello{font:800 24px/1.35 var(--ui)}
-.hello b{color:var(--accent)}
-.lbl{font:600 12px var(--ui);color:var(--muted)}
+.hello b{color:var(--accent-ink)}
+.lbl{font:700 12px var(--ui);color:var(--muted)}
 .muted{color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font:600 12.5px var(--ui);padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font:700 15px var(--ui);text-decoration:none;color:inherit}
-.btn svg{width:20px;height:20px;flex:none}
-.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.btn.big{min-height:56px;font-size:17px;width:100%}
-.btn.small{min-height:40px;padding:6px 12px;font-size:13.5px}
-.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
-.btn.ghost{background:transparent}
-.btn.link{background:transparent;border-color:transparent;color:var(--accent);min-height:40px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font:700 12.5px var(--ui);padding:5px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:10px 18px;border-radius:18px;border:1px solid var(--line);background:var(--soft);font:700 15px var(--ui);text-decoration:none;color:inherit;transition:transform .12s}
+.btn:active{transform:scale(.98)}
+.btn svg.ic{width:18px;height:18px}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:transparent;box-shadow:0 10px 22px -10px rgba(14,165,233,.65)}
+.btn.big{min-height:56px;font-size:16.5px;width:100%}
+.btn.small{min-height:40px;padding:6px 13px;font-size:13.5px;border-radius:14px}
+.btn.ok{background:var(--ok-fill);border-color:transparent;color:#fff;box-shadow:0 10px 22px -10px rgba(34,197,94,.65)}
+.btn.xl{background:#16a34a;border-color:transparent;color:#fff;box-shadow:0 10px 22px -10px rgba(34,197,94,.65)}
+.btn.ghost{background:var(--surface)}
+.btn.ghost svg.ic,.btn:not(.primary):not(.ok):not(.xl) svg.ic{color:var(--accent-ink)}
+.btn.link{background:transparent;border-color:transparent;color:var(--muted);min-height:40px;font-size:13.5px}
 .btn.danger-t{color:var(--danger);background:transparent;border-color:transparent}
-.sec{margin-top:22px;display:grid;gap:10px}
-.sec>h2{font:800 15px var(--ui);color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:grid;gap:10px}
-.row{display:flex;align-items:center;gap:10px}
+.btn[disabled]{opacity:.5}
+
+.sec{margin-top:22px;display:grid;gap:12px}
+.sec>h2{font:800 14px var(--ui);color:var(--muted);padding:0 8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;gap:12px}
 .row .grow{flex:1;min-width:0}
-.pill{font:700 12px var(--ui);padding:3px 10px;border-radius:999px;white-space:nowrap}
-.pill.draft{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.pill{display:inline-flex;align-items:center;gap:5px;font:800 11.5px var(--ui);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill svg.ic{width:12px;height:12px}
+.pill.draft{background:var(--soft);color:var(--muted)}
 .pill.ok{background:var(--ok-soft);color:var(--ok)}
 .pill.warn{background:var(--warn-soft);color:var(--warn)}
-.prog{height:8px;border-radius:99px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.pill.no{background:var(--danger-soft);color:var(--danger)}
+.prog{height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
 .prog i{display:block;height:100%;background:var(--accent);border-radius:99px}
-.prog.full i{background:var(--ok)}
-.meta{font:400 12.5px var(--ui);color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.row-btns{display:flex;gap:8px;flex-wrap:wrap}
-.row-btns .btn{flex:1;min-height:44px;font-size:14px}
-.class-item{text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px}
-.class-item .ic{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font:800 16px var(--ui);flex:none}
-.class-item h3{font:800 16px/1.4 var(--ui)}
-.class-item p{font-size:12.5px;color:var(--muted)}
-.class-item svg{width:20px;height:20px;flex:none;color:var(--muted)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
-.seg button{border:0;background:transparent;padding:8px 14px;font:700 14px var(--ui);min-width:56px}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
-.setting{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.setting p{font:600 14px var(--ui)}
-.setting small{display:block;color:var(--muted);font-weight:400;font-size:12px}
-.install-card{background:var(--surface);border:1px solid var(--accent);border-radius:var(--radius);padding:12px;display:flex;align-items:center;gap:12px}
-.install-card img{width:44px;height:44px;border-radius:11px;flex:none}
-.install-card p{flex:1;font:600 13.5px/1.5 var(--ui)}
-.foot{padding:26px 0 40px;text-align:center;display:grid;gap:4px;justify-items:center}
-.safe{padding:10px 12px;border-radius:10px;background:var(--ok-soft);font-size:13.5px;display:flex;gap:8px;align-items:flex-start}
-.safe svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--ok)}
-.note{padding:10px 12px;border-radius:10px;background:var(--warn-soft);font-size:13.5px}
-.form{display:grid;gap:14px}
-.fld{display:grid;gap:6px;font:700 13.5px var(--ui)}
-.fld small{color:var(--muted);font-weight:400}
-.fld .err{color:var(--danger);font:600 12.5px var(--ui)}
-input[type=text],input[type=tel],input[type=url],input[type=password]{width:100%;min-height:50px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-size:16px}
+.prog.full i{background:var(--ok-fill)}
+.meta{font:500 12.5px var(--ui);color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.row-btns{display:flex;gap:10px;flex-wrap:wrap}
+.row-btns .btn{flex:1;min-height:48px;font-size:14.5px}
+
+/* grouped list of classes */
+.lcard{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:6px;box-shadow:var(--shadow)}
+.class-item{text-align:start;width:100%;background:transparent;border:0;border-radius:22px;padding:12px;display:flex;align-items:center;gap:13px}
+.class-item+.class-item{border-top:1px solid var(--line);border-radius:0 0 22px 22px}
+.class-item .tile{font-size:16px}
+.class-item h3{font:800 15.5px/1.4 var(--ui)}
+.class-item p{font:500 12px/1.4 var(--ui);color:var(--muted);margin-top:2px}
+.class-item>svg.ic{width:14px;height:14px;color:var(--muted)}
+
+/* request tiles */
+.reqs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.reqbtn{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:16px 14px;display:flex;flex-direction:column;gap:9px;text-align:start;position:relative;box-shadow:var(--shadow);min-height:132px}
+.reqbtn b{font:800 15px/1.35 var(--ui)}
+.reqbtn small{font:500 11.5px/1.5 var(--ui);color:var(--muted)}
+.reqbtn .go{position:absolute;left:14px;top:18px;color:var(--muted);width:13px;height:13px}
+.reqbtn.wide{grid-column:1/-1;flex-direction:row;align-items:center;min-height:0}
+.reqbtn>span:not(.tile){display:flex;flex-direction:column;gap:3px}
+.reqbtn.wide>span:not(.tile){flex:1}
+.reqbtn.wide .go{position:static}
+.nb{position:absolute;top:10px;left:34px;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--danger);color:#fff;font:800 12px/22px var(--ui);text-align:center}
+
+/* settings */
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--soft);padding:6px;border-radius:18px;border:1px solid var(--line);width:100%}
+.seg button{border:0;background:transparent;padding:10px 6px;border-radius:13px;font:700 14px var(--ui);color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:800;box-shadow:0 6px 14px -6px rgba(14,165,233,.7)}
+.setting{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;box-shadow:var(--shadow)}
+.setting p{font:800 15px var(--ui)}
+.setting small{display:block;color:var(--muted);font-weight:500;font-size:12px;margin-top:2px}
+.install-card{background:linear-gradient(90deg,var(--soft),var(--surface));border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.install-card p{flex:1;font:700 13.5px/1.5 var(--ui)}
+.install-card p small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.install-card .icon-btn{border:0;box-shadow:none;background:transparent;color:var(--muted)}
+.foot{padding:20px 0 30px;text-align:center;display:grid;gap:4px;justify-items:center}
+.safe{padding:12px 14px;border-radius:16px;background:var(--ok-soft);font-size:13.5px;display:flex;gap:9px;align-items:flex-start}
+.safe svg.ic{margin-top:3px;color:var(--ok)}
+.note{padding:11px 14px;border-radius:16px;background:var(--warn-soft);color:var(--warn);font:600 13px/1.6 var(--ui);display:flex;gap:9px;align-items:flex-start}
+.note svg.ic{margin-top:3px}
+.form{display:grid;gap:16px}
+.fld{display:grid;gap:8px;font:800 13.5px var(--ui);align-content:start}
+.fld small{color:var(--muted);font-weight:500;font-size:11.5px;line-height:1.5}
+.fld .err{color:var(--danger);font:700 12.5px var(--ui)}
+input[type=text],input[type=tel],input[type=url],input[type=password],textarea,select,input[type=date],input[type=time],input[type=number]{width:100%;min-height:52px;border:1px solid var(--line);background:var(--soft);border-radius:16px;padding:12px 14px;font:500 16px var(--ui);color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 input.ltr{direction:ltr;text-align:left}
-.greet{border-radius:16px;padding:16px;background:var(--accent-soft);color:var(--accent-ink);font:800 22px/1.4 var(--ui);text-align:center}
-.empty{text-align:center;display:grid;gap:10px;justify-items:center;padding:8px 0}
-.empty svg{width:56px;height:56px;color:var(--accent)}
+textarea{min-height:110px;resize:vertical;line-height:1.6}
+.greet{border-radius:20px;padding:16px;background:var(--accent-soft);color:var(--accent-ink);font:800 22px/1.4 var(--ui);text-align:center}
+
+/* bottom navigation */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:color-mix(in srgb,var(--surface) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 8px calc(10px + env(safe-area-inset-bottom))}
+.bnav .in{max-width:720px;margin:0 auto;display:flex;justify-content:space-around}
+.bnav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:4px;font:800 10.5px var(--ui);color:var(--muted);padding:7px 14px;border-radius:16px;min-width:66px}
+.bnav button svg.ic{width:19px;height:19px}
+.bnav button[aria-current="page"]{color:var(--accent-ink);background:var(--accent-soft)}
+body.has-nav #app{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+body.has-nav .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
 
 /* subject cards */
-.subj{text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px}
+.subj{text-align:start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;display:grid;gap:10px;box-shadow:var(--shadow)}
 .subj .h{display:flex;align-items:center;gap:12px}
-.subj .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font:800 19px var(--ui);flex:none}
-.subj h3{font:800 17px var(--ui);flex:1}
-.subj ol{margin:0;padding:0 18px 0 0;font-size:13px;color:var(--muted)}
+.subj .tile{width:44px;height:44px;border-radius:15px;font-size:19px}
+.subj h3{font:800 16px var(--ui);flex:1}
+.tbl-card{display:flex;gap:13px;align-items:center}
+.tbl-card h3{font:800 15px var(--ui)}
+.tbl-card p{font:500 12px/1.5 var(--ui);color:var(--muted);margin-top:2px}
 
 /* grading */
-.tabs{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:5px;padding:0 10px 10px}
-.tab{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:7px 3px 6px;font:700 11.5px/1.3 var(--ui);color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:4px;min-height:64px;text-align:center}
+.tabs{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:6px;padding:2px 14px 12px}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 3px 7px;font:800 11.5px/1.3 var(--ui);color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:4px;min-height:66px;text-align:center}
 .tab.exam{border-style:dashed;border-color:var(--warn)}
-.tab .cnt{font:800 11px var(--ui);padding:0 7px;border-radius:99px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
-.tab.full .cnt{background:var(--ok-soft);color:var(--ok);border-color:transparent}
-.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.tab[aria-selected="true"] .cnt{background:var(--on-accent);color:var(--accent-ink);border-color:transparent}
-.dom-now{max-width:720px;margin:0 auto;padding:12px 16px 2px;font:700 13px var(--ui);color:var(--muted)}
-.dom-now b{color:var(--ink)}
-.list{max-width:720px;margin:0 auto;padding:8px 12px calc(110px + env(safe-area-inset-bottom));display:grid;gap:10px}
-.st{background:var(--surface);border:1px solid var(--line);border-inline-start:5px solid var(--warn);border-radius:var(--radius);padding:10px 12px 12px;display:grid;gap:10px}
-.st.done{border-inline-start-color:var(--ok)}
+.tab .cnt{font:800 11px var(--ui);padding:0 7px;border-radius:99px;background:var(--soft);color:var(--muted)}
+.tab.full .cnt{background:var(--ok-soft);color:var(--ok)}
+.tab[aria-selected="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent);box-shadow:0 8px 16px -8px rgba(14,165,233,.8)}
+.tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.55);color:var(--on-accent)}
+.dom-now{max-width:720px;margin:0 auto 4px;padding:0 14px}
+.dom-now span{display:block;padding:10px 14px;border-radius:16px;background:var(--soft);font:500 13px var(--ui);color:var(--muted)}
+.dom-now b{color:var(--ink);font-weight:800}
+.list{max-width:720px;margin:0 auto;padding:8px 14px calc(116px + env(safe-area-inset-bottom));display:grid;gap:10px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 13px 13px;display:grid;gap:11px;box-shadow:var(--shadow)}
+.st.done{border-color:rgba(34,197,94,.4)}
 .st-head{display:flex;align-items:center;gap:10px}
-.num{width:28px;height:28px;flex:none;border-radius:8px;background:var(--bg);display:grid;place-items:center;font:800 13px var(--ui);color:var(--muted)}
+.num{width:30px;height:30px;flex:none;border-radius:10px;background:var(--soft);display:grid;place-items:center;font:800 13px var(--ui);color:var(--muted)}
 .name{flex:1;min-width:0;font:800 16px/1.4 var(--ui)}
-.badge{min-width:58px;height:36px;padding:0 8px;border-radius:10px;display:grid;place-items:center;font:800 18px var(--ui);background:var(--accent-soft);color:var(--accent-ink);flex:none}
-.badge.empty{background:transparent;border:1.5px dashed var(--line);color:var(--muted);font-weight:600}
-.del{color:var(--danger)}
-.del:disabled{color:var(--line)}
+.badge{min-width:54px;height:38px;padding:0 8px;border-radius:13px;display:grid;place-items:center;font:800 18px var(--ui);background:var(--accent);color:var(--on-accent);flex:none}
+.badge.empty{background:transparent;border:1.5px dashed var(--line);color:var(--muted);font-weight:700}
+.icon-btn.del{color:var(--danger);background:var(--danger-soft);border-color:transparent;box-shadow:none;width:40px;height:40px;border-radius:13px}
+.icon-btn.del:disabled{opacity:.35}
 .st-body{display:flex;gap:8px;align-items:stretch}
 .keys{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
-.key{height:46px;border-radius:11px;border:1px solid var(--line);background:var(--bg);font:800 18px var(--ui);padding:0}
+.key{height:44px;border-radius:12px;border:0;background:var(--soft);font:800 17px var(--ui);padding:0}
 .key:active{transform:scale(.95)}
-.key.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.step{display:grid;grid-template-rows:1fr 1fr;gap:6px;width:52px;flex:none}
-.step button{border-radius:11px;border:1px solid var(--line);background:var(--surface);font:800 22px/1 var(--ui);padding:0}
+.key.on{background:var(--accent);color:var(--on-accent);box-shadow:0 6px 12px -6px rgba(14,165,233,.85)}
+.step{display:grid;grid-template-rows:1fr 1fr;gap:6px;width:50px;flex:none}
+.step button{border-radius:12px;border:1px solid var(--line);background:var(--surface);font:800 22px/1 var(--ui);padding:0;color:var(--accent-ink)}
 .step button:disabled{opacity:.4}
 @media (min-width:560px){.keys{grid-template-columns:repeat(10,minmax(0,1fr))}.step{grid-template-rows:none;grid-template-columns:1fr 1fr;width:110px}}
-.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
-.bottombar .in{max-width:720px;margin:0 auto;padding:0 12px;display:flex;align-items:center;gap:12px}
-.bottombar .sum{flex:1;font:600 12.5px/1.45 var(--ui);color:var(--muted)}
-.bottombar .sum b{color:var(--ink);font-size:14px}
+.bottombar{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:12px 0 calc(14px + env(safe-area-inset-bottom));box-shadow:0 -10px 24px -14px rgba(14,165,233,.35)}
+.bottombar .in{max-width:720px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:12px}
+.bottombar .sum{flex:1;font:500 12.5px/1.55 var(--ui);color:var(--muted)}
+.bottombar .sum b{color:var(--ink);font-size:14px;font-weight:800}
 .bottombar .btn{min-height:50px}
 
 /* export + preview */
-.exp{padding:16px 0 40px;display:grid;gap:14px}
+.exp{padding:4px 0 40px;display:grid;gap:14px}
 .exp>*,#pv,.pv{min-width:0}
-.pv{overflow:hidden;border-radius:6px;box-shadow:0 1px 0 var(--line),0 6px 18px rgb(19 32 46 / .12)}
+.pv{overflow:hidden;border-radius:8px;box-shadow:0 1px 0 var(--line),0 6px 18px rgb(19 32 46 / .12);background:#fff}
 .pv>.page{transform-origin:top right}
 .miss{margin:0;padding:0 18px 0 0;font-size:13px;color:var(--muted)}
+.fmt{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fmt .btn{flex-direction:column;gap:5px;padding:14px 8px;min-height:84px}
+.fmt .btn svg.ic{width:23px;height:23px;color:inherit!important}
+.fmt .btn small{font:600 11px var(--ui);opacity:.8}
+.mailbox{border:1.5px solid rgba(139,92,246,.35)}
+.mailbox h3{font:800 15.5px var(--ui)}
+.mailbox p{font:500 12.5px/1.55 var(--ui)}
+.sent{display:flex;gap:8px;align-items:center;font:700 12.5px var(--ui);color:var(--ok);background:var(--ok-soft);border-radius:14px;padding:9px 12px}
+.files{display:grid;gap:8px}
+.files div{display:flex;gap:10px;align-items:center;background:var(--soft);border-radius:14px;padding:10px 12px;font:700 13px var(--ui);word-break:break-all}
+.files svg.ic{width:20px;height:20px}
+.files .p{color:#dc2626}.files .x{color:#16a34a}
+
+/* overlays */
+.scrim{position:fixed;inset:0;z-index:50;background:rgb(2 6 23 / .55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);display:grid;align-items:end;justify-items:center;padding:10px}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:520px;border-radius:32px;padding:12px 20px calc(18px + env(safe-area-inset-bottom));display:grid;gap:14px;max-height:88vh;overflow:auto;box-shadow:0 -10px 40px rgb(0 0 0 / .25)}
+.sheet::before{content:"";width:44px;height:5px;border-radius:5px;background:var(--line);justify-self:center}
+.sheet h2{font:800 19px var(--ui)}
+.sheet h3{font:800 14.5px var(--ui);margin-top:4px}
+.sheet ol{margin:0;padding:0 20px 0 0;display:grid;gap:4px;font-size:14px}
+.sheet .acts{display:flex;gap:10px;flex-wrap:wrap}
+.sheet .acts .btn{flex:1}
+.dl{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.dl li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-radius:15px;background:var(--soft);font:700 13.5px var(--ui)}
+.dl li b{font-weight:800;display:inline-flex;gap:5px;align-items:center}
+.dl li.ok b{color:var(--ok)}
+.dl li.warn b{color:var(--warn)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(28px + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);border-radius:18px;padding:11px 16px;display:flex;align-items:center;gap:14px;font:700 14px var(--ui);max-width:calc(100% - 32px);box-shadow:0 14px 30px -10px rgb(2 6 23 / .45)}
+.toast button{background:transparent;border:0;color:var(--accent);font:800 14px var(--ui);padding:4px 2px}
+.busy{position:fixed;inset:0;z-index:70;background:rgb(2 6 23 / .45);display:grid;place-items:center}
+.busy div{background:var(--surface);padding:18px 22px;border-radius:20px;font:700 15px var(--ui);display:flex;gap:12px;align-items:center}
+.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.key:active,.btn:active{transform:none}}
+
+/* summons, attendance, requests */
+.qchips{display:flex;flex-wrap:wrap;gap:7px}
+.qchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font:700 13px var(--ui)}
+.qchip[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font:700 12.5px var(--ui);color:var(--ok)}
+.hint.bad{color:var(--danger)}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;display:grid;gap:9px;box-shadow:var(--shadow)}
+.item h3{font:800 15.5px/1.4 var(--ui)}
+.item .q{font-size:13.5px;background:var(--soft);border-radius:14px;padding:9px 12px;white-space:pre-wrap;line-height:1.55}
+.item .m{font:500 12.5px var(--ui);color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.item .m span{display:inline-flex;gap:6px;align-items:center}
+.item .m svg.ic{width:12px;height:12px}
+.item .m a{color:var(--accent-ink);font-weight:700;text-decoration:none}
+.tabs2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tabs2 button{justify-content:center;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 12px;font:800 13.5px var(--ui);display:flex;gap:6px;align-items:center}
+.tabs2 button[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.tabs2 .c{min-width:20px;height:20px;border-radius:99px;background:var(--danger);color:#fff;font:800 11.5px/20px var(--ui);text-align:center;padding:0 5px}
+.months{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mon{border:1px solid var(--line);background:var(--surface);border-radius:22px;padding:13px;text-align:start;display:grid;gap:3px;box-shadow:var(--shadow);align-content:start}
+.mon b{font:800 14.5px var(--ui);display:flex;justify-content:space-between;align-items:center}
+.mon b svg.ic{width:16px;height:16px}
+.mon span{font:500 12px/1.5 var(--ui);color:var(--muted)}
+.mon.done{border-color:rgba(34,197,94,.4)}
+.mon.done b svg.ic{color:var(--ok)}
+.mon.now{border:2px solid var(--accent);box-shadow:0 10px 24px -12px rgba(14,165,233,.6)}
+.mon.now b svg.ic{color:var(--accent-ink)}
+.mon .pc{font-weight:800;direction:ltr;unicode-bidi:isolate}
+.mon .pc.p{color:var(--ok)}.mon .pc.a{color:var(--warn)}
+.rate{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rate div{padding:12px;border-radius:18px;background:var(--soft);display:grid;gap:4px}
+.rate span{font:700 11.5px var(--ui);color:var(--muted)}
+.big-num{font:800 28px var(--ui);direction:ltr;unicode-bidi:isolate;text-align:start}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface)}
+.tbl th,.tbl td{border:1px solid var(--line);padding:7px 6px;text-align:center}
+.tbl th{background:var(--accent-soft);color:var(--accent-ink);font-weight:800}
+.tbl td.l{text-align:start}
+.tbl tr.miss td{background:var(--warn-soft)}
+.tbl tr.avg td{font-weight:800}
+.scrollx{overflow-x:auto;border-radius:16px;border:1px solid var(--line)}
+.notif{background:var(--surface);border:1.5px solid var(--warn);border-radius:var(--radius);padding:14px 16px;display:grid;gap:10px;box-shadow:var(--shadow)}
+.notif.calm{border-color:var(--line)}
+
+/* admin */
+.ac{display:grid;gap:10px}
+.mini{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;font-size:12.5px}
+.mini .prog{height:6px}
+.qrbig{display:grid;justify-items:center;gap:8px}
+.qrbig img{width:230px;height:230px;image-rendering:pixelated;background:#fff;padding:8px;border-radius:14px}
+.linkbox{direction:ltr;font:600 11.5px/1.5 ui-monospace,monospace;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:8px 10px;word-break:break-all;color:var(--muted)}
 
 /* printable pages */
 .page{background:#fff;color:#000;font-family:var(--doc);font-weight:700;direction:rtl;position:relative}
@@ -202,34 +366,47 @@ input.ltr{direction:ltr;text-align:left}
 .qrcard .h{font-size:11.5px;color:#333}
 #printRoot{position:absolute;left:-14000px;top:0}
 
-/* admin */
-.ac{display:grid;gap:8px}
-.mini{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;font-size:12.5px}
-.mini .prog{height:6px}
-.qrbig{display:grid;justify-items:center;gap:8px}
-.qrbig img{width:230px;height:230px;image-rendering:pixelated;background:#fff;padding:8px;border-radius:10px}
-.linkbox{direction:ltr;font:600 11.5px/1.5 ui-monospace,monospace;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;word-break:break-all;color:var(--muted)}
+/* printed summons: A4 portrait cut in two */
+.smn{font-family:var(--doc);font-weight:400;color:#111;font-size:12.5pt;line-height:1.55;direction:rtl}
+.smn .lat{font-family:DocSerif,"Times New Roman",serif;font-weight:700;direction:ltr;unicode-bidi:isolate}
+.smn .half{height:148.5mm;padding:7mm 12mm 6mm;position:relative}
+.smn .frame{height:100%;border:1.6pt solid #1f3b63;padding:2.2mm}
+.smn .inner{height:100%;border:.6pt solid #1f3b63;padding:3.5mm 5mm 3mm;display:flex;flex-direction:column}
+.smn .rep{text-align:center;font-size:12pt;line-height:1.35}
+.smn .rep b{font-size:13pt;font-weight:400}
+.smn .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-top:1.2mm;font-size:11pt;line-height:1.45}
+.smn .hdr .l{text-align:left}
+.smn .badge2{display:inline-block;border-radius:2mm;padding:0 2.5mm;background:#1f3b63;color:#fff;font-size:10.5pt}
+.smn h1{text-align:center;font-size:21pt;font-weight:400;color:#1f3b63;margin:1.5mm 0 2mm;line-height:1.25}
+.smn .grid{display:grid;grid-template-columns:1fr 1fr;column-gap:6mm;row-gap:.6mm;font-size:12pt}
+.smn .f{display:flex;gap:1.5mm;align-items:baseline;white-space:nowrap;overflow:hidden}
+.smn .f .k{color:#333;flex:none}
+.smn .f .v{flex:1;border-bottom:.6pt dotted #777;padding:0 1mm;overflow:hidden;text-overflow:ellipsis;min-height:1.4em}
+.smn .full{grid-column:1/-1}
+.smn .txt{margin-top:2mm;text-align:justify}
+.smn .blank{display:inline-block;min-width:24mm;border-bottom:.6pt dotted #555;text-align:center;padding:0 1mm}
+.smn .note{margin-top:2.5mm;font-size:11pt;color:#444;background:none;padding:0}
+.smn .sig{display:flex;justify-content:space-between;align-items:flex-start;margin-top:auto;font-size:11.5pt}
+.smn .sig .box{text-align:center;min-width:52mm}
+.smn .reason{border:1pt solid #b4472a;border-radius:1.5mm;padding:1mm 3mm 1.2mm;margin-top:1.6mm;background:#fdf3ef}
+.smn .reason .t{color:#b4472a;font-size:11.5pt}
+.smn .meta2{display:flex;gap:2mm;justify-content:space-between;font-size:10pt;margin-top:1.4mm}
+.smn .meta2 span{border:.6pt solid #9aa9bf;border-radius:1.2mm;padding:0 2mm;background:#f2f5fa}
+.smn .follow{display:grid;grid-template-columns:1fr 1fr;column-gap:6mm;font-size:11.5pt;margin-top:1.4mm}
+.smn .sig3{display:flex;justify-content:space-between;margin-top:auto;font-size:11pt;text-align:center}
+.smn .sig3 div{flex:1}
+.smn .cut{position:absolute;left:0;right:0;top:148.5mm;height:0;border-top:1pt dashed #555}
+.smn .cut span{position:absolute;top:-3.2mm;left:50%;transform:translateX(-50%);background:#fff;padding:0 3mm;font-size:10pt;color:#555;white-space:nowrap}
+.page.port.smn{padding:0}
 
-/* overlays */
-.scrim{position:fixed;inset:0;z-index:50;background:rgb(8 14 20 / .5);display:grid;align-items:end;justify-items:center;padding:12px}
-.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:520px;border-radius:20px;padding:20px 18px calc(16px + env(safe-area-inset-bottom));display:grid;gap:12px;max-height:88vh;overflow:auto}
-.sheet h2{font:800 18px var(--ui)}
-.sheet h3{font:800 14.5px var(--ui);margin-top:4px}
-.sheet ol{margin:0;padding:0 20px 0 0;display:grid;gap:4px;font-size:14px}
-.sheet .acts{display:flex;gap:8px;flex-wrap:wrap}
-.sheet .acts .btn{flex:1}
-.dl{display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.dl li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:10px;background:var(--bg);font-size:13.5px}
-.dl li b{font-weight:800}
-.dl li.ok b{color:var(--ok)}
-.dl li.warn b{color:var(--warn)}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:14px;font:600 14px var(--ui);max-width:calc(100% - 32px);box-shadow:0 8px 24px rgb(0 0 0 / .25)}
-.toast button{background:transparent;border:0;color:var(--accent-soft);font:800 14px var(--ui);padding:4px 2px}
-.busy{position:fixed;inset:0;z-index:70;background:rgb(8 14 20 / .45);display:grid;place-items:center}
-.busy div{background:var(--surface);padding:18px 22px;border-radius:16px;font:700 15px var(--ui);display:flex;gap:12px;align-items:center}
-.spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent);animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.key:active{transform:none}}
+/* Latin documents (French / English) */
+.page.ltrdoc{direction:ltr;font-family:DocSerif,"Times New Roman",serif;font-weight:700}
+.page.ltrdoc .d-rep,.page.ltrdoc .d-title,.page.ltrdoc .d-sub{text-align:center}
+.page.ltrdoc td.n{text-align:left;padding-left:6px;padding-right:0;font-size:11.5px;white-space:nowrap;overflow:hidden}
+.page.ltrdoc .d-note{font-size:11px;font-weight:400;margin-top:8px;line-height:1.4}
+.page .d-tbl2 th{font-size:12px}
+.page .d-tbl2 td{font-size:12.5px}
+.page .lat{font-family:DocSerif,"Times New Roman",serif;font-weight:700;direction:ltr;unicode-bidi:isolate}
 </style>
 </head>
 <body>
@@ -246,32 +423,97 @@ input.ltr{direction:ltr;text-align:left}
 const REP = 'الجمهورية الجزائرية الديمقراطية الشعبية';
 const SCHOOL_DEFAULT = 'مدرسة أحمد فقير';
 const TERMS = ['الأول', 'الثاني', 'الثالث'];
+const SCHOOL_FULL = 'المدرسة الابتدائية الشهيد أحمد فقير – أولاد يعيش';
+const DAYS = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+const MONTHS = { '01': 'جانفي', '02': 'فيفري', '03': 'مارس', '04': 'أفريل', '05': 'ماي', '06': 'جوان', '07': 'جويلية', '08': 'أوت', '09': 'سبتمبر', '10': 'أكتوبر', '11': 'نوفمبر', '12': 'ديسمبر' };
+const monthName = m => m ? `${MONTHS[m.slice(5, 7)]} ${m.slice(0, 4)}` : '';
+const LANGS = {
+  fr: { levels: [4, 5], name: 'اللغة الفرنسية', icon: 'Fr', exam: 'fe', doms: ['Expression et communication orales', 'Lecture et récitation', 'Production écrite'], examN: 'Examen',
+    t: { no: 'N°', name: 'Nom et prénom', ca: 'Moyenne de l’évaluation continue', ex: 'Examen', avg: 'Moyenne de la matière', ev: 'Évaluation continue', rep: 'République Algérienne Démocratique et Populaire', school: 'École primaire Chahid Ahmed Fakir – Ouled Yaïch',
+      title: (t, y) => `Évaluations continues – ${['1er', '2e', '3e'][t - 1]} trimestre ${y}`, sub: (l, g) => `Français – ${l}e année primaire – Groupe ${g} – Phase ${l <= 4 ? 2 : 3}`,
+      teacher: 'Enseignant(e)', sign: 'Signature', note: { 4: 'Note : 4e année primaire – l’évaluation des apprentissages au cours du premier trimestre se fait sous forme d’observations qualitatives descriptives reflétant le niveau d’acquisition des compétences de base.' } } },
+  en: { levels: [3, 4, 5], name: 'اللغة الإنجليزية', icon: 'En', exam: 'ee', doms: ['Oral expression and communication', 'Reading and recitation', 'Written production'], examN: 'Exam',
+    t: { no: 'No.', name: 'Surname and first name', ca: 'Continuous assessment average', ex: 'Exam', avg: 'Subject average', ev: 'Continuous assessment', rep: 'People’s Democratic Republic of Algeria', school: 'Chahid Ahmed Fakir Primary School – Ouled Yaich',
+      title: (t, y) => `Continuous Assessment – ${['First', 'Second', 'Third'][t - 1]} Term ${y}`, sub: (l, g) => `English – Year ${l} primary – Group ${g} – Phase ${l <= 4 ? 2 : 3}`,
+      teacher: 'Teacher', sign: 'Signature', note: { 3: 'Note: Year 3 primary – the evaluation of learning during the first term takes the form of descriptive qualitative notes reflecting the level of acquisition of the basic skills.' } } }
+};
+const CLASS_SUBS = ['ar', 'math', 'mu', 'pl'];
 function subjectsFor(level){
-  return [
+  const out = level >= 2 ? [
     { id: 'ar', name: 'اللغة العربية', icon: 'ع', exam: 'ae',
       domains: [{ f: 'a1', n: 'التعبير والتواصل الشفوي' }, { f: 'a2', n: 'القراءة والمحفوظات' }, { f: 'a3', n: level <= 2 ? 'الكتابة والإملاء' : 'الإنتاج الكتابي' }] },
     { id: 'math', name: 'الرياضيات', icon: '∑', exam: 'me',
       domains: [{ f: 'm1', n: 'الأعداد والحساب' }, { f: 'm2', n: 'المقادير والقياس' }, { f: 'm3', n: 'تنظيم المعطيات' }, { f: 'm4', n: 'الفضاء والهندسة' }] },
     { id: 'mu', name: 'التربية الموسيقية', icon: '♪', single: 'mu' },
     { id: 'pl', name: 'التربية التشكيلية', icon: '✎', single: 'pl' }
-  ];
+  ] : [];
+  for (const [id, L] of Object.entries(LANGS)) if (L.levels.includes(level)) {
+    const p = id[0];
+    out.push({ id, name: L.name, icon: L.icon, exam: L.exam, lang: id, examN: L.examN, domains: L.doms.map((n, k) => ({ f: p + (k + 1), n })) });
+  }
+  return out;
 }
-const itemsOf = s => s.single ? [{ f: s.single, n: 'العلامة' }] : [...s.domains, { f: s.exam, n: 'الاختبار', exam: true }];
+const subOf = (level, id) => subjectsFor(level).find(s => s.id === id);
+const itemsOf = s => s.single ? [{ f: s.single, n: 'العلامة' }] : [...s.domains, { f: s.exam, n: s.examN || 'الاختبار', exam: true }];
+const levelTag = l => l === 0 ? 'تح' : 'س' + l;
+const groupLat = g => g === 'ب' ? 'B' : 'A';
+const dmy = d => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ''); return m ? `${m[3]}/${m[2]}/${m[1]}` : (d || ''); };
+const dmyhm = s => s ? dmy(s) + (String(s).length > 10 ? ' ' + String(s).slice(11, 16) : '') : '';
+const dayOf = d => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ''); return m ? DAYS[new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], 12)).getUTCDay()] : ''; };
+function todayISO(){ const t = new Date(Date.now() + 3600e3); return t.toISOString().slice(0, 10); }
+function nextSchoolDay(){ let t = new Date(Date.now() + 3600e3 + 86400e3); while ([5, 6].includes(t.getUTCDay())) t = new Date(t.getTime() + 86400e3); return t.toISOString().slice(0, 10); }
 const IS_ARTIFACT = !!(window.claude && typeof window.claude.use === 'function');
 
+/* Icons: Font Awesome Free 6.4 by @fontawesome – https://fontawesome.com – License: CC BY 4.0 (https://fontawesome.com/license/free) */
 const I = {
-  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
-  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>',
-  pen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',
-  pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
-  xls: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/></svg>',
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
-  share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>',
-  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
-  install: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg>',
-  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
-  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>',
-  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.9-3M4 4v4h4M4 13a8 8 0 0 0 14.9 3M20 20v-4h-4"/></svg>'
+  back: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>',
+  trash: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/></svg>',
+  pen: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>',
+  pdf: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V304H176c-35.3 0-64 28.7-64 64V512H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM176 352h32c30.9 0 56 25.1 56 56s-25.1 56-56 56H192v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V448 368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24H192v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H304c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H320v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V432 368z"/></svg>',
+  xls: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z"/></svg>',
+  check: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>',
+  share: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/></svg>',
+  eye: '<svg class="ic" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg>',
+  install: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M16 64C16 28.7 44.7 0 80 0H304c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64H80V384H304V64z"/></svg>',
+  lock: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg>',
+  qr: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M0 80C0 53.5 21.5 32 48 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80zM64 96v64h64V96H64zM0 336c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336zm64 16v64h64V352H64zM304 32h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H304c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48zm80 64H320v64h64V96zM256 304c0-8.8 7.2-16 16-16h64c8.8 0 16 7.2 16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s7.2-16 16-16s16 7.2 16 16v96c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16s-7.2-16-16-16s-16 7.2-16 16v64c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V304zM368 480a16 16 0 1 1 0-32 16 16 0 1 1 0 32zm64 0a16 16 0 1 1 0-32 16 16 0 1 1 0 32z"/></svg>',
+  refresh: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H336c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V448c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H176c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z"/></svg>',
+  home: '<svg class="ic" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>',
+  classes: '<svg class="ic" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H544c53 0 96-43 96-96V96c0-53-43-96-96-96H96zM64 96c0-17.7 14.3-32 32-32H544c17.7 0 32 14.3 32 32V416c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V96zm159.8 80a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM96 309.3c0 14.7 11.9 26.7 26.7 26.7h56.1c8-34.1 32.8-61.7 65.2-73.6c-7.5-4.1-16.2-6.4-25.3-6.4H149.3C119.9 256 96 279.9 96 309.3zM461.2 336h56.1c14.7 0 26.7-11.9 26.7-26.7c0-29.5-23.9-53.3-53.3-53.3H421.3c-9.2 0-17.8 2.3-25.3 6.4c32.4 11.9 57.2 39.5 65.2 73.6zM372 289c-3.9-.7-7.9-1-12-1H280c-4.1 0-8.1 .3-12 1c-26 4.4-47.3 22.7-55.9 47c-2.7 7.5-4.1 15.6-4.1 24c0 13.3 10.7 24 24 24H408c13.3 0 24-10.7 24-24c0-8.4-1.4-16.5-4.1-24c-8.6-24.3-29.9-42.6-55.9-47zM512 176a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM320 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"/></svg>',
+  mine: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16z"/></svg>',
+  gear: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/></svg>',
+  moon: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>',
+  sun: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/></svg>',
+  admin: '<svg class="ic" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c1.8 0 3.5-.2 5.3-.5c-76.3-55.1-99.8-141-103.1-200.2c-16.1-4.8-33.1-7.3-50.7-7.3H178.3zm308.8-78.3l-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2c5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48c-5.7-2.3-12.1-2.3-17.8 0zM591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7V273.8L591.4 312z"/></svg>',
+  chev: '<svg class="ic" viewBox="0 0 320 512" aria-hidden="true"><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>',
+  math: '<svg class="ic" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M282.6 78.1c8-27.3 33-46.1 61.4-46.1H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H344L238.7 457c-3.6 12.3-14.1 21.2-26.8 22.8s-25.1-4.6-31.5-15.6L77.6 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H77.6c22.8 0 43.8 12.1 55.3 31.8l65.2 111.8L282.6 78.1zM393.4 233.4c12.5-12.5 32.8-12.5 45.3 0L480 274.7l41.4-41.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L525.3 320l41.4 41.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L480 365.3l-41.4 41.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L434.7 320l-41.4-41.4c-12.5-12.5-12.5-32.8 0-45.3z"/></svg>',
+  music: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z"/></svg>',
+  palette: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 3.4 .4 6.7 1 9.9c2.1 10.2 6.5 20 10.8 29.9c6.1 13.8 12.1 27.5 12.1 42c0 31.8-21.6 60.7-53.4 62c-3.5 .1-7 .2-10.6 .2C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm0-96a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 96a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>',
+  table: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M64 256V160H224v96H64zm0 64H224v96H64V320zm224 96V320H448v96H288zM448 256H288V160H448v96zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"/></svg>',
+  summon: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M215.4 96H144 107.8 96v8.8V144v40.4 89L.2 202.5c1.6-18.1 10.9-34.9 25.7-45.8L48 140.3V96c0-26.5 21.5-48 48-48h76.6l49.9-36.9C232.2 3.9 243.9 0 256 0s23.8 3.9 33.5 11L339.4 48H416c26.5 0 48 21.5 48 48v44.3l22.1 16.4c14.8 10.9 24.1 27.7 25.7 45.8L416 273.4v-89V144 104.8 96H404.2 368 296.6 215.4zM0 448V242.1L217.6 403.3c11.1 8.2 24.6 12.7 38.4 12.7s27.3-4.4 38.4-12.7L512 242.1V448v0c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64v0zM176 160H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>',
+  att: '<svg class="ic" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M304 240V16.6c0-9 7-16.6 16-16.6C443.7 0 544 100.3 544 224c0 9-7.6 16-16.6 16H304zM32 272C32 150.7 122.1 50.3 239 34.3c9.2-1.3 17 6.1 17 15.4V288L412.5 444.5c6.7 6.7 6.2 17.7-1.5 23.1C371.8 495.6 323.8 512 272 512C139.5 512 32 404.6 32 272zm526.4 16c9.3 0 16.6 7.8 15.4 17c-7.7 55.9-34.6 105.6-73.9 142.3c-6 5.6-15.4 5.2-21.2-.7L320 288H558.4z"/></svg>',
+  ok: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>',
+  draft: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z"/></svg>',
+  wait: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M32 0C14.3 0 0 14.3 0 32S14.3 64 32 64V75c0 42.4 16.9 83.1 46.9 113.1L146.7 256 78.9 323.9C48.9 353.9 32 394.6 32 437v11c-17.7 0-32 14.3-32 32s14.3 32 32 32H64 320h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V437c0-42.4-16.9-83.1-46.9-113.1L237.3 256l67.9-67.9c30-30 46.9-70.7 46.9-113.1V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320 64 32zM96 75V64H288V75c0 19-5.6 37.4-16 53H112c-10.3-15.6-16-34-16-53zm16 309c3.5-5.3 7.6-10.3 12.1-14.9L192 301.3l67.9 67.9c4.6 4.6 8.6 9.6 12.1 14.9H112z"/></svg>',
+  start: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M32 0C14.3 0 0 14.3 0 32S14.3 64 32 64V75c0 42.4 16.9 83.1 46.9 113.1L146.7 256 78.9 323.9C48.9 353.9 32 394.6 32 437v11c-17.7 0-32 14.3-32 32s14.3 32 32 32H64 320h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V437c0-42.4-16.9-83.1-46.9-113.1L237.3 256l67.9-67.9c30-30 46.9-70.7 46.9-113.1V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320 64 32zM288 437v11H96V437c0-25.5 10.1-49.9 28.1-67.9L192 301.3l67.9 67.9c18 18 28.1 42.4 28.1 67.9z"/></svg>',
+  edited: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>',
+  send: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>',
+  mail: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>',
+  mailok: '<svg class="ic" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0l57.4-43c23.9-59.8 79.7-103.3 146.3-109.8l13.9-10.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176V384c0 35.3 28.7 64 64 64H360.2C335.1 417.6 320 378.5 320 336c0-5.6 .3-11.1 .8-16.6l-26.4 19.8zM640 336a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L480 353.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z"/></svg>',
+  cal: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z"/></svg>',
+  clock: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>',
+  archive: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M32 32H480c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H32C14.3 128 0 113.7 0 96V64C0 46.3 14.3 32 32 32zm0 128H480V416c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V160zm128 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z"/></svg>',
+  no: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>',
+  reply: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M205 34.8c11.5 5.1 19 16.6 19 29.2v64H336c97.2 0 176 78.8 176 176c0 113.3-81.5 163.9-100.2 174.1c-2.5 1.4-5.3 1.9-8.1 1.9c-10.9 0-19.7-8.9-19.7-19.7c0-7.5 4.3-14.4 9.8-19.5c9.4-8.8 22.2-26.4 22.2-56.7c0-53-43-96-96-96H224v64c0 12.6-7.4 24.1-19 29.2s-25 3-34.4-5.4l-160-144C3.9 225.7 0 217.1 0 208s3.9-17.7 10.6-23.8l160-144c9.4-8.5 22.9-10.6 34.4-5.4z"/></svg>',
+  cloud: '<svg class="ic" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"/></svg>',
+  info: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>',
+  x: '<svg class="ic" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>',
+  bell: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>',
+  inbox: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M121 32C91.6 32 66 52 58.9 80.5L1.9 308.4C.6 313.5 0 318.7 0 323.9V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V323.9c0-5.2-.6-10.4-1.9-15.5l-57-227.9C446 52 420.4 32 391 32H121zm0 64H391l48 192H387.8c-12.1 0-23.2 6.8-28.6 17.7l-14.3 28.6c-5.4 10.8-16.5 17.7-28.6 17.7H195.8c-12.1 0-23.2-6.8-28.6-17.7l-14.3-28.6c-5.4-10.8-16.5-17.7-28.6-17.7H73L121 96z"/></svg>',
+  pupil: '<svg class="ic" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M219.3 .5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128s-128-57.3-128-128V102.9L48 93.3v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3s-7.6 5.9-12.4 5.9H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64C0 52.6 8.1 42.7 19.3 40.5l200-40zM111.9 327.7c10.5-3.4 21.8 .4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5C401 348.6 448 409.4 448 481.3c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z"/></svg>',
+  warn: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>',
+  down: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>',
+  download: '<svg class="ic" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>'
 };
 
 /* ---------- local storage (this phone only) ---------- */
@@ -344,9 +586,9 @@ function linkParamsFor(api){ const d = depOf(api); return d ? 's=' + d : 'u=' + 
 const appBase = () => location.origin + location.pathname;
 
 /* ---------- server calls ---------- */
-async function api(url, body){
+async function api(url, body, ms = 25000){
   if (!url) throw new Error('no_server');
-  const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 25000);
+  const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), ms);
   try {
     const r = await fetch(url, { method: 'POST', body: JSON.stringify(body), signal: ctl.signal });
     const j = await r.json();
@@ -357,6 +599,13 @@ const errText = e => {
   const m = String(e && (e.error || e.message) || e);
   if (m === 'bad_token') return 'رمز القسم غير صالح. اطلب رمزاً جديداً من المدير';
   if (m === 'bad_key') return 'مفتاح المدير غير صحيح';
+  const more = { unknown_action: 'يجب تحديث الخادم (Apps Script) إلى الإصدار الجديد', bad_teacher: 'سجّل اسمك ورقم هاتفك أولاً', past_date: 'اختر تاريخاً قادماً',
+    weekend: 'يوما الجمعة والسبت عطلة، اختر يوماً آخر', bad_reason: 'اكتب سبب الاستدعاء', bad_rate: 'اكتب نسبة بين 0 و100', bad_month: 'الشهر خارج السنة الدراسية',
+    not_class_teacher: 'نسبة الحضور يرسلها أستاذ القسم فقط', bad_pupil: 'اختر التلميذ', bad_date: 'اختر التاريخ والساعة', not_found: 'الطلب غير موجود',
+    mail_limit: 'بلغت حد الإرسال لهذا الجدول اليوم، حاول غداً', mail_quota: 'بلغ البريد حدّه اليومي، حاول غداً', too_big: 'الملفان كبيران جداً للإرسال',
+    bad_files: 'تعذّر إرفاق الملفين', no_mail: 'لم يُحدَّد بريد الاستلام في ورقة «الإعدادات»', bad_subject: 'هذا الجدول لا يخص مادتك', bad_class: 'القسم غير موجود' };
+  if (more[m]) return more[m];
+  if (/MailApp|send_mail|permission|صلاحي|أذونات|authoriz/i.test(m)) return 'إرسال البريد غير مفعّل بعد في الخادم. يجب على المدير تشغيل authorizeMail مرة واحدة في Apps Script';
   if (/fetch|network|abort|Failed/i.test(m)) return 'لا يوجد اتصال بالإنترنت';
   return 'حدث خطأ: ' + m;
 };
@@ -425,9 +674,11 @@ function ctxOf(i){
   const entry = classes[i], c = cacheOf(entry.k);
   if (!c) return null;
   const p = pendOf(entry.k, c.term).items;
+  const allowed = c.allowed || CLASS_SUBS;
   return {
     k: entry.k, i, c, term: c.term, year: c.year, school: c.school || SCHOOL_DEFAULT, cls: c.cls, students: c.students,
-    subjects: subjectsFor(c.cls.level), teacher: me ? me.name : '',
+    kind: c.kind || 'class', lang: c.lang || '', allowed,
+    subjects: subjectsFor(c.cls.level).filter(s => allowed.includes(s.id)), teacher: me ? me.name : '',
     get(sid, f){ const key = sid + '|' + f; if (key in p) return p[key]; const m = c.marks[sid]; return m && m[f] != null ? m[f] : null; }
   };
 }
@@ -484,6 +735,7 @@ function handleLink(text){
   const h = String(text || '').split('#')[1] || '';
   const p = parseParams(h);
   if (p.k){ const i = addClass(p.k, apiFromParams(p)); toast('تمت إضافة القسم'); go(me ? 'cls-' + i : 'reg'); return true; }
+  if (p.f){ store.set('tq:addf', { f: p.f, api: apiFromParams(p) }); go('addf'); return true; }
   if (p.admin){ store.set('tq:admin', { api: apiFromParams(p), key: p.admin }); go('dash'); return true; }
   toast('هذا الرمز لا يخص المنصة'); return false;
 }
@@ -530,27 +782,58 @@ function route(keep){
   const h = location.hash.replace('#', '');
   const [v, a, b] = h.split('-');
   closeSheet();
-  if (keep !== true) window.scrollTo(0, 0);
+  if (keep !== true){ window.scrollTo(0, 0); document.body.classList.remove('scrolled'); }
+  document.body.classList.remove('has-nav');
+  stopPoll();
   if (v === 'admin') return viewAdminLogin();
   if (v === 'dash') return viewDash();
   if (v === 'aexp') return viewAdminExport(h.slice(5));
+  if (v === 'inbox') return viewInbox(a || 'sum');
+  if (v === 'addf') return viewAddLang();
   if (!me || v === 'reg') return viewReg();
   if (v === 'cls' && classes[+a]) return viewClass(+a);
   if (v === 'grade' && classes[+a]) return viewGrade(+a, b);
   if (v === 'exp' && classes[+a]) return viewExport(+a);
+  if (v === 'sum' && classes[+a]) return viewSummon(+a);
+  if (v === 'att' && classes[+a]) return viewAttendance(+a);
+  if (v === 'mine') return viewMine();
   return viewHome();
 }
 window.addEventListener('hashchange', () => route());
 
-function headBand(school){
-  return `<header class="home-head"><div class="wrap"><p class="rep">${esc(REP)}</p><p class="sch">${esc(school || SCHOOL_DEFAULT)}</p></div></header>`;
+/* ---------- المظهر: فاتح أو داكن (يُحفظ في الهاتف) ---------- */
+const isDark = () => { const t = document.documentElement.getAttribute('data-theme'); return t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); };
+function themeMeta(){ const m = document.querySelector('meta[name="theme-color"]'); if (m) m.setAttribute('content', isDark() ? '#0b131d' : '#f0f7fb'); }
+function toggleTheme(){
+  const t = isDark() ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t); store.set('tq:theme', t); themeMeta();
+  const b = $('#themeBtn'); if (b){ b.innerHTML = isDark() ? I.sun : I.moon; b.setAttribute('aria-label', isDark() ? 'الوضع الفاتح' : 'الوضع الداكن'); }
 }
+function headBand(school){
+  return `<header class="head"><button class="icon-btn theme" id="themeBtn" type="button" data-act="theme" aria-label="${isDark() ? 'الوضع الفاتح' : 'الوضع الداكن'}">${isDark() ? I.sun : I.moon}</button>
+    <div class="logo"><img src="logo-mne.webp" alt="شعار وزارة التربية الوطنية" width="90" height="90"></div>
+    <p class="rep">${esc(REP)}</p><p class="sch">${esc(school || SCHOOL_DEFAULT)}</p></header>`;
+}
+// شريط علوي ثابت وعنوان كبير؛ يظهر العنوان الصغير في الشريط بعد التمرير
 function topbar(title, sub, parent, extra = ''){
   return `<header class="topbar"><div class="bar">
     <button class="icon-btn" type="button" data-back="${parent}" aria-label="رجوع">${I.back}</button>
     <div class="t"><h1>${esc(title)}</h1><p>${esc(sub)}</p></div>${extra}
-  </div></header>`;
+  </div></header><div class="ttl"><h1>${esc(title)}</h1>${sub ? `<p>${esc(sub)}</p>` : ''}</div>`;
 }
+// شريط التنقل السفلي: الرئيسية، أقسامي، طلباتي، الإعدادات
+function bottomNav(cur){
+  document.body.classList.add('has-nav');
+  const items = [['home', I.home, 'الرئيسية'], ['hC', I.classes, 'أقسامي'], ['mine', I.mine, 'طلباتي'], ['hS', I.gear, 'الإعدادات']];
+  return `<nav class="bnav" aria-label="التنقل"><div class="in">${items.map(([k, ic, n]) => `<button type="button" data-act="nav" data-t="${k}" ${k === cur ? 'aria-current="page"' : ''}>${ic}${n}</button>`).join('')}</div></nav>`;
+}
+function navTo(t){
+  if (t === 'mine'){ if (curView() !== 'mine') go('mine'); return; }
+  const scroll = () => { const el = t === 'home' ? null : document.getElementById(t); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); else window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  if (curView() === 'home') scroll(); else { pendingScroll = t; location.hash = 'home'; }
+}
+let pendingScroll = null;
+window.addEventListener('scroll', () => document.body.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
 
 /* =========================================================
    1) التسجيل: الاسم ورقم الهاتف
@@ -558,8 +841,8 @@ function topbar(title, sub, parent, extra = ''){
 function viewReg(){
   document.title = 'التسجيل';
   app.innerHTML = `${headBand()}
-  <div class="wrap lift"><form class="panel form" id="regForm" novalidate>
-    <div><h1 class="hello">مرحباً بك في منصة التقويم المستمر</h1><p class="muted">سجّل باسمك ورقم هاتفك لتبدأ صب النقاط.</p></div>
+  <div class="wrap lift"><form class="panel form glow" id="regForm" novalidate>
+    <div><p class="wel">مرحباً بك،</p><h1 class="hello">منصة <b>التقويم المستمر</b></h1><p class="muted" style="font-size:13px;margin-top:4px">سجّل باسمك ورقم هاتفك لتبدأ صب النقاط.</p></div>
     <label class="fld" for="rName">الاسم واللقب
       <input type="text" id="rName" autocomplete="name" value="${esc(me ? me.name : '')}" placeholder="مثال: بن علي فاطمة">
       <span class="err" id="eName" hidden></span></label>
@@ -570,7 +853,7 @@ function viewReg(){
     <button class="btn primary big" type="submit">${I.check}دخول</button>
     <p class="safe">${I.lock}<span>يُستعمل اسمك ورقمك لتسجيل من صبّ النقاط في جدول المدرسة فقط.</span></p>
   </form>
-  <div class="foot"><a class="btn link" href="#admin">دخول المدير</a></div></div>`;
+  <div class="foot"><a class="btn link" href="#admin">${I.admin}دخول المدير</a></div></div>`;
   const nm = $('#rName'), ph = $('#rPhone'), gr = $('#greet');
   const upd = () => { const n = nm.value.trim(); gr.hidden = n.length < 2; gr.textContent = `نهارك زين يا ${n}`; $('#eName').hidden = true; };
   nm.addEventListener('input', upd); upd();
@@ -597,30 +880,36 @@ function viewHome(){
   document.title = 'التقويم المستمر';
   const showInstall = canOfferInstall() && !store.get('tq:noInstall');
   const school = (classes[0] && cacheOf(classes[0].k) && cacheOf(classes[0].k).school) || SCHOOL_DEFAULT;
+  const tileOf = (c, cc) => c.lang ? `<span class="tile ${c.lang === 'fr' ? 't-rose' : 't-indigo'} lat">${LANGS[c.lang].icon}</span>` : `<span class="tile t-sky">${cc ? levelTag(cc.cls.level) : '…'}</span>`;
   app.innerHTML = `${headBand(school)}
   <div class="wrap">
-    <section class="panel lift">
-      <h1 class="hello">نهارك زين يا <b>${esc(me.name)}</b></h1>
-      <p class="muted">${classes.length ? 'اختر القسم لصب النقاط.' : 'امسح رمز QR الخاص بقسمك ليظهر لك تلاميذك.'}</p>
+    <section class="panel glow lift">
+      <div><p class="wel">مرحباً مجدداً،</p><h1 class="hello">نهارُك زين يا <b>${esc(me.name)}</b></h1>
+      <p class="muted" style="font-size:13px;margin-top:4px">${classes.length ? 'اختر القسم لصب النقاط.' : 'امسح رمز QR الخاص بقسمك ليظهر لك تلاميذك وتسجّل علاماتهم.'}</p></div>
       ${classes.length ? '' : `<button class="btn primary big" type="button" data-act="scan">${I.qr}مسح رمز القسم</button>`}
     </section>
     ${classes.length ? `<section class="sec" aria-labelledby="hC"><h2 id="hC">أقسامي</h2>
-      ${classes.map((c, i) => { const cc = cacheOf(c.k); return `<button class="class-item" type="button" data-go="cls-${i}">
-        <span class="ic" aria-hidden="true">${cc ? 'س' + cc.cls.level : '…'}</span>
-        <span class="grow"><h3>${esc(cc ? cc.cls.label : 'قسم جديد')}</h3><p>${cc ? `${cc.students.length} تلميذاً · الفصل ${TERMS[cc.term - 1]}` : 'اضغط لتحميل قائمة التلاميذ'}</p></span>
-        ${I.back.replace('M9 5l7 7-7 7', 'M15 5l-7 7 7 7')}</button>`; }).join('')}
-      <button class="btn ghost" type="button" data-act="scan">${I.qr}إضافة قسم آخر بمسح رمزه</button></section>` : ''}
-    ${showInstall ? `<section class="sec"><div class="install-card"><img src="icon-192.png" alt="" width="44" height="44">
-      <p>ثبّت التطبيق ليظهر كأيقونة في هاتفك.</p>
+      <div class="lcard">${classes.map((c, i) => { const cc = cacheOf(c.k), L = c.lang ? LANGS[c.lang] : null; return `<button class="class-item" type="button" data-go="cls-${i}">
+        ${tileOf(c, cc)}
+        <span class="grow"><h3>${esc(cc ? cc.cls.label : (c.label || 'قسم جديد'))}</h3><p>${L ? esc(L.name) + ' · ' : ''}${cc ? `${cc.students.length} تلميذاً · الفصل ${TERMS[cc.term - 1]}` : 'اضغط لتحميل قائمة التلاميذ'}</p></span>
+        ${I.chev}</button>`; }).join('')}</div>
+      <button class="btn ghost" type="button" data-act="scan">${I.qr}إضافة قسم آخر بمسح رمزه</button></section>
+      <section class="sec" aria-labelledby="hR"><h2 id="hR">الطلبات</h2>
+        <div class="reqs">
+          <button class="reqbtn wide" type="button" data-go="mine"><span class="tile t-indigo">${I.mine}</span><span><b>طلباتي</b><small>حالة طلبات الاستدعاء وردّ المدير</small></span>${I.chev.replace('class="ic"', 'class="ic go"')}</button>
+        </div></section>` : ''}
+    ${showInstall ? `<section class="sec"><div class="install-card"><span class="tile t-sky">${I.install}</span>
+      <p>ثبّت التطبيق<small>ليظهر كأيقونة في هاتفك.</small></p>
       <button class="btn primary small" type="button" data-act="install">تثبيت</button>
-      <button class="icon-btn" type="button" data-act="noinstall" aria-label="إخفاء">✕</button></div></section>` : ''}
+      <button class="icon-btn" type="button" data-act="noinstall" aria-label="إخفاء">${I.x}</button></div></section>` : ''}
     <section class="sec" aria-labelledby="hS"><h2 id="hS">الإعدادات</h2>
       <div class="setting"><p>${esc(me.name)}<small dir="ltr" style="text-align:right">${esc(me.phone)}</small></p><a class="btn small" href="#reg">${I.pen}تعديل</a></div>
       <div class="setting"><p>مقدار الزيادة والنقصان (+ / −)<small>يُضاف إلى العلامة أو يُطرح منها عند كل ضغطة</small></p>
         <div class="seg" role="group" aria-label="مقدار الخطوة">${[0.25, 0.5, 1].map(v => `<button type="button" data-step="${v}" aria-pressed="${getStep() === v}">${v}</button>`).join('')}</div></div>
     </section>
-    <div class="foot"><a class="btn link" href="#admin">دخول المدير</a></div>
-  </div>`;
+    <div class="foot"><a class="btn link" href="#admin">${I.admin}دخول المدير</a></div>
+  </div>${classes.length ? bottomNav('home') : ''}`;
+  if (pendingScroll){ const t = pendingScroll; pendingScroll = null; setTimeout(() => navTo(t), 30); }
 }
 
 /* =========================================================
@@ -644,22 +933,31 @@ async function viewClass(i){
   renderClass(i);
   scheduleSync(entry.k, 200);
 }
+// أيقونة كل مادة ولون مربعها
+const SUBJ_LOOK = { ar: ['t-emerald', 'ع'], math: ['t-sky', 'math'], mu: ['t-amber', 'music'], pl: ['t-rose', 'palette'], fr: ['t-rose', 'Fr'], en: ['t-indigo', 'En'] };
+const subjTile = s => { const L = SUBJ_LOOK[s.id] || ['t-sky', s.icon]; return `<span class="tile ${L[0]}${s.lang ? ' lat' : ''}">${I[L[1]] || esc(L[1])}</span>`; };
+const pillIcon = { ok: I.ok, warn: I.edited, draft: I.draft };
 function renderClass(i, keep){
   const ctx = ctxOf(i);
   document.title = ctx.cls.label;
   const y = keep ? window.scrollY : 0;
   app.innerHTML = `
   ${topbar(ctx.cls.label, `الفصل ${TERMS[ctx.term - 1]} ${ctx.year}`, 'home', `<span class="sync" id="syncFlag" data-k="${ctx.k}"></span>`)}
-  <div class="wrap" style="padding:14px 16px 40px;display:grid;gap:12px">
-    <div class="chips"><span class="chip">${esc(ctx.cls.phase)}</span><span class="chip">${ctx.students.length} تلميذاً</span><span class="chip">الأستاذ(ة): ${esc(me.name)}</span></div>
+  <div class="wrap" style="padding-bottom:40px;display:grid;gap:12px">
+    <div class="chips"><span class="chip">${esc(ctx.lang ? LANGS[ctx.lang].name : ctx.cls.phase)}</span><span class="chip">${ctx.students.length} تلميذاً</span><span class="chip">الأستاذ(ة): ${esc(me.name)}</span></div>
     ${ctx.subjects.map(s => { const st = stats(ctx, s), ss = subStatus(ctx, s); return `<button class="subj" type="button" data-go="grade-${i}-${s.id}">
-      <div class="h"><span class="ic" aria-hidden="true">${s.icon}</span><h3>${esc(s.name)}</h3><span class="pill ${ss.cls}">${ss.txt}</span></div>
+      <div class="h">${subjTile(s)}<h3>${esc(s.name)}</h3><span class="pill ${ss.cls}">${ss.cls === 'draft' && !st.filled ? I.start : pillIcon[ss.cls]}${ss.txt}</span></div>
       <div class="prog ${st.filled === st.needed ? 'full' : ''}" aria-hidden="true"><i style="width:${st.needed ? (st.filled / st.needed * 100).toFixed(1) : 0}%"></i></div>
       <div class="meta"><span>${st.filled} من ${st.needed} علامة</span><span>${s.single ? 'علامة واحدة' : `${s.domains.length} ميادين + الاختبار`}</span></div>
     </button>`; }).join('')}
-    <div class="card"><div class="row"><b class="grow">الجدول الموحّد للقسم</b></div>
-      <p class="muted" style="font-size:13px">اللغة العربية والرياضيات والتربية الموسيقية والتشكيلية في جدول واحد، A4 بالعرض.</p>
-      <button class="btn primary" type="button" data-go="exp-${i}">${I.eye}المعاينة والتصدير</button></div>
+    ${ctx.subjects.length ? `<div class="card"><div class="tbl-card"><span class="tile t-sky">${I.table}</span><div class="grow"><h3>${ctx.lang ? 'جدول ' + esc(LANGS[ctx.lang].name) : 'الجدول الموحّد للقسم'}</h3>
+      <p>${ctx.lang ? 'الميادين الثلاثة ومعدل التقويم المستمر والاختبار ومعدل المادة، A4 بالطول.' : 'اللغة العربية والرياضيات والتربية الموسيقية والتشكيلية في جدول واحد، A4 بالعرض.'}</p></div></div>
+      <button class="btn primary" type="button" data-go="exp-${i}">${I.eye}المعاينة والتصدير والإرسال</button></div>` : `<p class="note">${I.info}<span>لا يوجد صب نقاط لهذا المستوى في المنصة. يمكنك إرسال طلبات الاستدعاء ونسبة الحضور الشهرية.</span></p>`}
+    <section class="sec" style="margin-top:8px"><h2>طلبات القسم</h2>
+      <div class="reqs">
+        <button class="reqbtn ${ctx.kind === 'class' ? '' : 'wide'}" type="button" data-go="sum-${i}"><span class="tile t-amber">${I.summon}</span>${ctx.kind === 'class' ? I.chev.replace('class="ic"', 'class="ic go"') : ''}<span><b>طلب استدعاء ولي تلميذ</b><small>تكتب السبب وتختار اليوم والساعة</small></span>${ctx.kind === 'class' ? '' : I.chev.replace('class="ic"', 'class="ic go"')}</button>
+        ${ctx.kind === 'class' ? `<button class="reqbtn" type="button" data-go="att-${i}"><span class="tile t-emerald">${I.att}</span>${I.chev.replace('class="ic"', 'class="ic go"')}<span><b>نسبة الحضور الشهرية</b><small>تكتب نسبة الحضور فقط</small></span></button>` : ''}
+      </div></section>
     <button class="btn ghost" type="button" data-act="refresh" data-i="${i}">${I.refresh}تحديث من جدول المدرسة</button>
   </div>`;
   setSync(ctx.k, syncState[ctx.k] || (hasPend(ctx.k) ? 'pending' : 'ok'));
@@ -676,7 +974,7 @@ function viewGrade(i, sid){
   const items = itemsOf(sub), d = Math.min(ui.tab[i + sid] || 0, items.length - 1);
   document.title = sub.name;
   app.innerHTML = `
-  <div class="topbar">
+  <div class="topbar solid">
     <div class="bar">
       <button class="icon-btn" type="button" data-back="cls-${i}" aria-label="رجوع">${I.back}</button>
       <div class="t"><h1>${esc(sub.name)}</h1><p>${esc(ctx.cls.label)}</p></div>
@@ -684,7 +982,7 @@ function viewGrade(i, sid){
     </div>
     ${items.length > 1 ? `<div class="tabs" role="tablist" aria-label="الميادين" style="--n:${items.length}" id="tabs">${tabsHTML(ctx, sub, d)}</div>` : ''}
   </div>
-  <p class="dom-now" id="domNow">${items.length > 1 ? `${items[d].exam ? '' : 'الميدان: '}<b>${esc(items[d].n)}</b>` : `<b>${esc(sub.name)}</b>: علامة واحدة لكل تلميذ`}</p>
+  <div class="dom-now" style="margin-top:12px"><span id="domNow">${items.length > 1 ? `${items[d].exam ? '' : 'الميدان: '}<b>${esc(items[d].n)}</b>` : `<b>${esc(sub.name)}</b>: علامة واحدة لكل تلميذ`}</span></div>
   <div class="list" id="list">${ctx.students.map((s, k) => cardHTML(ctx, k, s, items[d].f)).join('')}</div>
   <div class="bottombar"><div class="in"><div class="sum" id="sum">${sumHTML(ctx, sub, d)}</div>
     <button class="btn ok" type="button" data-act="confirm">${I.check}تأكيد الحفظ</button></div></div>`;
@@ -697,13 +995,13 @@ function tabsHTML(ctx, sub, cur){
 }
 function sumHTML(ctx, sub, d){
   const st = stats(ctx, sub);
-  return `<b>${st.per[d]} / ${st.n}</b> في هذه الخانة<br>المجموع: ${st.filled} / ${st.needed} علامة`;
+  return `<b class="lat">${st.per[d]} / ${st.n}</b> في هذه الخانة<br>المجموع: <span class="lat">${st.filled} / ${st.needed}</span> علامة`;
 }
 function cardHTML(ctx, k, s, f){
   const v = ctx.get(s.id, f), on = v == null ? null : Math.floor(v), step = getStep();
   const keys = Array.from({ length: 10 }, (_, x) => x + 1).map(x => `<button class="key ${on === x ? 'on' : ''}" type="button" data-act="set" data-v="${x}" aria-pressed="${on === x}">${x}</button>`).join('');
   return `<article class="st ${v == null ? '' : 'done'}" data-s="${esc(s.id)}" data-k="${k}" aria-label="${esc(s.n)}">
-    <div class="st-head"><span class="num">${k + 1}</span><h3 class="name">${esc(s.n)}</h3>
+    <div class="st-head"><span class="num">${k + 1}</span><h3 class="name">${esc(s.n)}${ctx.lang && s.l ? `<small dir="ltr" style="display:block;font:600 12.5px var(--ui);color:var(--muted);text-align:right">${esc(s.l)}</small>` : ''}</h3>
       <output class="badge ${v == null ? 'empty' : ''}" aria-label="العلامة">${v == null ? '—' : fmt(v)}</output>
       <button class="icon-btn del" type="button" data-act="del" aria-label="حذف العلامة" ${v == null ? 'disabled' : ''}>${I.trash}</button></div>
     <div class="st-body"><div class="keys" role="group" aria-label="العلامة من 1 إلى 10">${keys}</div>
@@ -722,9 +1020,9 @@ function refreshCard(ctx, sub, d, sid){
 async function confirmSave(i, sid){
   const ctx = ctxOf(i), sub = ctx.subjects.find(s => s.id === sid), st = stats(ctx, sub), items = itemsOf(sub);
   const box = sheet(`<h2>تأكيد حفظ ${esc(sub.name)}</h2>
-    <ul class="dl">${items.map((it, d) => `<li class="${st.per[d] === st.n ? 'ok' : 'warn'}"><span>${esc(it.n)}</span><b>${st.per[d]}/${st.n}</b></li>`).join('')}</ul>
-    ${st.filled < st.needed ? `<p class="note">بقيت ${st.needed - st.filled} خانة بدون علامة. يمكنك التأكيد الآن وإكمالها لاحقاً.</p>` : ''}
-    <div class="acts"><button class="btn ok" type="button" id="cfYes">${I.check}تأكيد وإرسال إلى المدرسة</button>
+    <ul class="dl">${items.map((it, d) => `<li class="${st.per[d] === st.n ? 'ok' : 'warn'}"><span>${esc(it.n)}</span><b class="lat">${st.per[d] === st.n ? I.ok : ''}${st.per[d]}/${st.n}</b></li>`).join('')}</ul>
+    ${st.filled < st.needed ? `<p class="note">${I.info}<span>بقيت ${st.needed - st.filled} خانة بدون علامة. يمكنك التأكيد الآن وإكمالها لاحقاً.</span></p>` : ''}
+    <div class="acts"><button class="btn ok big" type="button" id="cfYes">${I.cloud}تأكيد وإرسال إلى المدرسة</button>
       <button class="btn" type="button" data-close="1">متابعة صب النقاط</button></div>`);
   box.querySelector('#cfYes').onclick = async () => {
     closeSheet(); busy(true, 'جارٍ الإرسال إلى جدول المدرسة…');
@@ -752,23 +1050,147 @@ try { canShareFiles = !IS_ARTIFACT && !!(navigator.canShare && navigator.canShar
 
 function viewExport(i){
   const ctx = ctxOf(i); if (!ctx) return go('cls-' + i);
-  document.title = 'الجدول الموحّد';
+  const which = ctx.lang || 'main', title = ctx.lang ? 'جدول ' + LANGS[ctx.lang].name : 'الجدول الموحّد';
+  document.title = title;
   const lines = ctx.subjects.map(s => { const st = stats(ctx, s); return { s, miss: st.needed - st.filled, ss: subStatus(ctx, s) }; });
   app.innerHTML = `
-  ${topbar('الجدول الموحّد', ctx.cls.label, 'cls-' + i)}
+  ${topbar(title, ctx.cls.label, 'cls-' + i)}
   <div class="wrap"><div class="exp">
     <div class="card">
-      <ul class="dl">${lines.map(x => `<li class="${x.miss ? 'warn' : 'ok'}"><span>${esc(x.s.name)} <span class="pill ${x.ss.cls}">${x.ss.txt}</span></span><b>${x.miss ? x.miss + ' ناقصة' : 'مكتمل'}</b></li>`).join('')}</ul>
-      <div class="row-btns">
-        <button class="btn primary" type="button" data-act="pdf" data-i="${i}">${I.pdf}تنزيل PDF</button>
-        <button class="btn primary" type="button" data-act="xlsx" data-i="${i}">${I.xls}تنزيل Excel</button></div>
-      ${canShareFiles ? `<div class="row-btns"><button class="btn" type="button" data-act="share-pdf" data-i="${i}">${I.share}مشاركة PDF</button>
-        <button class="btn" type="button" data-act="share-xlsx" data-i="${i}">${I.share}مشاركة Excel</button></div>` : ''}
+      <ul class="dl">${lines.map(x => `<li class="${x.miss ? 'warn' : 'ok'}"><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${esc(x.s.name)} <span class="pill ${x.ss.cls}">${x.ss.txt}</span></span><b>${x.miss ? x.miss + ' ناقصة' : 'مكتمل'}</b></li>`).join('')}</ul>
     </div>
-    <div class="card"><p class="lbl">معاينة الجدول كما سيُطبع (A4 بالعرض)</p>
-      <div id="pv">${docPages(ctx).map(p => `<div class="pv">${p}</div>`).join('')}</div></div>
+    <div class="fmt">
+      <button class="btn primary" type="button" data-act="pdf" data-i="${i}">${I.pdf}تنزيل PDF<small>للطباعة</small></button>
+      <button class="btn xl" type="button" data-act="xlsx" data-i="${i}">${I.xls}تنزيل Excel<small>الخانات الفارغة بالبرتقالي</small></button></div>
+    ${canShareFiles ? `<div class="row-btns"><button class="btn" type="button" data-act="share-pdf" data-i="${i}">${I.share}مشاركة PDF</button>
+      <button class="btn" type="button" data-act="share-xlsx" data-i="${i}">${I.share}مشاركة Excel</button></div>` : ''}
+    ${mailCard(ctx.c, which, `data-act="mail" data-i="${i}"`)}
+    <div class="card"><p class="lbl">${I.eye} معاينة الجدول كما سيُطبع (A4 ${which === 'main' ? 'بالعرض' : 'بالطول'})</p>
+      <div id="pv">${pagesOf(ctx, which).map(p => `<div class="pv">${p}</div>`).join('')}</div></div>
   </div></div>`;
   fitPreview();
+}
+
+/* =========================================================
+   إرسال الجدول النهائي إلى بريد المدرسة (PDF + Excel في رسالة واحدة)
+   ========================================================= */
+function mailCard(c, which, attrs){
+  const last = c && c.mailed && c.mailed[which];
+  return `<section class="card mailbox">
+    <div class="row"><span class="tile t-violet">${I.mail}</span><div class="grow"><h3>إرسال الجدول النهائي عبر البريد</h3>
+      <p class="muted">يصل ملف PDF وملف Excel معاً إلى بريد المدرسة${c && c.mailTo ? ` <bdi dir="ltr">${esc(c.mailTo)}</bdi>` : ''}.</p></div></div>
+    ${last ? `<p class="sent">${I.mailok}<span>آخر إرسال: <bdi dir="ltr">${esc(dmyhm(last.at))}</bdi> · ${esc(last.by)}</span></p>` : ''}
+    <button class="btn primary big" type="button" ${attrs}>${I.send}${last ? 'إعادة الإرسال إلى البريد' : 'إرسال PDF و Excel إلى البريد'}</button>
+  </section>`;
+}
+const missingOf = (ctx, which) => ctx.subjects.filter(s => which === 'main' ? CLASS_SUBS.includes(s.id) : s.id === which).reduce((n, s) => { const st = stats(ctx, s); return n + st.needed - st.filled; }, 0);
+const blobB64 = blob => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1] || ''); r.onerror = rej; r.readAsDataURL(blob); });
+function tableFiles(ctx, which){
+  const main = which === 'main';
+  const base = main ? fileBase(ctx) : `تقويم_${which === 'fr' ? 'الفرنسية' : 'الإنجليزية'}_س${ctx.cls.level}_${ctx.cls.group}_ف${ctx.term}`;
+  return { pdf: base + '.pdf', xlsx: base + '.xlsx' };
+}
+// admin: { id, api, key } عند الإرسال من لوحة المدير
+function mailSheet(ctx, which, admin){
+  const miss = missingOf(ctx, which), f = tableFiles(ctx, which), to = ctx.c && ctx.c.mailTo;
+  const box = sheet(`<h2>إرسال الجدول النهائي</h2><p class="muted">${esc(ctx.cls.label)} · الفصل ${TERMS[ctx.term - 1]}</p>
+    <div class="files"><div>${I.pdf.replace('class="ic"', 'class="ic p"')}<bdi dir="ltr">${esc(f.pdf)}</bdi></div><div>${I.xls.replace('class="ic"', 'class="ic x"')}<bdi dir="ltr">${esc(f.xlsx)}</bdi></div></div>
+    ${to ? `<p class="muted" style="font-size:13px">إلى: <bdi dir="ltr">${esc(to)}</bdi></p>` : ''}
+    ${miss ? `<p class="note">${I.warn}<span>الجدول غير مكتمل: بقيت ${miss} خانة بدون علامة. يمكنك الإرسال الآن، وتُذكر الخانات الناقصة في الرسالة.</span></p>`
+           : `<p class="safe">${I.ok}<span>الجدول مكتمل.</span></p>`}
+    <div class="acts"><button class="btn primary big" type="button" id="mlGo">${I.send}إرسال الآن</button><button class="btn" type="button" data-close="1">إلغاء</button></div>`);
+  box.querySelector('#mlGo').onclick = () => { closeSheet(); sendTables(ctx, which, admin, miss); };
+}
+async function sendTables(ctx, which, admin, miss){
+  const main = which === 'main', f = tableFiles(ctx, which);
+  try {
+    if (!admin){ busy(true, 'جارٍ حفظ العلامات في جدول المدرسة…'); await syncNow(ctx.k); }
+    busy(true, 'جارٍ إعداد ملف PDF…');
+    const pdf = await renderPDF(pagesOf(ctx, which), main, `التقويمات المستمرة - ${ctx.cls.label}`);
+    busy(true, 'جارٍ إعداد ملف Excel…');
+    const xlsx = main ? await buildXLSX(ctx) : await buildLangXLSX(ctx, which);
+    busy(true, 'جارٍ الإرسال إلى البريد…');
+    const files = [{ name: f.pdf, b64: await blobB64(pdf) }, { name: f.xlsx, b64: await blobB64(xlsx) }];
+    const body = admin ? { action: 'mail', key: admin.key, id: admin.id, from: 'المدير', which, term: ctx.term, missing: miss, files }
+                       : { action: 'mail', k: ctx.k, t: me, which, term: ctx.term, missing: miss, files };
+    const r = await api(admin ? admin.api : classes[ctx.i].api, body, 120000);
+    if (!r || !r.ok) throw r;
+    busy(false); buzz();
+    const rec = { at: r.at, by: admin ? 'المدير' : me.name };
+    if (admin){ const c0 = adminCtxCache[admin.id]; if (c0){ c0.c.mailed = c0.c.mailed || {}; c0.c.mailed[which] = rec; } }
+    else { const c = cacheOf(ctx.k); if (c){ c.mailed = c.mailed || {}; c.mailed[which] = rec; if (r.to) c.mailTo = r.to; setCache(ctx.k, c); } }
+    toast('أُرسل الجدول إلى البريد · ' + dmyhm(r.at));
+    if (admin){ if (curView() === 'aexp') viewAdminExport(admin.id, true); }
+    else if (location.hash === '#exp-' + ctx.i){ const y = window.scrollY; viewExport(ctx.i); window.scrollTo(0, y); }
+  } catch(e){ busy(false); console.error(e); toast(errText(e)); }
+}
+
+const pagesOf = (ctx, which) => which === 'main' ? docPages(ctx) : langPages(ctx, which);
+
+// جدول الفرنسية أو الإنجليزية: A4 بالطول، من اليسار إلى اليمين
+function langPages(ctx, lang){
+  const L = LANGS[lang], T = L.t, sub = subOf(ctx.cls.level, lang), lv = ctx.cls.level;
+  const n = ctx.students.length, AVAIL = 800;
+  let per = n, rowH = Math.min(26, Math.floor(AVAIL / Math.max(n, 1)));
+  if (rowH < 16){ rowH = 18; per = Math.floor(AVAIL / rowH); }
+  const f2 = v => v == null ? '' : round2(v).toFixed(2);
+  const W = [5.5, 27, 12.5, 12.5, 12.5, 11, 8.5, 10.5];
+  const cols = `<colgroup>${W.map(w => `<col style="width:${w}%">`).join('')}</colgroup>`;
+  const head = `<thead><tr><th rowspan="2">${T.no}</th><th rowspan="2">${T.name}</th><th colspan="3" class="lv2">${T.ev}</th><th rowspan="2">${T.ca}</th><th rowspan="2">${T.ex}</th><th rowspan="2">${T.avg}</th></tr>
+    <tr>${sub.domains.map(d => `<th class="dm">${esc(d.n)}</th>`).join('')}</tr></thead>`;
+  const pages = [];
+  for (let p = 0; p * per < n || p === 0; p++){
+    const rows = ctx.students.slice(p * per, (p + 1) * per).map((s, k) => {
+      const g = f => fmt(ctx.get(s.id, f));
+      return `<tr style="height:${rowH}px"><td>${p * per + k + 1}</td><td class="n">${esc(s.l || s.n)}</td>${sub.domains.map(d => `<td>${g(d.f)}</td>`).join('')}
+        <td class="calc">${f2(caAvg(ctx, s.id, sub))}</td><td>${g(sub.exam)}</td><td class="calc">${f2(subjAvg(ctx, s.id, sub))}</td></tr>`;
+    }).join('');
+    const note = ctx.term === 1 && T.note[lv] ? `<div class="d-note">${esc(T.note[lv])}</div>` : '';
+    pages.push(`<div class="page port ltrdoc">
+      <div class="d-rep" style="font-size:16px">${esc(T.rep)}</div>
+      <div class="d-sch" style="margin-top:4px">${esc(T.school)}</div>
+      <div class="d-title" style="margin-top:8px">${esc(T.title(ctx.term, ctx.year))}</div>
+      <div class="d-sub">${esc(T.sub(lv, groupLat(ctx.cls.group)))}</div>
+      <table class="d-tbl2">${cols}${head}<tbody>${rows}</tbody></table>${note}
+      <div class="d-foot"><span>${T.teacher}: ${esc(ctx.teacher || '..............................')}</span><span>${T.sign}: ..............................</span></div>
+      __PG__</div>`);
+  }
+  return pages.map((pg, k) => pg.replace('__PG__', pages.length > 1 ? `<div class="d-pg">${k + 1} / ${pages.length}</div>` : ''));
+}
+async function buildLangXLSX(ctx, lang){
+  await loadScript('exceljs.min.js');
+  const L = LANGS[lang], T = L.t, sub = subOf(ctx.cls.level, lang), FONT = 'Times New Roman';
+  const wb = new ExcelJS.Workbook(); wb.creator = 'منصة التقويم المستمر'; wb.created = new Date();
+  const ws = wb.addWorksheet(lang === 'fr' ? 'Français' : 'English', { views: [{ showGridLines: false, state: 'frozen', ySplit: 7 }],
+    pageSetup: { paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, horizontalCentered: true, margins: { left: 0.5, right: 0.5, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 } } });
+  ws.columns = [6, 34, 14, 14, 14, 14, 10, 13].map(w => ({ width: w }));
+  const line = { style: 'thin', color: { argb: 'FF000000' } }, border = { top: line, bottom: line, left: line, right: line };
+  const fill = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } });
+  const put = (r, text, size, align) => { ws.mergeCells(`A${r}:H${r}`); const c = ws.getCell(`A${r}`); c.value = text; c.font = { name: FONT, size, bold: true }; c.alignment = { horizontal: align, vertical: 'middle' }; ws.getRow(r).height = size * 1.6; };
+  put(1, T.rep, 13, 'center'); put(2, T.school, 11, 'left'); put(3, T.title(ctx.term, ctx.year), 14, 'center'); put(4, T.sub(ctx.cls.level, groupLat(ctx.cls.group)), 11, 'center');
+  ws.mergeCells('A6:A7'); ws.getCell('A6').value = T.no; ws.mergeCells('B6:B7'); ws.getCell('B6').value = T.name;
+  ws.mergeCells('C6:E6'); ws.getCell('C6').value = T.ev; sub.domains.forEach((d, k) => { ws.getCell(7, 3 + k).value = d.n; });
+  ws.mergeCells('F6:F7'); ws.getCell('F6').value = T.ca; ws.mergeCells('G6:G7'); ws.getCell('G6').value = T.ex; ws.mergeCells('H6:H7'); ws.getCell('H6').value = T.avg;
+  ws.getRow(6).height = 22; ws.getRow(7).height = 44;
+  for (let r = 6; r <= 7; r++) for (let c = 1; c <= 8; c++){ const cell = ws.getCell(r, c); cell.border = border; cell.fill = fill('FFD9E2F3'); cell.font = { name: FONT, size: 10, bold: true }; cell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true }; }
+  ctx.students.forEach((s, k) => {
+    const r = 8 + k, row = ws.getRow(r); row.height = 17;
+    row.getCell(1).value = k + 1; row.getCell(2).value = s.l || s.n;
+    sub.domains.forEach((d, j) => { const v = ctx.get(s.id, d.f); row.getCell(3 + j).value = v == null ? null : v; });
+    const ex = ctx.get(s.id, sub.exam); row.getCell(7).value = ex == null ? null : ex;
+    const ca = caAvg(ctx, s.id, sub), av = subjAvg(ctx, s.id, sub);
+    row.getCell(6).value = { formula: `IF(COUNT(C${r}:E${r})=3,AVERAGE(C${r}:E${r}),"")`, result: ca == null ? '' : ca };
+    row.getCell(8).value = { formula: `IF(AND(ISNUMBER(F${r}),ISNUMBER(G${r})),(F${r}+G${r})/2,"")`, result: av == null ? '' : av };
+    for (let c = 1; c <= 8; c++){
+      const cell = row.getCell(c); cell.border = border; cell.font = { name: FONT, size: 10.5, bold: c === 2 }; cell.alignment = { horizontal: c === 2 ? 'left' : 'center', vertical: 'middle' };
+      if (c === 6 || c === 8){ cell.numFmt = '0.00'; cell.fill = fill('FFF1F4F9'); } else if ([3, 4, 5, 7].includes(c) && cell.value == null) cell.fill = fill('FFFFC000');
+    }
+  });
+  const fr = 8 + ctx.students.length + 1;
+  ws.mergeCells(`A${fr}:D${fr}`); ws.getCell(`A${fr}`).value = `${T.teacher}: ${ctx.teacher || ''}`; ws.mergeCells(`E${fr}:H${fr}`); ws.getCell(`E${fr}`).value = `${T.sign}:`;
+  [`A${fr}`, `E${fr}`].forEach(a => { ws.getCell(a).font = { name: FONT, size: 11, bold: true }; });
+  const buf = await wb.xlsx.writeBuffer();
+  return new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }
 function fitPreview(){
   document.querySelectorAll('.pv').forEach(w => { const pg = w.firstElementChild, W = pg.offsetWidth, H = pg.offsetHeight, sc = w.clientWidth / W; pg.style.transform = `scale(${sc})`; w.style.height = (H * sc) + 'px'; });
@@ -778,7 +1200,7 @@ window.addEventListener('resize', () => { if (document.querySelector('.pv')) fit
 // عرض الأعمدة (وحدات نسبية): الرقم، الاسم، ميادين العربية 3، م.ت.م، اختبار، معدل، ميادين الرياضيات 4، م.ت.م، اختبار، معدل، موسيقية، تشكيلية
 const COLW = [3, 15, 6.17, 6.17, 6.17, 4.85, 4.41, 4.85, 6.17, 6.17, 6.17, 6.17, 4.85, 4.41, 4.85, 5.29, 5.29];
 function docPages(ctx){
-  const [ar, ma, mu, pl] = ctx.subjects;
+  const lv = ctx.cls.level, ar = subOf(lv, 'ar'), ma = subOf(lv, 'math'), mu = subOf(lv, 'mu'), pl = subOf(lv, 'pl');
   const sub = `${ctx.cls.label.split(' - ')[0]} - الفوج ${ctx.cls.group} - ${ctx.cls.phase}`;
   const cols = `<colgroup>${COLW.map(w => `<col style="width:${w}%">`).join('')}</colgroup>`;
   const head = `<thead>
@@ -814,7 +1236,7 @@ const fileBase = ctx => `التقويم_الموحد_س${ctx.cls.level}_${ctx.cl
 
 async function renderPDF(htmlPages, landscape, title){
   await Promise.all([loadScript('html2canvas.min.js'), loadScript('jspdf.umd.min.js')]);
-  try { await Promise.all([document.fonts.load('700 16px Amiri', 'عربي'), document.fonts.load('700 16px Amiri', '0123456789')]); } catch(e){}
+  try { await Promise.all([document.fonts.load('700 16px "Khalid Art bold"', 'عربي 0123'), document.fonts.load('700 16px Amiri', 'عربي'), document.fonts.load('700 16px DocSerif', 'Abc 0123')]); } catch(e){}
   const root = $('#printRoot'); root.innerHTML = htmlPages.join('');
   try {
     await Promise.all([...root.querySelectorAll('img')].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
@@ -831,7 +1253,7 @@ async function renderPDF(htmlPages, landscape, title){
 }
 async function buildXLSX(ctx){
   await loadScript('exceljs.min.js');
-  const [ar, ma, mu, pl] = ctx.subjects, FONT = 'Khalid Art bold';
+  const lv = ctx.cls.level, ar = subOf(lv, 'ar'), ma = subOf(lv, 'math'), mu = subOf(lv, 'mu'), pl = subOf(lv, 'pl'), FONT = 'Khalid Art bold';
   const wb = new ExcelJS.Workbook(); wb.creator = 'منصة التقويم المستمر'; wb.created = new Date();
   const ws = wb.addWorksheet('الجدول الموحد', {
     views: [{ rightToLeft: true, showGridLines: false, state: 'frozen', ySplit: 8 }],
@@ -897,11 +1319,13 @@ async function shareBlob(blob, filename, type){
   try { await navigator.share({ files: [new File([blob], filename, { type })], title: filename }); }
   catch(e){ if (e && e.name !== 'AbortError') toast('تعذّرت المشاركة، استعمل التنزيل'); }
 }
-async function exportCtx(ctx, kind, share){
+async function exportCtx(ctx, kind, share, which){
+  which = which || ctx.lang || 'main';
   busy(true, kind === 'pdf' ? 'جارٍ إعداد ملف PDF…' : 'جارٍ إعداد ملف Excel…');
   try {
-    const blob = kind === 'pdf' ? await renderPDF(docPages(ctx), true, `التقويمات المستمرة - ${ctx.cls.label}`) : await buildXLSX(ctx);
-    const name = fileBase(ctx) + (kind === 'pdf' ? '.pdf' : '.xlsx');
+    const main = which === 'main';
+    const blob = kind === 'pdf' ? await renderPDF(pagesOf(ctx, which), main, `التقويمات المستمرة - ${ctx.cls.label}`) : main ? await buildXLSX(ctx) : await buildLangXLSX(ctx, which);
+    const name = (main ? fileBase(ctx) : `تقويم_${which === 'fr' ? 'الفرنسية' : 'الإنجليزية'}_س${ctx.cls.level}_${ctx.cls.group}_ف${ctx.term}`) + (kind === 'pdf' ? '.pdf' : '.xlsx');
     busy(false);
     if (share) await shareBlob(blob, name, kind === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     else await saveBlob(blob, name);
@@ -940,25 +1364,47 @@ async function viewDash(term){
   try { const r = await api(a.api, { action: 'admin', key: a.key, term: term || (dashData && dashData.term) }); if (!r || !r.ok) throw r; dashData = r; }
   catch(e){ if (!dashData){ app.innerHTML = `${topbar('لوحة المدير', '', me ? 'home' : 'reg')}<div class="wrap" style="padding:20px 0"><div class="card"><p>${esc(errText(e))}</p><a class="btn" href="#admin">تعديل بيانات الدخول</a></div></div>`; return; } toast(errText(e)); }
   if (curView() !== 'dash') return;
-  const d = dashData, SUBS = subjectsFor(2);
+  const d = dashData, cn = d.counts;
+  const subsOf = c => (c.subjects || CLASS_SUBS).map(id => subOf(Math.max(c.level, 2), id) || subOf(5, id)).filter(Boolean);
+  noteCounts(cn);
   app.innerHTML = `${topbar('لوحة المدير', `${d.school || SCHOOL_DEFAULT} · ${d.year}`, me ? 'home' : 'reg', `<button class="icon-btn" type="button" data-act="dashRefresh" aria-label="تحديث">${I.refresh}</button>`)}
   <div class="wrap" style="padding:14px 16px 40px;display:grid;gap:12px">
+    ${cn ? `<div class="notif ${cn.summons ? '' : 'calm'}"><div class="row"><b class="grow">الإشعارات</b><span class="muted" style="font-size:12px">يُحدَّث كل دقيقة</span></div>
+      <div class="reqs">
+        <button class="reqbtn" type="button" data-go="inbox-sum">${cn.summons ? `<span class="nb">${cn.summons}</span>` : ''}<span class="tile t-amber">${I.summon}</span><span><b>طلبات الاستدعاء</b><small>${cn.summons ? cn.summons + ' في انتظار قرارك' : 'لا طلبات جديدة'}</small></span></button>
+        <button class="reqbtn" type="button" data-go="inbox-att"><span class="tile t-emerald">${I.att}</span><span><b>الحضور والغياب الشهري</b><small>${cn.lastAtt ? 'آخر إرسال: ' + esc(dmyhm(cn.lastAtt)) : 'لم يُرسل أي أستاذ بعد'}</small></span></button>
+      </div>
+      ${'Notification' in window && Notification.permission !== 'granted' && !IS_ARTIFACT ? `<button class="btn small" type="button" data-act="notifOn">${I.bell}تفعيل إشعارات الهاتف لهذه اللوحة</button>` : ''}</div>`
+      : `<p class="note">${I.info}<span>الخادم لم يُحدَّث بعد إلى الإصدار الجديد، فلا تظهر الطلبات والإشعارات.</span></p>`}
     <div class="setting"><p>الفصل المعروض<small>الفصل الحالي للأساتذة: ${TERMS[d.curTerm - 1]}</small></p>
       <div class="seg" role="group" aria-label="الفصل">${[1, 2, 3].map(t => `<button type="button" data-term="${t}" aria-pressed="${d.term === t}">${TERMS[t - 1]}</button>`).join('')}</div></div>
     ${d.term !== d.curTerm ? `<button class="btn" type="button" data-act="setTerm" data-t="${d.term}">جعل الفصل ${TERMS[d.term - 1]} هو الفصل الحالي للأساتذة</button>` : ''}
     <div class="row-btns"><button class="btn primary" type="button" data-act="qrAll">${I.qr}تنزيل رموز QR لكل الأقسام</button>
       <button class="btn" type="button" data-act="qrAdmin">${I.qr}فتح اللوحة على الهاتف</button></div>
-    ${d.classes.map(c => `<div class="card ac">
+    ${d.lang ? `<div class="row-btns">${Object.keys(LANGS).filter(k => d.lang[k]).map(k => `<button class="btn" type="button" data-act="qrLang" data-l="${k}">${I.qr}رمز أستاذ(ة) ${LANGS[k].name}</button>`).join('')}</div>` : ''}
+    ${d.classes.map(c => { const SUBS = c.level >= 2 || c.subjects ? subsOf(c) : []; return `<div class="card ac">
       <div class="row"><b class="grow">${esc(c.label)}</b><span class="chip">${c.count} تلميذاً</span></div>
-      <p class="muted" style="font-size:13px">${c.teachers.length ? c.teachers.map(t => `${esc(t.name)} · <a href="tel:${esc(t.phone)}" dir="ltr">${esc(t.phone)}</a>`).join('<br>') : 'لم يسجّل أي أستاذ بعد'}</p>
-      <div class="mini">${SUBS.map(s => { const f = c.filled[s.id], n = c.needed[s.id], ok = c.confirms[s.id]; return `<span>${s.name}</span><div class="prog ${n && f === n ? 'full' : ''}"><i style="width:${n ? (f / n * 100).toFixed(0) : 0}%"></i></div><span>${f}/${n}${ok ? ' ✓' : ''}</span>`; }).join('')}</div>
+      <p class="muted" style="font-size:13px">${c.teachers.length ? c.teachers.map(t => `${esc(t.name)}${t.role ? ' (' + esc(t.role) + ')' : ''} · <a href="tel:${esc(t.phone)}" dir="ltr">${esc(t.phone)}</a>`).join('<br>') : 'لم يسجّل أي أستاذ بعد'}</p>
+      ${SUBS.length ? `<div class="mini">${SUBS.map(s => { const f = (c.filled && c.filled[s.id]) || 0, n = (c.needed && c.needed[s.id]) || 0, ok = c.confirms && c.confirms[s.id]; return `<span>${s.name}</span><div class="prog ${n && f === n ? 'full' : ''}"><i style="width:${n ? (f / n * 100).toFixed(0) : 0}%"></i></div><span>${f}/${n}${ok ? ' ✓' : ''}</span>`; }).join('')}</div>` : `<p class="muted" style="font-size:12.5px">لا صب نقاط لهذا المستوى: الاستدعاءات ونسبة الحضور فقط.</p>`}
       <div class="row-btns"><button class="btn small" type="button" data-act="qrOne" data-id="${esc(c.id)}">${I.qr}رمز القسم</button>
-        <button class="btn small" type="button" data-go="aexp-${esc(c.id)}">${I.eye}الجدول</button></div>
-    </div>`).join('')}
+        ${SUBS.length ? `<button class="btn small" type="button" data-go="aexp-${esc(c.id)}">${I.eye}الجداول</button>` : ''}</div>
+    </div>`; }).join('')}
     <button class="btn danger-t" type="button" data-act="adminOut">خروج من لوحة المدير</button>
   </div>`;
+  startPoll(pollDash, 60000);
+}
+async function pollDash(){
+  const a = adminOf(); if (!a || curView() !== 'dash') return;
+  try {
+    const r = await api(a.api, { action: 'admin', key: a.key, term: dashData && dashData.term });
+    if (!r || !r.ok) return;
+    const changed = JSON.stringify(r.counts) !== JSON.stringify(dashData && dashData.counts);
+    dashData = r;
+    if (changed && curView() === 'dash'){ const y = window.scrollY; await viewDash(); window.scrollTo(0, y); }
+  } catch(e){}
 }
 const teacherLink = (a, c) => `${appBase()}#k=${c.token}&${linkParamsFor(a.api)}`;
+const langLink = (a, l) => `${appBase()}#f=${dashData.lang[l]}&${linkParamsFor(a.api)}`;
 async function qrImg(text, cell = 6){ await loadScript('qrcode.js'); const q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createDataURL(cell, 2); }
 async function showQR(title, sub, link){
   const src = await qrImg(link, 8);
@@ -972,6 +1418,8 @@ async function qrCardsPDF(){
   try {
     const cards = await Promise.all(d.classes.map(async c => `<div class="qrcard"><div class="s">${esc(d.school || SCHOOL_DEFAULT)} · منصة التقويم المستمر</div>
       <div class="c">${esc(c.label)}</div><img src="${await qrImg(teacherLink(a, c), 6)}" alt=""><div class="h">امسح الرمز بكاميرا الهاتف لتفتح قسمك وتلاميذك مباشرة</div></div>`));
+    if (d.lang) for (const k of Object.keys(LANGS)) if (d.lang[k]) cards.push(`<div class="qrcard"><div class="s">${esc(d.school || SCHOOL_DEFAULT)} · منصة التقويم المستمر</div>
+      <div class="c">أستاذ(ة) ${LANGS[k].name}</div><img src="${await qrImg(langLink(a, k), 6)}" alt=""><div class="h">رمز واحد يفتح كل أقسام ${LANGS[k].name}</div></div>`);
     const pages = [];
     for (let k = 0; k < cards.length; k += 8) pages.push(`<div class="page port"><div class="qrgrid">${cards.slice(k, k + 8).join('')}</div></div>`);
     const blob = await renderPDF(pages, false, 'رموز QR للأقسام');
@@ -979,22 +1427,421 @@ async function qrCardsPDF(){
   } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); }
 }
 let adminCtxCache = {};
-async function viewAdminExport(id){
+async function viewAdminExport(id, cached){
   const a = adminOf(); if (!a) return location.replace('#admin');
-  app.innerHTML = `${topbar('الجدول الموحّد', '', 'dash')}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span></div>`;
-  let r;
-  try { r = await api(a.api, { action: 'adminClass', key: a.key, id, term: dashData && dashData.term }); if (!r || !r.ok) throw r; }
-  catch(e){ app.innerHTML = `${topbar('الجدول الموحّد', '', 'dash')}<div class="wrap" style="padding:20px 0"><div class="card"><p>${esc(errText(e))}</p></div></div>`; return; }
-  const cl = dashData && dashData.classes.find(c => c.id === id);
-  const ctx = { c: r, term: r.term, year: r.year, school: r.school || SCHOOL_DEFAULT, cls: r.cls, students: r.students, subjects: subjectsFor(r.cls.level),
-    teacher: cl && cl.teachers[0] ? cl.teachers[0].name : '', get(sid, f){ const m = r.marks[sid]; return m && m[f] != null ? m[f] : null; } };
-  adminCtxCache[id] = ctx;
-  app.innerHTML = `${topbar('الجدول الموحّد', r.cls.label + ' · الفصل ' + TERMS[r.term - 1], 'dash')}
-  <div class="wrap"><div class="exp"><div class="card"><div class="row-btns">
-    <button class="btn primary" type="button" data-act="apdf" data-id="${esc(id)}">${I.pdf}تنزيل PDF</button>
-    <button class="btn primary" type="button" data-act="axlsx" data-id="${esc(id)}">${I.xls}تنزيل Excel</button></div></div>
-    <div class="card"><div id="pv">${docPages(ctx).map(p => `<div class="pv">${p}</div>`).join('')}</div></div></div></div>`;
+  let ctx = cached && adminCtxCache[id];
+  if (!ctx){
+    app.innerHTML = `${topbar('جداول القسم', '', 'dash')}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span></div>`;
+    let r;
+    try { r = await api(a.api, { action: 'adminClass', key: a.key, id, term: dashData && dashData.term }); if (!r || !r.ok) throw r; }
+    catch(e){ app.innerHTML = `${topbar('جداول القسم', '', 'dash')}<div class="wrap" style="padding:20px 0"><div class="card"><p>${esc(errText(e))}</p></div></div>`; return; }
+    const cl = dashData && dashData.classes.find(c => c.id === id);
+    const teachers = cl ? cl.teachers : [], tOf = role => (teachers.find(t => (t.role || '') === role) || {}).name || '';
+    ctx = { c: r, term: r.term, year: r.year, school: r.school || SCHOOL_DEFAULT, cls: r.cls, students: r.students, subjects: subjectsFor(r.cls.level),
+      teacher: tOf(''), get(sid, f){ const m = r.marks[sid]; return m && m[f] != null ? m[f] : null; } };
+    ctx.teacherOf = w => w === 'main' ? tOf('') : tOf(LANGS[w].name);
+    adminCtxCache[id] = ctx;
+  }
+  const r = ctx.c, langs = Object.keys(LANGS).filter(k => LANGS[k].levels.includes(r.cls.level));
+  const block = (w, title) => { const last = r.mailed && r.mailed[w]; return `<div class="card"><div class="row"><span class="tile ${w === 'main' ? 't-sky' : SUBJ_LOOK[w][0]}${w === 'main' ? '' : ' lat'}">${w === 'main' ? I.table : LANGS[w].icon}</span><b class="grow">${title}</b>
+      <span class="pill ${missingOf(ctx, w) ? 'warn' : 'ok'}">${missingOf(ctx, w) ? missingOf(ctx, w) + ' ناقصة' : 'مكتمل'}</span></div>
+    <div class="row-btns">
+      <button class="btn primary" type="button" data-act="apdf" data-id="${esc(id)}" data-w="${w}">${I.pdf}PDF</button>
+      <button class="btn xl" type="button" data-act="axlsx" data-id="${esc(id)}" data-w="${w}">${I.xls}Excel</button>
+      <button class="btn" type="button" data-act="amail" data-id="${esc(id)}" data-w="${w}">${I.send}البريد</button></div>
+    ${last ? `<p class="sent">${I.mailok}<span>آخر إرسال: <bdi dir="ltr">${esc(dmyhm(last.at))}</bdi> · ${esc(last.by)}</span></p>` : ''}</div>`; };
+  app.innerHTML = `${topbar('جداول القسم', r.cls.label + ' · الفصل ' + TERMS[r.term - 1], 'dash')}
+  <div class="wrap"><div class="exp">
+    ${r.cls.level >= 2 ? block('main', 'الجدول الموحّد') : ''}
+    ${langs.map(k => block(k, 'جدول ' + LANGS[k].name)).join('')}
+    ${r.mailTo ? `<p class="muted" style="font-size:12.5px;padding:0 6px">${I.mail} زر «البريد» يرسل ملف PDF وملف Excel إلى <bdi dir="ltr">${esc(r.mailTo)}</bdi></p>` : ''}
+    ${r.cls.level >= 2 ? `<div class="card"><div id="pv">${docPages(ctx).map(p => `<div class="pv">${p}</div>`).join('')}</div></div>` : ''}</div></div>`;
   fitPreview();
+}
+
+/* =========================================================
+   7) الاستدعاءات، الحضور الشهري، إشعارات المدير
+   ========================================================= */
+const REASONS = ['تكرار الغياب دون مبرر', 'التأخر المتكرر', 'سلوك غير لائق داخل القسم', 'تراجع ملحوظ في النتائج', 'عدم إنجاز الواجبات', 'عدم إحضار الأدوات المدرسية'];
+const pct = v => v == null || isNaN(v) ? '' : String(round2(v)) + '%';
+const spinView = (title, parent) => { app.innerHTML = `${topbar(title, '', parent)}<div class="wrap" style="padding:40px 16px;text-align:center"><span class="spin" style="display:inline-block"></span></div>`; };
+const errView = (title, parent, e, act) => { app.innerHTML = `${topbar(title, '', parent)}<div class="wrap" style="padding:24px 0"><div class="card"><p>${esc(errText(e))}</p>${act ? `<button class="btn primary" type="button" data-act="${act}">${I.refresh}إعادة المحاولة</button>` : ''}</div></div>`; };
+
+/* ---------- إشعارات المدير ---------- */
+let pollTimer = null;
+function startPoll(fn, ms){ stopPoll(); pollTimer = setInterval(fn, ms); }
+function stopPoll(){ if (pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
+function sysNotify(title, body){
+  try {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    const opt = { body, icon: 'icon-192.png', badge: 'icon-192.png', tag: 'taqwim-inbox', renotify: true, data: { url: appBase() + '#inbox-sum' } };
+    if (navigator.serviceWorker && navigator.serviceWorker.controller) navigator.serviceWorker.ready.then(r => r.showNotification(title, opt)).catch(() => {});
+    else new Notification(title, opt);
+  } catch(e){}
+}
+function noteCounts(cn){
+  if (!cn) return;
+  const total = cn.summons || 0;
+  try { if (navigator.setAppBadge) total ? navigator.setAppBadge(total) : navigator.clearAppBadge(); } catch(e){}
+  const prev = store.get('tq:seen');
+  if (prev){
+    const msgs = [];
+    if (cn.summons > prev.s) msgs.push(`${cn.summons - prev.s} طلب استدعاء جديد`);
+    if (cn.lastAtt && cn.lastAtt > (prev.a || '')) msgs.push('إرسال جديد لنسبة الحضور الشهرية');
+    if (msgs.length){ toast('🔔 ' + msgs.join(' · ')); sysNotify('منصة التقويم المستمر', msgs.join(' · ')); }
+  }
+  store.set('tq:seen', { s: cn.summons || 0, a: cn.lastAtt || '' });
+}
+
+/* ---------- أستاذ الفرنسية أو الإنجليزية: إضافة أقسامه برمز واحد ---------- */
+async function viewAddLang(){
+  const p = store.get('tq:addf'); if (!p) return location.replace('#home');
+  spinView('جارٍ إضافة أقسامك…', 'home');
+  try {
+    const r = await api(p.api, { action: 'subject', f: p.f }); if (!r || !r.ok) throw r;
+    r.classes.forEach(c => { const k = `${p.f}@${c.id}`, i = classes.findIndex(x => x.k === k); if (i < 0) classes.push({ k, api: p.api, lang: r.subject, label: c.label }); else classes[i].api = p.api; });
+    saveClasses(); store.set('tq:api', p.api); store.del('tq:addf');
+    toast(`أضيفت أقسام ${r.name} (${r.classes.length})`);
+    depth = 0; location.replace(me ? '#home' : '#reg');
+  } catch(e){ errView('تعذّرت الإضافة', 'home', e, 'retryAddf'); }
+}
+async function ensureCtx(i){
+  let ctx = ctxOf(i);
+  if (ctx) return ctx;
+  spinView('جارٍ التحميل…', 'home');
+  try { await fetchClass(i); return ctxOf(i); } catch(e){ errView('تعذّر التحميل', 'home', e); return null; }
+}
+
+/* ---------- الأستاذ: طلب استدعاء ---------- */
+async function viewSummon(i){
+  const ctx = await ensureCtx(i); if (!ctx) return;
+  document.title = 'طلب استدعاء';
+  const d0 = nextSchoolDay();
+  app.innerHTML = `${topbar('طلب استدعاء ولي تلميذ', ctx.cls.label, 'cls-' + i)}
+  <div class="wrap" style="padding-bottom:40px"><form class="card form" id="smForm" novalidate style="padding:18px">
+    <label class="fld" for="smPupil">التلميذ(ة)
+      <select id="smPupil"><option value="">— اختر التلميذ —</option>${ctx.students.map((s, k) => `<option value="${esc(s.id)}">${k + 1}. ${esc(s.n)}</option>`).join('')}</select></label>
+    <div class="fld">سبب الاستدعاء <small>يظهر في نسخة الأرشيف فقط، ولا يظهر في الورقة التي تُسلَّم للولي</small>
+      <div class="qchips">${REASONS.map(r => `<button class="qchip" type="button" data-act="rq" data-t="${esc(r)}">${esc(r)}</button>`).join('')}</div>
+      <textarea id="smReason" maxlength="600" placeholder="اكتب سبب الاستدعاء بوضوح"></textarea></div>
+    <div class="two">
+      <label class="fld" for="smDate">يوم الحضور<input type="date" id="smDate" min="${todayISO()}" value="${d0}"><span class="hint" id="smDay">${dayOf(d0)}</span></label>
+      <label class="fld" for="smTime">الساعة<input type="time" id="smTime" value="09:00" step="300"></label></div>
+    <span class="err" id="smErr" hidden style="color:var(--danger);font-weight:700"></span>
+    <button class="btn primary big" type="submit">${I.send}إرسال الطلب إلى المدير</button>
+    <p class="muted" style="font-size:12px">يُسجَّل الطلب بالتاريخ والساعة والدقيقة، ويصل إشعار إلى منصة المدير. بعد موافقته يطبع الاستدعاء.</p>
+  </form></div>`;
+  const dt = $('#smDate'), hint = $('#smDay');
+  const chk = () => { const v = dt.value, w = dayOf(v); const bad = w === 'الجمعة' || w === 'السبت'; hint.textContent = w ? (bad ? w + ': يوم عطلة' : w) : ''; hint.className = 'hint' + (bad ? ' bad' : ''); return !bad; };
+  dt.addEventListener('change', chk); chk();
+  $('#smForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const sid = $('#smPupil').value, reason = $('#smReason').value.trim(), date = dt.value, time = $('#smTime').value, er = $('#smErr');
+    const fail = m => { er.textContent = m; er.hidden = false; };
+    if (!sid) return fail('اختر التلميذ');
+    if (reason.length < 5) return fail('اكتب سبب الاستدعاء');
+    if (!date || !time) return fail('اختر يوم الحضور والساعة');
+    if (date < todayISO()) return fail('اختر تاريخاً قادماً');
+    if (!chk()) return fail('يوما الجمعة والسبت عطلة، اختر يوماً آخر');
+    er.hidden = true; busy(true, 'جارٍ إرسال الطلب…');
+    try {
+      const r = await api(classes[i].api, { action: 'summon', k: ctx.k, t: me, sid, reason, date, time });
+      if (!r || !r.ok) throw r;
+      busy(false); buzz(); toast('أُرسل الطلب إلى المدير · ' + dmyhm(r.at)); go('mine');
+    } catch(e){ busy(false); fail(errText(e)); }
+  });
+}
+
+/* ---------- الأستاذ: نسبة الحضور الشهرية ---------- */
+async function viewAttendance(i, keep){
+  const ctx = await ensureCtx(i); if (!ctx) return;
+  document.title = 'نسبة الحضور الشهرية';
+  const c = ctx.c, months = c.months || [], att = c.att || {}, cur = todayISO().slice(0, 7);
+  const y = keep ? window.scrollY : 0;
+  app.innerHTML = `${topbar('نسبة الحضور الشهرية', ctx.cls.label, 'cls-' + i)}
+  <div class="wrap" style="padding-bottom:40px;display:grid;gap:14px">
+    <p class="muted" style="font-size:13px">اكتب نسبة حضور تلاميذ القسم في الشهر، وتحسب المنصة نسبة الغياب وحدها. يمكنك تعديل النسبة لاحقاً، ويُسجَّل وقت كل إرسال.</p>
+    ${months.length ? `<div class="months">${months.map(m => { const x = att[m]; return `<button class="mon ${x ? 'done' : ''} ${m === cur ? 'now' : ''}" type="button" data-act="attM" data-m="${m}" data-i="${i}">
+      <b>${monthName(m)}${x ? I.ok : m === cur ? I.pen : ''}</b><span>${x ? `الحضور <span class="pc p">${pct(x.rate)}</span> · الغياب <span class="pc a">${pct(x.abs)}</span>` : m === cur ? 'الشهر الحالي · لم تُرسل بعد' : 'لم تُرسل بعد'}</span>${x ? `<span class="lat" style="text-align:start">${esc(dmyhm(x.at))}</span>` : ''}</button>`; }).join('')}</div>`
+      : `<p class="note">${I.info}<span>حدّث القسم من جدول المدرسة أولاً (الخادم لم يُحدَّث بعد).</span></p>`}
+  </div>`;
+  if (keep) window.scrollTo(0, y);
+}
+function attSheet(i, m){
+  const ctx = ctxOf(i), x = (ctx.c.att || {})[m];
+  const box = sheet(`<h2>نسبة الحضور · ${monthName(m)}</h2><p class="muted">${esc(ctx.cls.label)}</p>
+    <label class="fld" for="atR">نسبة الحضور (%)<input type="number" id="atR" inputmode="decimal" min="0" max="100" step="0.01" value="${x ? x.rate : ''}" placeholder="مثال: 95.5" style="font-size:24px;font-weight:800;text-align:center"></label>
+    <div class="rate"><div><span>نسبة الحضور</span><b class="big-num" id="atP" style="color:var(--ok)">${x ? pct(x.rate) : '—'}</b></div>
+      <div><span>نسبة الغياب (تُحسب وحدها)</span><b class="big-num" id="atA" style="color:var(--warn)">${x ? pct(x.abs) : '—'}</b></div></div>
+    <span class="err" id="atE" hidden style="color:var(--danger);font-weight:700"></span>
+    <div class="acts"><button class="btn ok" type="button" id="atGo" style="flex:2">${I.send}إرسال</button><button class="btn" type="button" data-close="1">إلغاء</button></div>`);
+  const inp = box.querySelector('#atR');
+  const upd = () => { const v = parseFloat(String(inp.value).replace(',', '.')); const ok = !isNaN(v) && v >= 0 && v <= 100; box.querySelector('#atP').textContent = ok ? pct(v) : '—'; box.querySelector('#atA').textContent = ok ? pct(100 - v) : '—'; return ok ? round2(v) : null; };
+  inp.addEventListener('input', upd); setTimeout(() => inp.focus(), 50);
+  box.querySelector('#atGo').onclick = async () => {
+    const v = upd(), er = box.querySelector('#atE');
+    if (v == null){ er.textContent = 'اكتب نسبة بين 0 و100'; er.hidden = false; return; }
+    busy(true, 'جارٍ الإرسال…');
+    try {
+      const r = await api(classes[i].api, { action: 'attendance', k: ctx.k, t: me, month: m, rate: v });
+      if (!r || !r.ok) throw r;
+      const c = cacheOf(ctx.k); c.att = c.att || {}; c.att[m] = { rate: r.rate, abs: r.abs, by: me.name, at: r.at }; setCache(ctx.k, c);
+      busy(false); closeSheet(); buzz(); toast(`أُرسلت نسبة ${monthName(m)} · الغياب ${pct(r.abs)}`); viewAttendance(i, true);
+    } catch(e){ busy(false); er.textContent = errText(e); er.hidden = false; }
+  };
+}
+
+/* ---------- الأستاذ: طلباتي ---------- */
+const stPill = s => s === 'مقبول' ? `<span class="pill ok">${I.ok}مقبول</span>` : s === 'مرفوض' ? `<span class="pill no">${I.no}مرفوض</span>` : `<span class="pill warn">${I.wait}في الانتظار</span>`;
+const stCls = s => s === 'مقبول' ? 'ok' : s === 'مرفوض' ? 'no' : 'new';
+async function viewMine(){
+  document.title = 'طلباتي';
+  const e = classes[0]; if (!e) return location.replace('#home');
+  spinView('طلباتي', 'home');
+  let r;
+  try { r = await api(e.api, { action: 'mine', k: e.k, t: me }); if (!r || !r.ok) throw r; } catch(err){ return errView('طلباتي', 'home', err, 'mineRetry'); }
+  if (curView() !== 'mine') return;
+  app.innerHTML = `${topbar('طلباتي', me.name, 'home', `<button class="icon-btn" type="button" data-act="mineRetry" aria-label="تحديث">${I.refresh}</button>`)}
+  <div class="wrap" style="padding-bottom:30px;display:grid;gap:12px">
+    <h2 class="lbl" style="font-size:14px;padding:0 8px">طلبات الاستدعاء</h2>
+    ${r.summons.length ? r.summons.map(s => `<article class="item ${stCls(s.status)}"><div class="row"><h3 class="grow">${esc(s.pupil)}</h3>${stPill(s.status)}</div>
+      <div class="m"><span>${esc(s.cls)}</span><span>${I.cal}الموعد: ${esc(dayOf(s.date))} <bdi dir="ltr">${esc(dmy(s.date))}</bdi> على <bdi dir="ltr">${esc(s.time)}</bdi></span><span>${I.send}أُرسل: <bdi dir="ltr">${esc(dmyhm(s.at))}</bdi></span>${s.archive ? `<span>${I.archive}رقم الأرشيف: <bdi dir="ltr">${esc(s.archive)}</bdi></span>` : ''}</div>
+      <div class="q">${esc(s.reason)}</div>${s.note ? `<div class="m"><span>${I.reply}ملاحظة المدير: ${esc(s.note)}</span></div>` : ''}</article>`).join('') : `<div class="card" style="text-align:center"><p class="muted">لا توجد طلبات استدعاء بعد. ترسلها من صفحة القسم.</p></div>`}
+  </div>${bottomNav('mine')}`;
+}
+
+/* ---------- المدير: صندوق الطلبات ---------- */
+let inboxData = null, inboxFilter = 'new', attMonth = null;
+async function viewInbox(tab, silent){
+  const a = adminOf(); if (!a) return location.replace('#admin');
+  document.title = 'صندوق الطلبات';
+  if (!silent || !inboxData) spinView('صندوق الطلبات', 'dash');
+  try { const r = await api(a.api, { action: 'inbox', key: a.key }); if (!r || !r.ok) throw r; inboxData = r; }
+  catch(e){ if (!inboxData) return errView('صندوق الطلبات', 'dash', e, 'inboxRetry'); toast(errText(e)); }
+  if (curView() !== 'inbox') return;
+  noteCounts(inboxData.counts);
+  renderInbox(tab);
+  startPoll(async () => { if (curView() !== 'inbox') return; const before = JSON.stringify(inboxData.counts); const y = window.scrollY;
+    try { const r = await api(a.api, { action: 'inbox', key: a.key }); if (r && r.ok){ inboxData = r; noteCounts(r.counts); if (JSON.stringify(r.counts) !== before && !$('#overlay').innerHTML){ renderInbox(curTab()); window.scrollTo(0, y); } } } catch(e){} }, 60000);
+}
+const curTab = () => (location.hash.split('-')[1] || 'sum');
+function renderInbox(tab){
+  const d = inboxData, cn = d.counts;
+  if (tab !== 'att') tab = 'sum';
+  const T = [['sum', 'الاستدعاءات', cn.summons], ['att', 'الحضور الشهري', 0]];
+  let body = '';
+  if (tab === 'sum'){
+    const F = [['new', 'جديدة'], ['ok', 'مقبولة'], ['no', 'مرفوضة'], ['all', 'الكل']];
+    const pick = s => inboxFilter === 'all' || (inboxFilter === 'new' && s.status === 'جديد') || (inboxFilter === 'ok' && s.status === 'مقبول') || (inboxFilter === 'no' && s.status === 'مرفوض');
+    const list = d.summons.filter(pick), toPrint = d.summons.filter(s => s.status === 'مقبول' && !s.printed);
+    body = `<div class="qchips">${F.map(([k, n]) => `<button class="qchip" type="button" data-act="ifil" data-f="${k}" aria-pressed="${inboxFilter === k}">${n} (${d.summons.filter(s => k === 'all' || (k === 'new' && s.status === 'جديد') || (k === 'ok' && s.status === 'مقبول') || (k === 'no' && s.status === 'مرفوض')).length})</button>`).join('')}</div>
+      <div class="row-btns"><button class="btn" type="button" data-act="sumXlsx">${I.xls}سجل الاستدعاءات (Excel)</button>
+        ${toPrint.length ? `<button class="btn primary" type="button" data-act="printAll">${I.pdf}طباعة غير المطبوعة (${toPrint.length})</button>` : ''}</div>
+      ${list.length ? list.map(sumItem).join('') : '<p class="muted">لا توجد طلبات هنا.</p>'}`;
+  } else {
+    const months = d.months, withData = months.filter(m => Object.values(d.att).some(o => o[m]));
+    if (!attMonth || !months.includes(attMonth)) attMonth = withData.length ? withData[withData.length - 1] : months[0];
+    const rows = attRows(attMonth), sent = rows.filter(r => r.x), avg = sent.length ? sent.reduce((s, r) => s + r.x.rate, 0) / sent.length : null;
+    body = `<label class="fld" for="attSel">الشهر<select id="attSel">${months.map(m => `<option value="${m}" ${m === attMonth ? 'selected' : ''}>${monthName(m)}${withData.includes(m) ? ' ✓' : ''}</option>`).join('')}</select></label>
+      <div class="scrollx"><table class="tbl"><thead><tr><th>القسم</th><th>الأستاذ(ة)</th><th>الحضور</th><th>الغياب</th><th>آخر إرسال</th></tr></thead><tbody>
+        ${rows.map(r => `<tr class="${r.x ? '' : 'miss'}"><td class="l">${esc(levelTag(r.c.level) + ' – ' + r.c.group)}</td><td class="l">${esc(r.x ? r.x.by : '')}</td><td>${r.x ? pct(r.x.rate) : '—'}</td><td>${r.x ? pct(r.x.abs) : '—'}</td><td>${r.x ? esc(dmyhm(r.x.at)) : 'لم يُرسل'}</td></tr>`).join('')}
+        <tr class="avg"><td class="l" colspan="2">معدل المدرسة (${sent.length} من ${rows.length} أقسام)</td><td>${avg == null ? '—' : pct(avg)}</td><td>${avg == null ? '—' : pct(100 - avg)}</td><td></td></tr></tbody></table></div>
+      <div class="row-btns"><button class="btn primary" type="button" data-act="attPdf">${I.pdf}جدول الشهر PDF</button><button class="btn primary" type="button" data-act="attXlsx">${I.xls}Excel (الشهر + السنة)</button></div>
+      <h3 style="font:800 14.5px var(--ui);margin-top:6px">الحصيلة السنوية: نسبة الغياب حسب الشهر</h3>
+      <div class="scrollx"><table class="tbl"><thead><tr><th>القسم</th>${months.map(m => `<th>${MONTHS[m.slice(5)]}</th>`).join('')}</tr></thead><tbody>
+        ${d.classes.map(c => `<tr><td class="l">${esc(levelTag(c.level) + ' – ' + c.group)}</td>${months.map(m => { const x = (d.att[c.id] || {})[m]; return `<td>${x ? pct(x.abs) : ''}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }
+  app.innerHTML = `${topbar('صندوق الطلبات', `${d.school || SCHOOL_DEFAULT} · ${d.year}`, 'dash', `<button class="icon-btn" type="button" data-act="inboxRetry" aria-label="تحديث">${I.refresh}</button>`)}
+  <div class="wrap" style="padding-bottom:40px;display:grid;gap:12px">
+    <div class="tabs2" role="tablist">${T.map(([k, n, c]) => `<button type="button" data-act="itab" data-t="${k}" aria-pressed="${tab === k}">${n}${c ? `<span class="c">${c}</span>` : ''}</button>`).join('')}</div>
+    ${body}</div>`;
+  const sel = $('#attSel'); if (sel) sel.addEventListener('change', () => { attMonth = sel.value; renderInbox('att'); });
+}
+function attRows(m){ const d = inboxData; return d.classes.map(c => ({ c, x: (d.att[c.id] || {})[m] })); }
+function sumItem(s){
+  return `<article class="item ${stCls(s.status)}"><div class="row"><h3 class="grow">${esc(s.pupil)}</h3>${stPill(s.status)}</div>
+    <div class="m"><span>${esc(s.cls)}</span><span>الأستاذ(ة): ${esc(s.teacher)}${s.role && s.role !== 'أستاذ(ة) القسم' ? ' (' + esc(s.role) + ')' : ''}</span><a href="tel:${esc(s.tphone)}" dir="ltr">${esc(s.tphone)}</a></div>
+    <div class="q">${esc(s.reason)}</div>
+    <div class="m"><span>${I.cal}${esc(dayOf(s.date))} <bdi dir="ltr">${esc(dmy(s.date))}</bdi> على <bdi dir="ltr">${esc(s.time)}</bdi></span><span>أُرسل: ${esc(dmyhm(s.at))}</span>${s.archive ? `<span>رقم الأرشيف: <bdi dir="ltr">${esc(s.archive)}</bdi></span>` : ''}${s.decided ? `<span>القرار: ${esc(dmyhm(s.decided))}</span>` : ''}${s.printed ? `<span>طُبع: ${esc(dmyhm(s.printed))}</span>` : ''}</div>
+    ${s.note ? `<div class="m">ملاحظة: ${esc(s.note)}</div>` : ''}
+    <div class="row-btns">${s.status === 'جديد' ? `<button class="btn small ok" type="button" data-act="smOk" data-id="${esc(s.id)}">${I.check}موافقة</button><button class="btn small" type="button" data-act="smNo" data-id="${esc(s.id)}">رفض</button>`
+      : s.status === 'مقبول' ? `<button class="btn small primary" type="button" data-act="smPrint" data-id="${esc(s.id)}">${I.pdf}طباعة الاستدعاء</button><button class="btn small" type="button" data-act="smOk" data-id="${esc(s.id)}">تعديل الموعد</button>`
+      : `<button class="btn small" type="button" data-act="smOpen" data-id="${esc(s.id)}">إعادة فتح</button>`}</div></article>`;
+}
+async function summonAct(id, op, extra){
+  const a = adminOf(); busy(true, 'جارٍ الحفظ…');
+  try {
+    const r = await api(a.api, { action: 'summonAct', key: a.key, id, op, ...(extra || {}) }); if (!r || !r.ok) throw r;
+    const s = inboxData.summons.find(x => x.id === id);
+    if (s){ if (r.status) s.status = r.status; if (r.archive) s.archive = r.archive; if (r.serial) s.serial = r.serial; if (op === 'printed') s.printed = r.at; else if (op !== 'reopen') s.decided = r.at; else s.decided = '';
+      if (extra && extra.date) s.date = extra.date; if (extra && extra.time) s.time = extra.time; if (extra && 'note' in extra) s.note = extra.note; }
+    if (op !== 'printed'){ inboxData.counts.summons = inboxData.summons.filter(x => x.status === 'جديد').length; noteCounts(inboxData.counts); }
+    busy(false); return r;
+  } catch(e){ busy(false); toast(errText(e)); return null; }
+}
+function approveSheet(id){
+  const s = inboxData.summons.find(x => x.id === id);
+  const box = sheet(`<h2>${s.status === 'مقبول' ? 'تعديل موعد الاستدعاء' : 'الموافقة على الاستدعاء'}</h2><p class="muted">${esc(s.pupil)} · ${esc(s.cls)}</p>
+    <div class="two"><label class="fld" for="apD">يوم الحضور<input type="date" id="apD" value="${esc(s.date)}"><span class="hint" id="apW">${esc(dayOf(s.date))}</span></label>
+      <label class="fld" for="apT">الساعة<input type="time" id="apT" value="${esc(s.time)}" step="300"></label></div>
+    <label class="fld" for="apN">ملاحظة للأستاذ (اختيارية)<input type="text" id="apN" value="${esc(s.note || '')}"></label>
+    <p class="muted" style="font-size:12.5px">${s.archive ? 'رقم الأرشيف: ' + esc(s.archive) : 'يُعطى رقم الأرشيف تلقائياً حسب القسم والسنة الدراسية.'}</p>
+    <div class="acts"><button class="btn ok" type="button" id="apGo">${I.check}موافقة</button><button class="btn" type="button" data-close="1">إلغاء</button></div>`);
+  box.querySelector('#apD').addEventListener('change', ev => { box.querySelector('#apW').textContent = dayOf(ev.target.value); });
+  box.querySelector('#apGo').onclick = async () => {
+    const date = box.querySelector('#apD').value, time = box.querySelector('#apT').value, note = box.querySelector('#apN').value.trim();
+    closeSheet();
+    const r = await summonAct(id, 'approve', { date, time, note });
+    if (r){ renderInbox('sum'); toast('تمت الموافقة · ' + r.archive, { label: 'طباعة', fn: () => printSummons([id]) }); }
+  };
+}
+function rejectSheet(id){
+  const s = inboxData.summons.find(x => x.id === id);
+  const box = sheet(`<h2>رفض طلب الاستدعاء</h2><p class="muted">${esc(s.pupil)} · ${esc(s.teacher)}</p>
+    <label class="fld" for="rjN">سبب الرفض أو ملاحظة للأستاذ<input type="text" id="rjN"></label>
+    <div class="acts"><button class="btn" type="button" id="rjGo" style="color:var(--danger)">رفض</button><button class="btn" type="button" data-close="1">إلغاء</button></div>`);
+  box.querySelector('#rjGo').onclick = async () => { const note = box.querySelector('#rjN').value.trim(); closeSheet(); if (await summonAct(id, 'reject', { note })){ renderInbox('sum'); toast('رُفض الطلب'); } };
+}
+/* ---------- ورقة الاستدعاء: نسختان في A4 تُقص من الوسط ---------- */
+function summonsPage(s){
+  const L = v => `<span class="lat">${esc(v)}</span>`;
+  const fa = s.father ? ['اسم الأب', s.father] : s.wali ? ['الولي', s.wali] : ['اسم الأب', ''];
+  const clsTxt = String(s.cls || '').replace(' - ', ' – ');
+  const num = s.archive ? s.archive.split(' – ').slice(1).join(' / ') : '';
+  const born = `${s.dob ? L(dmy(s.dob)) : ''}${s.pob ? ' ب' + esc(s.pob) : ''}`;
+  const made = dmy(String(s.decided || '').slice(0, 10)) || dmy(todayISO());
+  const top = `<div class="half"><div class="frame"><div class="inner">
+    <div class="rep">${REP}<br><b>وزارة التربية الوطنية</b></div>
+    <div class="hdr"><div>مديرية التربية لولاية البليدة<br>${esc(SCHOOL_FULL)}</div><div class="l">السنة الدراسية: ${L(s.year)}<br>رقم الاستدعاء: ${L(num)}</div></div>
+    <h1>استدعاء ولي التلميذ(ة)</h1>
+    <div class="grid">
+      <div class="f full"><span class="k">إلى السيد(ة) ولي التلميذ(ة):</span><span class="v">${esc(s.pupil)}</span></div>
+      <div class="f"><span class="k">تاريخ ومكان الازدياد:</span><span class="v">${born}</span></div>
+      <div class="f"><span class="k">القسم:</span><span class="v">${esc(clsTxt)}</span></div>
+      <div class="f"><span class="k">${fa[0]}:</span><span class="v">${esc(fa[1])}</span></div>
+      <div class="f"><span class="k">رقم التسجيل:</span><span class="v">${L(s.reg)}</span></div></div>
+    <p class="txt">يشرفنا أن ندعوكم للحضور إلى المؤسسة يوم <span class="blank">${esc(dayOf(s.date))}</span> الموافق لـ <span class="blank">${L(dmy(s.date))}</span> على الساعة <span class="blank">${L(s.time)}</span> لمقابلة السيد(ة) المدير(ة) والأستاذ(ة) المعني(ة)، وذلك في شأن يخص تمدرس ابنكم (ابنتكم). نرجو منكم الحرص على الحضور في الموعد المحدد، وتقبلوا منا فائق الاحترام والتقدير.</p>
+    <p class="note">ملاحظة: يُرجى إحضار هذا الاستدعاء معكم يوم الحضور.</p>
+    <div class="sig"><div class="box" style="text-align:right">حرر بأولاد يعيش في: ${L(made)}</div><div class="box">المدير(ة)<br><span style="font-size:10pt;color:#555">الإمضاء والختم</span></div></div>
+  </div></div></div>`;
+  const bottom = `<div class="half"><div class="frame"><div class="inner">
+    <div class="hdr" style="margin-top:0"><div>${esc(SCHOOL_FULL)}<br>السنة الدراسية: ${L(s.year)}</div><div class="l"><span class="badge2">نسخة الأرشيف</span><br>رقم الأرشيف: ${L(s.archive)}</div></div>
+    <h1 style="font-size:18pt;margin:.6mm 0 1.2mm">استدعاء ولي التلميذ(ة)</h1>
+    <div class="grid">
+      <div class="f"><span class="k">التلميذ(ة):</span><span class="v">${esc(s.pupil)}</span></div>
+      <div class="f"><span class="k">رقم التسجيل:</span><span class="v">${L(s.reg)}</span></div>
+      <div class="f"><span class="k">تاريخ ومكان الازدياد:</span><span class="v">${born}</span></div>
+      <div class="f"><span class="k">القسم:</span><span class="v">${esc(clsTxt)}</span></div>
+      <div class="f"><span class="k">${fa[0]}:</span><span class="v">${esc(fa[1])}</span></div>
+      <div class="f"><span class="k">هاتف الولي:</span><span class="v">${L(s.phone)}</span></div>
+      <div class="f full"><span class="k">الأستاذ(ة) طالب(ة) الاستدعاء:</span><span class="v">${esc(s.teacher)}${s.role && s.role !== 'أستاذ(ة) القسم' ? ' – ' + esc(s.role) : ''}</span></div></div>
+    <div class="reason"><div class="t">سبب الاستدعاء (كما كتبه الأستاذ):</div><div>${esc(s.reason)}</div></div>
+    <div class="meta2"><span>طلب الأستاذ: ${L(dmyhm(s.at))}</span><span>موافقة المدير: ${L(dmyhm(s.decided))}</span><span>موعد الحضور: ${L(dmy(s.date) + '  ' + s.time)}</span></div>
+    <div class="follow"><div class="f"><span class="k">حضر الولي يوم:</span><span class="v"></span></div><div class="f"><span class="k">على الساعة:</span><span class="v"></span></div>
+      <div class="f full"><span class="k">نتيجة المقابلة:</span><span class="v"></span></div></div>
+    <div class="sig3"><div>الولي</div><div>الأستاذ(ة)</div><div>المدير(ة)</div></div>
+  </div></div></div>`;
+  return `<div class="page port smn">${top}<div class="cut"><span>✂ قص هنا – الجزء السفلي يُحفظ في أرشيف القسم</span></div>${bottom}</div>`;
+}
+async function printSummons(ids){
+  const list = ids.map(id => inboxData.summons.find(x => x.id === id)).filter(s => s && s.status === 'مقبول');
+  if (!list.length) return;
+  busy(true, 'جارٍ إعداد الاستدعاء…');
+  try {
+    const blob = await renderPDF(list.map(summonsPage), false, 'استدعاء ولي التلميذ');
+    busy(false);
+    const name = list.length === 1 ? `استدعاء_${list[0].pupil.replace(/\s+/g, '_')}_${(list[0].archive.split(' – ').slice(1).join('_'))}.pdf` : `استدعاءات_${todayISO()}.pdf`;
+    await saveBlob(blob, name);
+    for (const s of list) if (!s.printed) await summonAct(s.id, 'printed');
+    if (curView() === 'inbox') renderInbox('sum');
+  } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); }
+}
+
+/* ---------- Excel: سجل الاستدعاءات ---------- */
+const xFill = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } });
+const xLine = { style: 'thin', color: { argb: 'FF000000' } }, xBorder = { top: xLine, bottom: xLine, left: xLine, right: xLine };
+function xTable(ws, title, sub, head, widths, rows, opts = {}){
+  const FONT = 'Khalid Art bold', n = head.length, last = String.fromCharCode(64 + Math.min(n, 26));
+  ws.columns = widths.map(w => ({ width: w }));
+  ws.mergeCells(`A1:${last}1`); ws.getCell('A1').value = title; ws.getCell('A1').font = { name: FONT, size: 14 }; ws.getCell('A1').alignment = { horizontal: 'center', readingOrder: 'rtl' }; ws.getRow(1).height = 24;
+  ws.mergeCells(`A2:${last}2`); ws.getCell('A2').value = sub; ws.getCell('A2').font = { name: FONT, size: 11 }; ws.getCell('A2').alignment = { horizontal: 'center', readingOrder: 'rtl' };
+  const hr = ws.getRow(4); head.forEach((h, k) => { const c = hr.getCell(k + 1); c.value = h; c.font = { name: FONT, size: 10.5 }; c.fill = xFill('FFD9E2F3'); c.border = xBorder; c.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true, readingOrder: 'rtl' }; });
+  hr.height = 34;
+  rows.forEach((r, i) => { const row = ws.getRow(5 + i); r.forEach((v, k) => { const c = row.getCell(k + 1); c.value = v === '' || v == null ? null : v; c.font = { name: FONT, size: 10.5, color: opts.color ? opts.color(i, k) : undefined };
+    c.border = xBorder; c.alignment = { horizontal: (opts.left || []).includes(k) ? 'right' : 'center', vertical: 'middle', wrapText: (opts.wrap || []).includes(k), readingOrder: 'rtl' };
+    if (c.value == null && !(opts.noOrange || []).includes(k)) c.fill = xFill('FFFFC000'); if (opts.numFmt && opts.numFmt[k]) c.numFmt = opts.numFmt[k]; }); });
+  ws.views = [{ rightToLeft: true, state: 'frozen', ySplit: 4 }];
+  ws.pageSetup = { paperSize: 9, orientation: opts.portrait ? 'portrait' : 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 } };
+}
+async function buildSummonsXLSX(){
+  await loadScript('exceljs.min.js');
+  const d = inboxData, wb = new ExcelJS.Workbook(); wb.creator = 'منصة التقويم المستمر'; wb.created = new Date();
+  const H = ['رقم الأرشيف', 'الرقم التسلسلي', 'السنة الدراسية', 'القسم', 'التلميذ(ة)', 'رقم التسجيل', 'تاريخ الازدياد', 'مكان الازدياد', 'اسم الأب / الولي', 'هاتف الولي', 'الأستاذ(ة)', 'المادة / الصفة', 'سبب الاستدعاء', 'تاريخ الطلب', 'يوم الحضور', 'تاريخ الحضور', 'ساعة الحضور', 'الحالة', 'تاريخ قرار المدير', 'ملاحظة المدير', 'تاريخ الطباعة'];
+  const W = [24, 9, 11, 30, 26, 10, 12, 14, 20, 24, 22, 17, 46, 17, 10, 12, 9, 10, 17, 22, 17];
+  const order = { 'مقبول': 0, 'جديد': 1, 'مرفوض': 2 };
+  const all = d.summons.slice().sort((a, b) => (order[a.status] - order[b.status]) || a.cid.localeCompare(b.cid) || ((a.serial || 999) - (b.serial || 999)) || a.at.localeCompare(b.at));
+  const row = s => [s.archive, s.serial, s.year, s.cls, s.pupil, s.reg, dmy(s.dob), s.pob, s.father || s.wali, s.phone, s.teacher, s.role, s.reason, dmyhm(s.at), dayOf(s.date), dmy(s.date), s.time, s.status, dmyhm(s.decided), s.note, dmyhm(s.printed)];
+  const opt = { left: [3, 4, 8, 10, 11, 12, 19], wrap: [12, 19], noOrange: [0, 1, 18, 19, 20], color: (i, k) => null };
+  const stamp = `السنة الدراسية ${d.year} · استُخرج في ${dmyhm(new Date(Date.now() + 3600e3).toISOString().replace('T', ' ').slice(0, 16))}`;
+  xTable(wb.addWorksheet('كل الاستدعاءات'), `سجل استدعاءات أولياء التلاميذ – ${SCHOOL_FULL}`, stamp, H, W, all.map(row), opt);
+  for (const c of d.classes){
+    const list = all.filter(s => s.cid === c.id); if (!list.length) continue;
+    xTable(wb.addWorksheet(`${levelTag(c.level)} - ${c.group}`), `سجل استدعاءات ${c.label}`, stamp, H, W, list.map(row), opt);
+  }
+  const buf = await wb.xlsx.writeBuffer();
+  return new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+
+/* ---------- الحضور الشهري: PDF و Excel ---------- */
+function attPage(m){
+  const d = inboxData, rows = attRows(m), sent = rows.filter(r => r.x), avg = sent.length ? sent.reduce((s, r) => s + r.x.rate, 0) / sent.length : null;
+  return `<div class="page port">
+    <div class="d-rep" style="text-align:center;font-size:16px">${REP}<br>وزارة التربية الوطنية</div>
+    <div class="d-sch" style="margin-top:6px">مديرية التربية لولاية البليدة<br>${esc(SCHOOL_FULL)}</div>
+    <div class="d-title" style="margin-top:14px;font-size:20px">جدول نسب الحضور والغياب الشهرية</div>
+    <div class="d-sub" style="font-size:15px">شهر ${esc(monthName(m))} · السنة الدراسية ${esc(d.year)}</div>
+    <table class="d-tbl2" style="margin-top:10px"><colgroup><col style="width:6%"><col style="width:33%"><col style="width:23%"><col style="width:12%"><col style="width:12%"><col style="width:14%"></colgroup>
+      <thead><tr><th style="height:34px">الرقم</th><th>القسم</th><th>الأستاذ(ة)</th><th>نسبة الحضور</th><th>نسبة الغياب</th><th>تاريخ الإرسال</th></tr></thead>
+      <tbody>${rows.map((r, k) => `<tr style="height:30px"><td>${k + 1}</td><td class="n">${esc(r.c.label)}</td><td class="n">${esc(r.x ? r.x.by : '')}</td><td><span class="lat">${r.x ? pct(r.x.rate) : ''}</span></td><td><span class="lat">${r.x ? pct(r.x.abs) : ''}</span></td><td style="font-size:11px">${r.x ? `<span class="lat">${esc(dmyhm(r.x.at))}</span>` : 'لم يُرسل'}</td></tr>`).join('')}
+        <tr style="height:32px"><td colspan="3" class="calc">معدل المدرسة (${sent.length} من ${rows.length} أقسام)</td><td class="calc"><span class="lat">${avg == null ? '' : pct(avg)}</span></td><td class="calc"><span class="lat">${avg == null ? '' : pct(100 - avg)}</span></td><td class="calc"></td></tr></tbody></table>
+    <div class="d-foot" style="margin-top:22px;font-size:14px"><span>حرر بأولاد يعيش في: ${esc(dmy(todayISO()))}</span><span>المدير(ة): ..............................</span></div>
+  </div>`;
+}
+async function buildAttXLSX(m){
+  await loadScript('exceljs.min.js');
+  const d = inboxData, wb = new ExcelJS.Workbook(); wb.creator = 'منصة التقويم المستمر';
+  const rows = attRows(m), sent = rows.filter(r => r.x), avg = sent.length ? sent.reduce((s, r) => s + r.x.rate, 0) / sent.length : null;
+  const data = rows.map((r, k) => [k + 1, r.c.label, r.x ? r.x.by : '', r.x ? r.x.rate / 100 : '', r.x ? r.x.abs / 100 : '', r.x ? dmyhm(r.x.at) : '']);
+  data.push(['', `معدل المدرسة (${sent.length} من ${rows.length} أقسام)`, '', avg == null ? '' : avg / 100, avg == null ? '' : (100 - avg) / 100, '']);
+  xTable(wb.addWorksheet(MONTHS[m.slice(5)] + ' ' + m.slice(0, 4)), `جدول نسب الحضور والغياب – شهر ${monthName(m)}`, `${SCHOOL_FULL} · السنة الدراسية ${d.year}`,
+    ['الرقم', 'القسم', 'الأستاذ(ة)', 'نسبة الحضور', 'نسبة الغياب', 'تاريخ الإرسال'], [7, 34, 24, 13, 13, 18], data, { left: [1, 2], portrait: true, noOrange: [0], numFmt: { 3: '0.00%', 4: '0.00%' } });
+  const months = d.months, H = ['القسم'];
+  months.forEach(mm => { H.push('حضور ' + MONTHS[mm.slice(5)], 'غياب ' + MONTHS[mm.slice(5)]); });
+  const yr = d.classes.map(c => { const r = [c.label]; months.forEach(mm => { const x = (d.att[c.id] || {})[mm]; r.push(x ? x.rate / 100 : '', x ? x.abs / 100 : ''); }); return r; });
+  const nf = {}; for (let k = 1; k < H.length; k++) nf[k] = '0.00%';
+  xTable(wb.addWorksheet('الحصيلة السنوية'), 'الحصيلة السنوية لنسب الحضور والغياب', `${SCHOOL_FULL} · السنة الدراسية ${d.year}`, H, [30, ...months.flatMap(() => [10, 10])], yr, { left: [0], numFmt: nf });
+  const buf = await wb.xlsx.writeBuffer();
+  return new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+
+/* ---------- أحداث الإصدار 2 ---------- */
+async function handleV2(act, a){
+  if (act === 'retryAddf'){ viewAddLang(); return true; }
+  if (act === 'rq'){ const ta = $('#smReason'); ta.value = (ta.value.trim() ? ta.value.trim() + '، ' : '') + a.dataset.t; a.setAttribute('aria-pressed', 'true'); return true; }
+  if (act === 'attM'){ attSheet(+a.dataset.i, a.dataset.m); return true; }
+  if (act === 'mineRetry'){ viewMine(); return true; }
+  if (act === 'inboxRetry'){ viewInbox(curTab(), true); return true; }
+  if (act === 'itab'){ history.replaceState(null, '', '#inbox-' + a.dataset.t); renderInbox(a.dataset.t); window.scrollTo(0, 0); return true; }
+  if (act === 'ifil'){ inboxFilter = a.dataset.f; renderInbox('sum'); return true; }
+  if (act === 'smOk'){ approveSheet(a.dataset.id); return true; }
+  if (act === 'smNo'){ rejectSheet(a.dataset.id); return true; }
+  if (act === 'smOpen'){ if (await summonAct(a.dataset.id, 'reopen')) renderInbox('sum'); return true; }
+  if (act === 'smPrint'){ printSummons([a.dataset.id]); return true; }
+  if (act === 'printAll'){ printSummons(inboxData.summons.filter(s => s.status === 'مقبول' && !s.printed).map(s => s.id)); return true; }
+  if (act === 'sumXlsx'){ busy(true, 'جارٍ إعداد ملف Excel…'); try { const b = await buildSummonsXLSX(); busy(false); await saveBlob(b, `سجل_الاستدعاءات_${inboxData.year.replace('/', '-')}.xlsx`); } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); } return true; }
+  if (act === 'attPdf'){ busy(true, 'جارٍ إعداد ملف PDF…'); try { const b = await renderPDF([attPage(attMonth)], false, 'نسب الحضور والغياب'); busy(false); await saveBlob(b, `الحضور_والغياب_${attMonth}.pdf`); } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); } return true; }
+  if (act === 'attXlsx'){ busy(true, 'جارٍ إعداد ملف Excel…'); try { const b = await buildAttXLSX(attMonth); busy(false); await saveBlob(b, `الحضور_والغياب_${attMonth}.xlsx`); } catch(e){ busy(false); console.error(e); toast('تعذّر إعداد الملف'); } return true; }
+  return false;
 }
 
 /* =========================================================
@@ -1008,19 +1855,27 @@ app.addEventListener('click', async e => {
   const a = e.target.closest('[data-act]'); if (!a) return;
   const act = a.dataset.act;
   if (act === 'scan') return scanQR();
+  if (act === 'theme') return toggleTheme();
+  if (act === 'nav') return navTo(a.dataset.t);
+  if (act === 'mail'){ const c = ctxOf(+a.dataset.i); if (c) mailSheet(c, c.lang || 'main'); return; }
+  if (act === 'amail'){ const c0 = adminCtxCache[a.dataset.id], w = a.dataset.w || 'main', ad = adminOf(); if (c0 && ad) mailSheet({ ...c0, teacher: c0.teacherOf ? c0.teacherOf(w) : c0.teacher }, w, { id: a.dataset.id, api: ad.api, key: ad.key }); return; }
   if (act === 'install') return doInstall();
   if (act === 'noinstall'){ store.set('tq:noInstall', true); return viewHome(); }
   if (act === 'retry') return viewClass(+a.dataset.i);
   if (act === 'refresh'){ busy(true, 'جارٍ التحديث…'); try { await syncNow(classes[+a.dataset.i].k); await fetchClass(+a.dataset.i); busy(false); renderClass(+a.dataset.i); toast('تم التحديث'); } catch(err){ busy(false); toast(errText(err)); } return; }
   if (act === 'pdf' || act === 'xlsx') return exportCtx(ctxOf(+a.dataset.i), act);
   if (act === 'share-pdf' || act === 'share-xlsx') return exportCtx(ctxOf(+a.dataset.i), act.slice(6), true);
-  if (act === 'apdf' || act === 'axlsx') return exportCtx(adminCtxCache[a.dataset.id], act.slice(1));
+  if (act === 'apdf' || act === 'axlsx'){ const c0 = adminCtxCache[a.dataset.id], w = a.dataset.w || 'main'; return exportCtx({ ...c0, teacher: c0.teacherOf ? c0.teacherOf(w) : c0.teacher }, act.slice(1), false, w); }
+  if (act === 'qrLang'){ const l = a.dataset.l; return showQR('أستاذ(ة) ' + LANGS[l].name, 'رمز واحد يفتح كل أقسام ' + LANGS[l].name + ' مع المادة وحدها', langLink(adminOf(), l)); }
+  if (act === 'notifOn'){ try { const p = await Notification.requestPermission(); toast(p === 'granted' ? 'ستصلك الإشعارات ما دامت اللوحة مفتوحة' : 'لم يُسمح بالإشعارات'); } catch(err){} return viewDash(); }
+  if (await handleV2(act, a)) return;
   if (act === 'dashRefresh') return viewDash(dashData && dashData.term);
   if (act === 'setTerm'){ const ad = adminOf(); busy(true); try { const r = await api(ad.api, { action: 'setTerm', key: ad.key, term: +a.dataset.t }); if (!r.ok) throw r; busy(false); toast('تم تغيير الفصل الحالي'); viewDash(+a.dataset.t); } catch(err){ busy(false); toast(errText(err)); } return; }
   if (act === 'qrAll') return qrCardsPDF();
   if (act === 'qrOne'){ const c = dashData.classes.find(x => x.id === a.dataset.id); return showQR(c.label, 'يمسحه الأستاذ بكاميرا هاتفه فيفتح قسمه مباشرة', teacherLink(adminOf(), c)); }
   if (act === 'qrAdmin'){ const ad = adminOf(); return showQR('فتح لوحة المدير على الهاتف', 'امسح هذا الرمز بهاتفك. لا تشاركه مع أحد', `${appBase()}#admin=${encodeURIComponent(ad.key)}&${linkParamsFor(ad.api)}`); }
   if (act === 'adminOut'){ store.del('tq:admin'); dashData = null; location.replace(me ? '#home' : '#reg'); return; }
+  if (!['confirm', 'tab', 'set', 'plus', 'minus', 'del'].includes(act) || !classes[+app.dataset.i]) return;
 
   // صب النقاط
   const i = +app.dataset.i, sid = app.dataset.sub;
@@ -1058,8 +1913,11 @@ window.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); 
   if (h.includes('=')){
     const p = parseParams(h);
     if (p.k){ const i = addClass(p.k, apiFromParams(p)); history.replaceState(null, '', location.pathname + (me ? '#cls-' + i : '#reg')); }
+    else if (p.f){ store.set('tq:addf', { f: p.f, api: apiFromParams(p) }); history.replaceState(null, '', location.pathname + '#addf'); }
     else if (p.admin){ store.set('tq:admin', { api: apiFromParams(p), key: p.admin }); history.replaceState(null, '', location.pathname + '#dash'); }
   }
+  themeMeta();
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { themeMeta(); if (curView() === 'home' || curView() === 'reg') route(true); }); } catch(e){}
   route();
   classes.forEach(c => scheduleSync(c.k, 1500));
   if (!IS_ARTIFACT && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
