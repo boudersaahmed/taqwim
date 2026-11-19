@@ -1,0 +1,18 @@
+{
+  "id": "./print.html",
+  "name": "واجهة الطباعة – منصة أحمد فقير",
+  "short_name": "طباعة أحمد فقير",
+  "description": "حاسوب الطباعة: يستقبل ملفات المدرسة ويطبعها فقط",
+  "lang": "ar",
+  "dir": "rtl",
+  "theme_color": "#064e3b",
+  "background_color": "#f1f5f9",
+  "display": "standalone",
+  "start_url": "./print.html",
+  "scope": "./",
+  "icons": [
+    { "src": "print-192_eda0e664.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "print-512_4e785aa9.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "print-maskable-512_c594393c.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
