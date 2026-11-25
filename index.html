@@ -34,10 +34,117 @@
         if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
     </script>
-    <script type="module" crossorigin src="./main-DYbU-WX7.js"></script>
-    <link rel="modulepreload" crossorigin href="./src-CufyzkOt.js">
-    <link rel="modulepreload" crossorigin href="./PremiumViews-BhxJ1m2v.js">
-    <link rel="stylesheet" crossorigin href="./src-BlUgyZrQ.css">
+    <script>
+      /* 6.8.4: حارس الإقلاع. كان التطبيق إذا تعطّل عند الفتح (ملف لم يُحمَّل، أو ملفات قديمة تالفة في ذاكرة الهاتف)
+         يترك شاشة سوداء بلا أي رسالة. الآن: إن لم يفتح خلال ثوانٍ وظهر خطأ، تُفرَّغ ذاكرة التطبيق في الهاتف
+         (عامل الخدمة والملفات المحفوظة، دون بيانات الأستاذ) ويُعاد التحميل مرة واحدة، وإلا تظهر شاشة إنقاذ فيها زر
+         «إصلاح التطبيق» ونص الخطأ. مكتوب بـ ES5 ليعمل حتى في المتصفحات القديمة. */
+      (function () {
+        var errs = [];
+        var W = window;
+        function note(m) {
+          try {
+            errs.push(String(m).slice(0, 240));
+            if (errs.length > 6) errs.shift();
+          } catch (e) {}
+        }
+        W.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && t !== W && (t.src || t.href)) note('load: ' + String(t.src || t.href).split('/').pop());
+          else note((e.message || 'error') + (e.filename ? ' @ ' + String(e.filename).split('/').pop() + ':' + e.lineno : ''));
+        }, true);
+        W.addEventListener('unhandledrejection', function (e) {
+          var r = e && e.reason;
+          note('promise: ' + (r && r.message ? r.message : r));
+        });
+        W.__tqBootErrors = errs;
+        function ls(k, v) {
+          try {
+            if (v === undefined) return localStorage.getItem(k);
+            if (v === null) localStorage.removeItem(k);
+            else localStorage.setItem(k, v);
+          } catch (e) {}
+          return null;
+        }
+        function repair(reason) {
+          ls('tq:reloadReason', reason || 'repair');
+          ls('tq:hardAt', String(Date.now()));
+          var gone = false;
+          function go() {
+            if (gone) return;
+            gone = true;
+            // بلا #… : الشاشة المحفوظة قد تكون سبب التعطّل
+            location.replace(location.pathname + '?tqr=' + Date.now());
+          }
+          var jobs = [];
+          try {
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations)
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) {
+                return Promise.all(rs.map(function (r) { return r.unregister(); }));
+              }));
+          } catch (e) {}
+          try {
+            if (W.caches && caches.keys)
+              jobs.push(caches.keys().then(function (ks) {
+                return Promise.all(ks.map(function (k) { return caches['delete'](k); }));
+              }));
+          } catch (e) {}
+          Promise.all(jobs).then(go, go);
+          setTimeout(go, 4000);
+        }
+        W.__tqRepair = repair;
+        function ok() { return W.__tqBooted || W.__tqCrashed; }
+        var panel = null;
+        function show(slow) {
+          if (panel || ok() || !document.body) return;
+          panel = document.createElement('div');
+          panel.id = 'tq-rescue';
+          panel.setAttribute('translate', 'no');
+          panel.setAttribute('data-no-tr', '');
+          panel.setAttribute('dir', 'rtl');
+          panel.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;z-index:99999;background:#f8fafc;color:#0f172a;font-family:system-ui,Tahoma,sans-serif;padding:32px 20px;text-align:center;overflow:auto';
+          var b = 'display:block;width:100%;max-width:340px;margin:12px auto 0;padding:14px;border-radius:14px;font-size:16px;font-weight:700;border:0;cursor:pointer';
+          panel.innerHTML =
+            '<p style="font-size:19px;font-weight:800;margin:0 0 8px">' + (slow ? 'التطبيق بطيء في الفتح' : 'تعذّر فتح التطبيق') + '</p>' +
+            '<p style="font-size:14px;margin:0 0 4px">اضغط «إصلاح التطبيق»: تُحذف ملفات التطبيق المحفوظة في الهاتف ثم يُعاد فتحه. اسمك وأقسامك ونقاطك غير المرسلة لا تُمسّ.</p>' +
+            '<p dir="ltr" style="font-size:13px;color:#475569;margin:0">L’application ne s’ouvre pas : « Réparer » recharge ses fichiers sans toucher à vos données.</p>' +
+            '<button type="button" id="tq-fix" style="' + b + ';background:#047857;color:#fff">إصلاح التطبيق · Réparer</button>' +
+            '<button type="button" id="tq-retry" style="' + b + ';background:#e2e8f0;color:#0f172a">إعادة المحاولة · Réessayer</button>' +
+            '<pre dir="ltr" id="tq-err" style="margin:18px auto 0;max-width:340px;white-space:pre-wrap;text-align:left;font-size:11px;color:#64748b"></pre>';
+          document.body.appendChild(panel);
+          document.getElementById('tq-fix').onclick = function () { repair('manual'); };
+          document.getElementById('tq-retry').onclick = function () { location.reload(); };
+          var info = errs.slice();
+          info.push((navigator.onLine === false ? 'offline · ' : '') + (ls('tq:appVersion') || '?') + ' · ' + String(navigator.userAgent).replace(/^Mozilla\/5\.0 /, '').slice(0, 120));
+          document.getElementById('tq-err').textContent = info.join('\n');
+        }
+        // التطبيق فتح بعد ظهور شاشة الإنقاذ (اتصال بطيء): نزيلها
+        var watch = setInterval(function () {
+          if (!ok()) return;
+          clearInterval(watch);
+          ls('tq:bootFail', null);
+          if (panel && panel.parentNode) panel.parentNode.removeChild(panel);
+        }, 1000);
+        setTimeout(function () {
+          if (ok()) return;
+          if (!errs.length) return; // ما زال يُحمَّل: ننتظر
+          ls('tq:bootFail', String((Number(ls('tq:bootFail')) || 0) + 1));
+          var last = Number(ls('tq:bootRepairAt')) || 0;
+          // إصلاح تلقائي مرة واحدة كل 10 دقائق (لا حلقة إعادة تحميل)
+          if (navigator.onLine !== false && Date.now() - last > 10 * 60 * 1000) {
+            ls('tq:bootRepairAt', String(Date.now()));
+            repair('boot');
+            return;
+          }
+          show(false);
+        }, 8000);
+        setTimeout(function () { show(!errs.length); }, 25000);
+      })();
+    </script>
+    <script type="module" crossorigin src="./main-BQh0ar5-.js"></script>
+    <link rel="modulepreload" crossorigin href="./src-Dy-6QtVo.js">
+    <link rel="modulepreload" crossorigin href="./PremiumViews-CQrwLutF.js">
+    <link rel="stylesheet" crossorigin href="./src-COL3sahD.css">
   </head>
   <body class="bg-[#f6f8fb] text-[#1e293b] dark:bg-[#0b1220] dark:text-[#f1f5f9] antialiased">
     <div id="root"></div>
